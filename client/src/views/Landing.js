@@ -4,12 +4,8 @@ import LandingPageAbout from '../component/LandingPageAbout';
 import Group from '../component/Group';
 
 const images = [
-    'https://via.placeholder.com/350x150',
-    '/images/car1.jpg',
-    '/images/japan.jpg',
-    '/images/car.jpg',
-    '/images/birds-gg.jpg',
-    '/images/sfo.jpg'
+    '/images/article_1.jpg',
+    '/images/windy.jpg'
 ]
 
 export default class Landing extends Component {

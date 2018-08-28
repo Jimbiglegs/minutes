@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
 import Header from './containers/Header';
+import Landing from './views/Landing';
+import MyRoutes from './config/Routes';
+import Group from './component/Group';
+import Footer from './component/Footer';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <div>
-
-      </div>
+        <BrowserRouter>
+        <Group>
+          <Header/>
+          
+          <main>
+            <MyRoutes/>
+          </main>
+          <Footer />
+          </Group>  
+        </BrowserRouter>
+        
     );
   }
 }
 
-export default App;
+
