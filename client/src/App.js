@@ -7,6 +7,8 @@ import Footer from './component/Footer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 export default class App extends Component {
+
+
   render() {
     return (
         <BrowserRouter>
@@ -17,7 +19,7 @@ export default class App extends Component {
             <MyRoutes/>
           </main>
           <Footer />
-          </Group>  
+           
         </BrowserRouter>
         
     );

@@ -7,7 +7,11 @@ class Routes extends Component{
 
     render() {
         return <Switch>
+
                     <Route exact path="/" component={ Landing } />
+
+                    <Route exact path="/home" component={ homepage } />
+
                 </Switch>
 
     }
