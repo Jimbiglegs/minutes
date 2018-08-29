@@ -7,27 +7,24 @@ export default class Header extends Component {
        
 
         return (
+            
             <header className='mb-auto'>
             
-                <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    
-                    <img src="https://png.icons8.com/color/50/000000/multi-edit.png"></img>
-                    <a className="navbar-brand" href="#" >Minutes</a>
+                <nav className="navbar navbar-expand-md navbar-light fixed-top"
+                                style={{"background-color":"lightgreen"}}>                   
+                    <a className="navbar-brand" href="#" >
+                    <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"60px"}} alt=""></img>
+                      MoM</a>
+                    <div className='container'>
                     <ul className="navbar-nav ml-auto">
-                        
+                      
                        
                             <li className="nav-item"> 
                                 <a className="nav-link" href="#">Sign In</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Sign Up</a>
-                            </li>  
-                     
-
-                       
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" >Welcome, </a>
-                            </li>                           
+                            </li>                            
                             <li className="nav-item">
                                 <a className="nav-link" href="#" >Home</a>
                             </li> 
@@ -38,13 +35,26 @@ export default class Header extends Component {
                                 <a className="nav-link" href="#" >Create</a>
                             </li>                             
                             <li className="nav-item">
-                                <a className="nav-link" href="#" >Sign Out</a>
+                                <a className="nav-link dropdown-toggle" 
+                                   data-toggle="dropdown" 
+                                   id="userDropdown" 
+                                   aria-haspopup="true" aria-expanded="false"
+                                   href="#" >Welcome,</a>
+
+                                <div className="dropdown-menu" aria-labeledby="userDropdown">
+                                    <a className="dropdown-item" href="#" >Profile</a>
+                                    <a className="dropdown-item" href="#" >Setting</a>
+                                    <a className="dropdown-item" href="#" >SignOut</a>
+                                </div>   
                             </li>   
                        
-                                         
+                                              
                     </ul>
+                    </div> 
                 </nav>
+            
             </header>
+            
     
         )
     }
