@@ -13,6 +13,8 @@ class Routes extends Component{
 
                     <Route exact path="/home" component={ homepage } />
 
+                    <Route exact path="/home" component={ CreateMeeting } />
+
                 </Switch>
 
     }
