@@ -19,7 +19,7 @@ export default class App extends Component {
             <MyRoutes/>
           </main>
           <Footer />
-           
+           </Group>
         </BrowserRouter>
         
     );

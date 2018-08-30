@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import DateTimeField from './DateTimeField';
 
 const styles = theme => ({
     container: {
@@ -24,10 +25,8 @@ const styles = theme => ({
 
     state = {
         Title: 'Enter your meeting title here..',
-        Date: '',
-        Time: '',
-        Attendees: 'EUR',
-        Notes: ''
+        Attendees: 'List of Attendees',
+        Notes: 'Your initial notes here..'
       };
 
 
@@ -38,15 +37,31 @@ const styles = theme => ({
         return(
         <form className={classes.container} noValidate autoComplete="off">
         <TextField
-          id="name"
-          label="Name"
+          id="title"
+          label="Title"
           className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
+          value={this.state.title}
+          onChange={this.handleChange('title')}
           margin="normal"
         />
-
-
+        <TextField
+          id="attendees"
+          label="Attendees"
+          className={classes.textField}
+          value={this.state.attendees}
+          onChange={this.handleChange('attendees')}
+          margin="normal"
+        />
+        <DateTimeField />
+        <TextField
+          id="location"
+          label="Location"
+          className={classes.textField}
+          value={this.state.attendees}
+          onChange={this.handleChange('attendees')}
+          margin="normal"
+        />
+        </form>
         )
     }
 
