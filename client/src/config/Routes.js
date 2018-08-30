@@ -2,7 +2,7 @@ import React, { Component }from 'react';
 import {Switch, Route} from 'react-router-dom';
 import  Landing from '../views/Landing';
 import homepage from '../views/HomePage';
-import CreateMeeting from '../views/CreateMeeting';
+import Meetings from '../views/Meetings';
 import TaskView from '../views/TaskView';
 import { withRouter } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ class Routes extends Component{
 
                     <Route exact path="/home" component={ homepage } />
 
-                    <Route exact path="/meeting" component={ CreateMeeting } />
+                    <Route exact path="/meetings" component={ Meetings } />
 
                     <Route exact path="/tasks" component={ TaskView } />
 

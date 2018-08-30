@@ -18,7 +18,7 @@ export default class TaskView extends React.Component {
             <h3>Your Tasks</h3>
 
             <div className='row'>
-                <div class='col text-right'>
+                <div className='col text-right'>
                     <IfClause condition={ !this.state.completed }>
                         <button className='btn btn-primary' onClick={ () => this.setShowCompleted(true) }>Show Completed</button>
                     </IfClause>
