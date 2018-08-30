@@ -11,7 +11,7 @@ export default class Header extends Component {
             <header className='mb-auto'>
             
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
-                                style={{"background-color":"lightgreen"}}>                   
+                                style={{"background-color":"lightgray"}}>                   
                     <a className="navbar-brand" href="#" >
                     <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"60px"}} alt=""></img>
                       MoM</a>

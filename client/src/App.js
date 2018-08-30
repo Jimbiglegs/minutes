@@ -13,9 +13,9 @@ export default class App extends Component {
     return (
         <BrowserRouter>
         <Group>
-          <Header/>
+          <Header className="page-header"/>
           
-          <main>
+          <main className="page-body">
             <MyRoutes/>
           </main>
           <Footer />

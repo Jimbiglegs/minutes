@@ -1,6 +1,7 @@
 import React, { Component }from 'react';
 import {Switch, Route} from 'react-router-dom';
 import  Landing from '../views/Landing';
+import homepage from '../views/HomePage';
 import { withRouter } from 'react-router-dom';
 
 class Routes extends Component{
