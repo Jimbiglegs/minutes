@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
-import MeetingFormFields from '../containers/MeetingFormFields';
+import * as React from 'react';
 
-export default class CreateMeeting extends Component{
-    render(){
-        return(
-            // <MeetingFormFields/>
-            <form className='container'>
+export default class Create extends React.Component {
+
+    render() {
+        return <form className='container'>
             <div className='form-row'>
                 <div class="form-group col">
                     <label for="meetingTitle">Meeting Title</label>
@@ -40,8 +38,6 @@ export default class CreateMeeting extends Component{
                     <button type="button" className='btn btn-success'>Publish</button>
                 </div>
             </div>
-        </form>
-        );
-        
+        </form>;
     }
 }
