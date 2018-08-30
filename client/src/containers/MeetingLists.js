@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import * as React from 'react';
+import Group from '../component/Group';
+import IfClause from '../component/IfClause';
 
-export default class MeetingLists extends Component {
+export default class MeetingList extends React.Component {
 
-    //defining initial state
     state = {
         loaded: false,
         meetings: []
@@ -20,7 +21,7 @@ export default class MeetingLists extends Component {
                 title : 'Discuss ERD',
                 day: '28 Aug 2018',
                 time: '1:00 PM',
-                location: 'brevity hall,san jose'
+                location: 'epitome hall,san jose'
             }
         ];
 
@@ -40,7 +41,7 @@ export default class MeetingLists extends Component {
                 <td>{ meeting.title }</td>
                 <td>{ meeting.day }</td>
                 <td>{ meeting.time }</td>
-                <td>{ meeting.location }</td>
+                <td>{ meeting.locality }</td>
             </tr>);
         }
 

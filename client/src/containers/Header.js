@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Header extends Component {
 
-
-    render(){
-       
-
-        return (
-            
-            <header className='mb-auto'>
-            
+    render(){      
+        return (            
+            <header className='mb-auto'>           
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
                                 style={{"background-color":"lightgray"}}>                   
                     <a className="navbar-brand" href="#" >
                     <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"60px"}} alt=""></img>
                       MoM</a>
                     <div className='container'>
-                    <ul className="navbar-nav ml-auto">
-                      
-                       
+                    <ul className="navbar-nav ml-auto">                      
                             <li className="nav-item"> 
                                 <a className="nav-link" href="#">Sign In</a>
                             </li>
@@ -26,13 +20,13 @@ export default class Header extends Component {
                                 <a className="nav-link" href="#">Sign Up</a>
                             </li>                            
                             <li className="nav-item">
-                                <a className="nav-link" href="#" >Home</a>
+                                <Link to='/home' className='nav-link'>Home</Link>
                             </li> 
                             <li className="nav-item">
-                                <a className="nav-link" href="#" >Tasks</a>
+                                <Link to='/tasks' className='nav-link'>Tasks</Link>
                             </li>   
                             <li className="nav-item">
-                                <a className="nav-link" href="#" >Create</a>
+                                <Link to='/Create' className='nav-link'>Create</Link>
                             </li>                             
                             <li className="nav-item">
                                 <a className="nav-link dropdown-toggle" 
@@ -46,10 +40,16 @@ export default class Header extends Component {
                                     <a className="dropdown-item" href="#" >Setting</a>
                                     <a className="dropdown-item" href="#" >SignOut</a>
                                 </div>   
-                            </li>   
-                       
-                                              
-                    </ul>
+                            </li>                                                
+                </ul>
+                    <ul className="navbar-nav ml-auto">
+                        <li className='nav-item'>
+                            <Link to='/create' className='btn btn-primary'>Create</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to='/create' className='btn btn-success'>Schedule</Link>
+                        </li>
+                     </ul>
                     </div> 
                 </nav>
             
