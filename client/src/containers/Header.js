@@ -13,12 +13,12 @@ export default class Header extends Component {
                       MoM</a>
                     <div className='container'>
                     <ul className="navbar-nav ml-auto">                      
-                            <li className="nav-item"> 
+                            {/* <li className="nav-item"> 
                                 <a className="nav-link" href="#">Sign In</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Sign Up</a>
-                            </li>                            
+                            </li>                             */}
                             <li className="nav-item">
                                 <Link to='/home' className='nav-link'>Home</Link>
                             </li> 
@@ -27,11 +27,8 @@ export default class Header extends Component {
                             </li>   
                             <li className="nav-item">
                                 <Link to='/meetings' className='nav-link'>Meetings</Link>
-                            </li>                     
-                            <li className="nav-item">
-                                <Link to='/Create' className='nav-link'>Create</Link>
-                            </li>                             
-                            <li className="nav-item">
+                            </li>                                                
+                            {/* <li className="nav-item">
                                 <a className="nav-link dropdown-toggle" 
                                    data-toggle="dropdown" 
                                    id="userDropdown" 
@@ -43,7 +40,7 @@ export default class Header extends Component {
                                     <a className="dropdown-item" href="#" >Setting</a>
                                     <a className="dropdown-item" href="#" >SignOut</a>
                                 </div>   
-                            </li>                                                
+                            </li>                                                 */}
                 </ul>
                     <ul className="navbar-nav ml-auto">
                         <li className='nav-item'>
