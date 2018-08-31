@@ -7,6 +7,7 @@ import TaskView from '../views/TaskView';
 import { withRouter } from 'react-router-dom';
 import CreateNotes from '../views/CreateNotes';
 import CreateMeeting from '../views/CreateMeeting';
+import Schedule from '../views/Schedule';
 
 class Routes extends Component{
 
@@ -17,7 +18,7 @@ class Routes extends Component{
             <Route exact path="/meetings" component={ Meetings } />
             <Route exact path="/tasks" component={ TaskView } />
             <Route exact path="/create" component={ CreateNotes } />
-            <Route exact path="/schedule" component={ CreateMeeting } />
+            <Route exact path="/schedule" component={ Schedule } />
         </Switch>;
     }
 }
