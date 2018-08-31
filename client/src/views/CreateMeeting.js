@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default class Create extends React.Component {
+export default class CreateMeeting extends React.Component {
 
     render() {
         return <form className='container'>

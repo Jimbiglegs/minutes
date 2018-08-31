@@ -47,7 +47,7 @@ export default class Header extends Component {
                             <Link to='/create' className='btn btn-primary'>Create</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/create' className='btn btn-success'>Schedule</Link>
+                            <Link to='/schedule' className='btn btn-success'>Schedule</Link>
                         </li>
                      </ul>
                 </nav>

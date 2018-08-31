@@ -5,22 +5,20 @@ import homepage from '../views/HomePage';
 import Meetings from '../views/Meetings';
 import TaskView from '../views/TaskView';
 import { withRouter } from 'react-router-dom';
+import CreateNotes from '../views/CreateNotes';
+import CreateMeeting from '../views/CreateMeeting';
 
 class Routes extends Component{
 
     render() {
         return <Switch>
-
-                    <Route exact path="/" component={ Landing } />
-
-                    <Route exact path="/home" component={ homepage } />
-
-                    <Route exact path="/meetings" component={ Meetings } />
-
-                    <Route exact path="/tasks" component={ TaskView } />
-
-                </Switch>
-
+            <Route exact path="/" component={ Landing } />
+            <Route exact path="/home" component={ homepage } />
+            <Route exact path="/meetings" component={ Meetings } />
+            <Route exact path="/tasks" component={ TaskView } />
+            <Route exact path="/create" component={ CreateNotes } />
+            <Route exact path="/schedule" component={ CreateMeeting } />
+        </Switch>;
     }
 }
 
