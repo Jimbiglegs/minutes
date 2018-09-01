@@ -8,7 +8,7 @@ export default class InputTask extends Component {
 
     state = {
         date: null,
-    
+        taskLevel: null,
     }
 
     detectTabKey = (event) => {
@@ -34,14 +34,19 @@ export default class InputTask extends Component {
         this.setState( { date : e });
     }
 
+    onTaskLevelChange = (e) => {
+        this.setState( { taskLevel : e.target.value });
+        console.log(this.state.taskLevel);
+    }
+
     render() {
-        return <div className='form-row'>
+        return <div className={'form-row task-level-' + this.state.taskLevel}>
             <div className="form-group col-md-1">
                 <input type="text" class="form-control" name="taskTopic" 
                        placeholder="Add Topic" onChange={ this.props.onTopicChange } />
             </div>
             <div className='form-group col-md-1'>
-                <select class="custom-select mb-3" name='taskType'>
+                <select class="custom-select mb-3" name='taskType' onChange={ this.onTaskLevelChange }>
                     <option value="agenda">Agenda</option>
                     <option value="decision">Decision</option>
                     <option value="done">Done</option>

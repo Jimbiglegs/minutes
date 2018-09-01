@@ -24,3 +24,23 @@ footer {
   line-height: 48px;
   padding: 0 20px;
 }
+
+.task-level-info input, .task-level-info select {
+  background-color: rgb(193, 224, 252) !important;
+}
+
+.task-level-decision input, .task-level-decision select {
+  background-color: rgb(255,255,186) !important;
+}
+
+.task-level-agenda input, .task-level-agenda select {
+  background-color: rgb(193, 224, 252) !important;
+}
+
+.task-level-done input, .task-level-done select {
+  background-color: rgb(186,255,201) !important;
+}
+
+.task-level-todo input, .task-level-todo select {
+  background-color: rgb(255,179,186) !important;
+}
