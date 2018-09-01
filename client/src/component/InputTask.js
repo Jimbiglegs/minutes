@@ -1,6 +1,15 @@
-import * as React from 'react';
+import React,{Component} from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import TagsInput from 'react-tagsinput'
+import 'react-tagsinput/react-tagsinput.css'
 
-export default class InputTask extends React.Component {
+export default class InputTask extends Component {
+
+    state = {
+        date: null,
+    
+    }
 
     detectTabKey = (event) => {
         
@@ -19,6 +28,10 @@ export default class InputTask extends React.Component {
             (<option>{ item }</option>)
         }
         return results;
+    }
+
+    onDateChange = (e) => {
+        this.setState( { date : e });
     }
 
     render() {
@@ -42,13 +55,12 @@ export default class InputTask extends React.Component {
                        value={ this.props.task.title } onChange={ this.props.onTitleChange }/>
             </div>
             <div className="form-group col-md-1">
-                {/* <input type="text" class="form-control" name="taskOwner" placeholder="Owner" /> */}
                 <select>
                      { this.populateAttendeesList() }
                 </select> 
             </div>
             <div className="form-group col-md-1">
-                <input type="text" class="form-control" name="taskDue" placeholder="2018-09-29" onKeyDown={ this.detectTabKey } />
+                <DatePicker placeholderText="Date" selected={ this.state.date } onChange={ this.onDateChange } onKeyDown={ this.detectTabKey } />
             </div>
         </div>;
     }
