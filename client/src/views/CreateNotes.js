@@ -28,6 +28,11 @@ export default class CreateNotes extends React.Component {
         this.setState( { time : e });
     }
 
+    onAttendeesChange = (attendees) => {
+        this.setState({ attendees: attendees });
+    }
+    
+
     addNextTaskIfNeeded = () => {
         let tasks = this.state.tasks;
         tasks.push(new TaskDetails());
@@ -44,6 +49,7 @@ export default class CreateNotes extends React.Component {
         this.setState({ tasks : tasks });
     }
 
+
     renderTaskDetails = () => {
         let result = [];
         let tasks = this.state.tasks;
@@ -53,7 +59,8 @@ export default class CreateNotes extends React.Component {
 
             result.push(<InputTask key={ task.taskID } onNextTask={ this.addNextTaskIfNeeded } task={ task } 
                                    onTitleChange={ (e) => this.updateTask(index, 'title', e.target.value) } 
-                                   onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) } />)
+                                   onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
+                                   attendees={this.state.attendees}  />)
         }
 
         return result;

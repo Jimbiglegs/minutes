@@ -10,6 +10,17 @@ export default class InputTask extends React.Component {
         }
     }
 
+    populateAttendeesList = () => {
+        let results = [];
+        let attendeesList = this.props.attendees;
+        for (let i=0; i< attendeesList.length ; i++) {
+            let item = attendeesList[i];
+            results.push
+            (<option>{ item }</option>)
+        }
+        return results;
+    }
+
     render() {
         return <div className='form-row'>
             <div className="form-group col-md-1">
@@ -31,7 +42,10 @@ export default class InputTask extends React.Component {
                        value={ this.props.task.title } onChange={ this.props.onTitleChange }/>
             </div>
             <div className="form-group col-md-1">
-                <input type="text" class="form-control" name="taskOwner" placeholder="Owner" />
+                {/* <input type="text" class="form-control" name="taskOwner" placeholder="Owner" /> */}
+                <select>
+                     { this.populateAttendeesList() }
+                </select> 
             </div>
             <div className="form-group col-md-1">
                 <input type="text" class="form-control" name="taskDue" placeholder="2018-09-29" onKeyDown={ this.detectTabKey } />
