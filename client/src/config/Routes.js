@@ -6,7 +6,6 @@ import Meetings from '../views/Meetings';
 import TaskView from '../views/TaskView';
 import { withRouter } from 'react-router-dom';
 import CreateNotes from '../views/CreateNotes';
-import CreateMeeting from '../views/CreateMeeting';
 import Schedule from '../views/Schedule';
 
 class Routes extends Component{

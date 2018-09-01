@@ -44,10 +44,10 @@ export default class Header extends Component {
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li className='nav-item'>
-                            <Link to='/create' className='btn btn-primary'>Create</Link>
+                            <Link to='/create' className='btn btn-primary'>Create Notes</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/schedule' className='btn btn-success'>Schedule</Link>
+                            <Link to='/schedule' className='btn btn-success'>Schedule Meeting</Link>
                         </li>
                      </ul>
                 </nav>
