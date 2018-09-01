@@ -2,13 +2,18 @@ import * as React from 'react';
 import InputTask from '../component/InputTask';
 import TaskDetails from '../component/TaskDetails';
 import Group from '../component/Group';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import TagsInput from 'react-tagsinput'
+import 'react-tagsinput/react-tagsinput.css'
 
 export default class CreateNotes extends React.Component {
     state = {
         tasks: [ new TaskDetails() ],
         title : null,
         date: null,
-        time: null
+        time: null,
+        attendees: [],
     }
 
     onTitleChange = (e) => {
@@ -60,28 +65,25 @@ export default class CreateNotes extends React.Component {
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingTitle">Meeting Title</label>
-                        <input type="email" class="form-control" id="meetingTitle" placeholder="My Meeting" />
+                        <input type="text" class="form-control" id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
                     </div>
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingDate">Meeting Date</label>
-                        <input type="email" class="form-control" id="meetingDate" placeholder="Date" />
+                        <DatePicker selected={ this.state.date } onChange={ this.onDateChange } />
                     </div>
                     <div class="form-group col">
                         <label for="meetingTime">Meeting Time</label>
-                        <input type="email" class="form-control" id="meetingTime" placeholder="Time" />
+                        <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
+                                    showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
+                                    dateFormat="LT" timeCaption="Time" />
                     </div>
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingAttendees">Meeting Attendees</label>
-                        <select class="custom-select mb-3" id='meetingAttendees'>
-                            <option selected>Attendees</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <TagsInput value={ this.state.attendees } onChange={ this.onAttendeesChange } />
                     </div>
                 </div>
 
