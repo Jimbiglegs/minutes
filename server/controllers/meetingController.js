@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 //adding models
 const database = require('../models');
 
-const isEmpty = require('../isEmpty');
+const utils  = require('../utils');
+
+var badHttpRequestCode = 400;
 
 function getMeetings(request, response) {
     response.status(200).send('ok');
@@ -12,45 +14,47 @@ function getMeetings(request, response) {
 
 function addMeeting(request, response) {
 
+    console.log('addmeeting called...');
+
     let  title = request.body.title;
     let  date = request.body.date;
     let  time = request.body.time;
     let location = request.body.location;
-    let owner = request.body.email;
+    let owner = request.body.owner;
     let  attendees = request.body.attendees;
 
     //empty check
-    if (repeatedcode.isEmpty(owner)) {
+    if (utils.isEmpty(owner)) {
         console.log("owner empty");
         response.status(badHttpRequestCode).send('Owner is required');
         return;
     }
 
-    if (repeatedcode.isEmpty(title)) {
+    if (utils.isEmpty(title)) {
         console.log("title empty");
         response.status(badHttpRequestCode).send('Title is required');
         return;
     }
 
-    if (repeatedcode.isEmpty(date)) {
+    if (utils.isEmpty(date)) {
         console.log("date empty");
         response.status(badHttpRequestCode).send('Date is required');
         return;
     }
 
-    if (repeatedcode.isEmpty(time)) {
+    if (utils.isEmpty(time)) {
         console.log("time");
         response.status(badHttpRequestCode).send('time is required');
         return;
     }
 
-    if (repeatedcode.isEmpty(location)) {
+    if (utils.isEmpty(location)) {
         console.log("location");
         response.status(badHttpRequestCode).send('Location is required');
         return;
     }
 
-    if (repeatedcode.isEmpty(attendees)) {
+    if (utils.isEmpty(attendees)) {
         console.log("attendees");
         response.status(badHttpRequestCode).send('Atleasy one attendee is required');
         return;
@@ -65,6 +69,8 @@ function addMeeting(request, response) {
         attendees : attendees
     }
 
+    console.log('trying to create meeting...');
+
     //create meeting
     database.Meeting.create(schedule, function (error, newSchedule){
         if(error) {
@@ -74,7 +80,7 @@ function addMeeting(request, response) {
         }
 
         console.log('New meeting is created as: ', newSchedule)
-        response.schedule(newSchedule);
+        response.json(newSchedule);
     })
 }
 

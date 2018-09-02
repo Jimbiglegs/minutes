@@ -12,6 +12,7 @@ export default class Schedule extends Component {
         title : null,
         date: null,
         time: null,
+        location: null,
         attendees: []
     }
 
@@ -27,6 +28,10 @@ export default class Schedule extends Component {
         this.setState( { time : e });
     }
 
+    onLocationChange = (e) => {
+        this.setState( { location : e });
+    }
+
     onAttendeesChange = (attendees) => {
         this.setState({ attendees: attendees });
     }
@@ -34,17 +39,17 @@ export default class Schedule extends Component {
     //post call
     postSchedule = () => {
 
-    let url = 'http://localhost:3000/meeting';
+    let url = 'http://localhost:3000/api/meeting';
 
         axios.post(url, {
-            title : title,
-            date: date,
-            time: time,
-            location: location,
+            title : this.state.title,
+            date: this.state.date,
+            time: this.state.time,
+            location: this.state.location,
             owner: 'niti@niti.com',
-            attendees: attendees
+            attendees: this.state.attendees
         }).then((data) => {    
-          console.log('sending data');
+          console.log('sending data: ', data);
         }).catch((err) => {              
             console.log('Error retured API in posting schedule:', err);
         });
@@ -75,7 +80,7 @@ export default class Schedule extends Component {
                     </div>
                     <div class="form-group col">
                         <label for="meetingLocation">Meeting Location</label>
-                        <input type="text" class="form-control" id="meetingLocation" />
+                        <input type="text" class="form-control" id="meetingLocation" onChange={ this.onLocationChange }/>
                     </div>                    
                 </div>
                 <div className='form-row'>
@@ -87,7 +92,7 @@ export default class Schedule extends Component {
 
                 <div class='form-row'>
                     <div class='form-group col text-right'>
-                        <button type="button" className='btn btn-primary'>Schedule</button>
+                        <button type="button" className='btn btn-primary' onClick={this.postSchedule}>Schedule</button>
                     </div>
                 </div>
             </form>

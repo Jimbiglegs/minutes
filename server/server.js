@@ -19,7 +19,7 @@ const controllers = require('./controllers');
 
 app.get('/api/meetings', controllers.MeetingController.getMeetings);
 app.put('/api/meeting', controllers.MeetingController.addMeeting);
-app.post('/api/meeting', controllers.MeetingController.editMeeting);
+app.post('/api/meeting', controllers.MeetingController.addMeeting);
 
 app.get('/api/tasks', controllers.TaskController.getTasks);
 app.put('/api/task', controllers.TaskController.addTask);
