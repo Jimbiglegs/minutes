@@ -9,7 +9,18 @@ const utils  = require('../utils');
 var badHttpRequestCode = 400;
 
 function getMeetings(request, response) {
-    response.status(200).send('ok');
+
+        //get meetings
+        database.Meeting.find({}, function (error, getMeetings){
+            if(error) {
+                console.log('Error getting Meetings');
+    
+                response.status(500).send('Getting meeting from database failed');
+            }
+    
+            console.log('Got meetings as: ', getMeetings)
+            response.json(getMeetings);
+        })
 }
 
 function addMeeting(request, response) {
@@ -62,7 +73,7 @@ function addMeeting(request, response) {
 
     let schedule = {
         title : title ,
-        date : date ,
+        day : date ,
         time : time,
         location : location,
         owner : owner,
@@ -74,12 +85,14 @@ function addMeeting(request, response) {
     //create meeting
     database.Meeting.create(schedule, function (error, newSchedule){
         if(error) {
-            console.log('Error creating new Schedule');
+            console.log('Error creating new Schedule: ', error);
 
             response.status(500).send('insert of new meeting into database failed');
+            return;
         }
 
-        console.log('New meeting is created as: ', newSchedule)
+        console.log('New meeting is created as: ', newSchedule);
+
         response.json(newSchedule);
     })
 }

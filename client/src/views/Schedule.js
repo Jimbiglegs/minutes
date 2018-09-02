@@ -6,6 +6,9 @@ import 'react-tagsinput/react-tagsinput.css'
 import Group from '../component/Group';
 import axios from 'axios';
 
+const MONTH_NAMES = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+
 export default class Schedule extends Component {
 
     state = {
@@ -29,7 +32,7 @@ export default class Schedule extends Component {
     }
 
     onLocationChange = (e) => {
-        this.setState( { location : e });
+        this.setState( { location : e.target.value });
     }
 
     onAttendeesChange = (attendees) => {
@@ -41,10 +44,18 @@ export default class Schedule extends Component {
 
     let url = 'http://localhost:3000/api/meeting';
 
+    console.log('Date from front-end: ', this.state.date);
+
+        //format date
+        let date = this.state.date.format('DD-MMM-YYYY');
+
+        //format time
+        let time = this.state.time.format('hh:mm a');
+
         axios.post(url, {
             title : this.state.title,
-            date: this.state.date,
-            time: this.state.time,
+            date: date,
+            time: time,
             location: this.state.location,
             owner: 'niti@niti.com',
             attendees: this.state.attendees
@@ -59,7 +70,6 @@ export default class Schedule extends Component {
     
     render() {
         return <Group>
-            <h3>Schedule A Meeting</h3>
             <form className='container-fluid'>
                 <div className='form-row'>
                     <div class="form-group col">

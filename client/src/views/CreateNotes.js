@@ -39,7 +39,9 @@ export default class CreateNotes extends React.Component {
         this.setState({ tasks: tasks });
     }
 
-
+    onLocationChange = (e) => {
+        this.setState( { location : e.target.value });
+    }
 
     updateTask = (index, field, value) => {
         let tasks = this.state.tasks;
@@ -67,7 +69,6 @@ export default class CreateNotes extends React.Component {
     }
     render() {
         return <Group>
-            <h3>Create Meeting Notes</h3>
             <form className='container'>
                 <div className='form-row'>
                     <div class="form-group col">
@@ -85,7 +86,12 @@ export default class CreateNotes extends React.Component {
                         <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
                                     showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
                                     dateFormat="LT" timeCaption="Time" />
-                    </div>
+                    </div>                
+                    <div class="form-group col">
+                        <label for="meetingLocation">Meeting Location</label>
+                        <input type="text" class="form-control" id="meetingLocation" onChange={ this.onLocationChange }/>
+                    </div>                                     
+                    
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">

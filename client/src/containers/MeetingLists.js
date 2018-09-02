@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Group from '../component/Group';
 import IfClause from '../component/IfClause';
+import axios from 'axios';
 
 export default class MeetingList extends React.Component {
 
@@ -10,29 +11,24 @@ export default class MeetingList extends React.Component {
     }
 
     setData = () => {
-        let meetings = [
-            {
-                title : 'Finalize user stories',
-                day: '28 Aug 2018',
-                time: '11:00 AM',
-                location: 'epitome hall,san jose'
-            },
-            {
-                title : 'Discuss ERD',
-                day: '28 Aug 2018',
-                time: '1:00 PM',
-                location: 'epitome hall,san jose'
-            }
-        ];
 
-        this.setState( { loaded : true, meetings : meetings });
-    }
+    let url = 'http://localhost:3000/api/meetings';
+
+    axios.get(url)
+    .then((response) => {
+        console.log('Meetings retrieved from database : ', response)
+        this.setState({ meetings : response.data, loaded : true });
+    }).catch((e) => {
+        console.log('error fetching meetings', e);
+    });
+}
 
     componentDidMount() {
         setTimeout(this.setData, 1000);
     }
 
     getMeetingsAsTableRows = () => {
+        
         let meetings = this.state.meetings;
         let result = [];
         for(let index = 0; index < meetings.length; index++) {
@@ -41,7 +37,7 @@ export default class MeetingList extends React.Component {
                 <td>{ meeting.title }</td>
                 <td>{ meeting.day }</td>
                 <td>{ meeting.time }</td>
-                <td>{ meeting.locality }</td>
+                <td>{ meeting.location }</td>
             </tr>);
         }
 

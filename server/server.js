@@ -8,8 +8,15 @@ app.use(express.json());
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.use(express.static('public'));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+    next();
+  });
+  
 
 //add models
 const database = require('./models');
@@ -18,7 +25,7 @@ const database = require('./models');
 const controllers = require('./controllers');
 
 app.get('/api/meetings', controllers.MeetingController.getMeetings);
-app.put('/api/meeting', controllers.MeetingController.addMeeting);
+app.put('/api/meeting', controllers.MeetingController.editMeeting);
 app.post('/api/meeting', controllers.MeetingController.addMeeting);
 
 app.get('/api/tasks', controllers.TaskController.getTasks);
