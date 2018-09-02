@@ -156,64 +156,62 @@ class CreateNotes extends React.Component {
 
 
     render() {
-        return <Group>
-            <form className='container'>
-                <div className='form-row'>
-                    <div class="form-group col">
-                        <label for="meetingTitle">Meeting Title</label>
-                        <input type="text" class="form-control" 
-                               id="meetingTitle" placeholder="My Meeting" 
-                               onChange={ this.onTitleChange } 
-                               value={ this.state.title } 
-                               disabled={ this.state.editNotesFlag} />
-                    </div>
+        return <form >
+            <div className='form-row'>
+                <div class="form-group col">
+                    <label for="meetingTitle">Meeting Title</label>
+                    <input type="text" class="form-control" 
+                            id="meetingTitle" placeholder="My Meeting" 
+                            onChange={ this.onTitleChange } 
+                            value={ this.state.title } 
+                            disabled={ this.state.editNotesFlag} />
                 </div>
-                <div className='form-row'>
-                    <div class="form-group col">
-                        <label for="meetingDate">Meeting Date</label>
-                        <DatePicker selected={ this.state.date } 
-                                    onChange={ this.onDateChange } 
-                                    openToDate={this.state.date} 
-                                    disabled={ this.state.editNotesFlag}/>
-                    </div>
-                    <div class="form-group col">
-                        <label for="meetingTime">Meeting Time</label>
-                        <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
-                                    showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
-                                    dateFormat="LT" timeCaption="Time" 
-                                    value={ this.state.time } 
-                                    disabled={ this.state.editNotesFlag}/>
-                    </div>                
-                    <div class="form-group col">
-                        <label for="meetingLocation">Meeting Location</label>
-                        <input type="text" class="form-control" id="meetingLocation" 
-                            onChange={ this.onLocationChange } 
-                            value={ this.state.location }
-                            disabled={ this.state.editNotesFlag}
-                            />
-                    </div>                                     
-                    
+            </div>
+            <div className='form-row'>
+                <div class="form-group col">
+                    <label for="meetingDate">Meeting Date</label>
+                    <DatePicker selected={ this.state.date } 
+                                onChange={ this.onDateChange } 
+                                openToDate={this.state.date} 
+                                disabled={ this.state.editNotesFlag}/>
                 </div>
-                <div className='form-row'>
-                    <div class="form-group col">
-                        <label for="meetingAttendees">Meeting Attendees</label>
-                        <TagsInput value={ this.state.attendees } onChange={ this.onAttendeesChange } />
-                    </div>
-                </div>
-
-                <h3>Action Items</h3>
+                <div class="form-group col">
+                    <label for="meetingTime">Meeting Time</label>
+                    <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
+                                showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
+                                dateFormat="LT" timeCaption="Time" 
+                                value={ this.state.time } 
+                                disabled={ this.state.editNotesFlag}/>
+                </div>                
+                <div class="form-group col">
+                    <label for="meetingLocation">Meeting Location</label>
+                    <input type="text" class="form-control" id="meetingLocation" 
+                        onChange={ this.onLocationChange } 
+                        value={ this.state.location }
+                        disabled={ this.state.editNotesFlag}
+                        />
+                </div>                                     
                 
-                { this.renderTaskDetails() }
-
-                <div class='form-row'>
-                    <div class='form-group col text-right'>
-                        <button type="button" className='btn btn-primary' onClick={this.saveMeetingNotes}>Save</button>
-                        &nbsp;
-                        <button type="button" className='btn btn-success'>Publish</button>
-                    </div>
+            </div>
+            <div className='form-row'>
+                <div class="form-group col">
+                    <label for="meetingAttendees">Meeting Attendees</label>
+                    <TagsInput value={ this.state.attendees } onChange={ this.onAttendeesChange } />
                 </div>
-            </form>
-        </Group>;
+            </div>
+
+            <h3>Action Items</h3>
+            
+            { this.renderTaskDetails() }
+
+            <div class='form-row'>
+                <div class='form-group col text-right'>
+                    <button type="button" className='btn btn-primary' onClick={this.saveMeetingNotes}>Save</button>
+                    &nbsp;
+                    <button type="button" className='btn btn-success'>Publish</button>
+                </div>
+            </div>
+        </form>;
     }
 }
 

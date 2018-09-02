@@ -50,7 +50,7 @@ export default class InputTask extends Component {
                      { this.populateAttendeesList() }
                 </select> 
             </div>
-            <div className="form-group col-md-1">
+            <div className="form-group col-md-2 date-picker-col">
                 <DatePicker placeholderText="Date" selected={ moment(this.props.task.due) } 
                     onChange={ this.props.onDateChange } onKeyDown={ this.detectTabKey } />
             </div>

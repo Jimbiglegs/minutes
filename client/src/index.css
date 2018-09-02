@@ -44,3 +44,17 @@ footer {
 .task-level-todo input, .task-level-todo select {
   background-color: rgb(255,179,186) !important;
 }
+
+.react-datepicker__input-container input {
+  line-height: 1.5;
+  font-size: 1rem;
+  height: calc(2.25rem + 2px);
+  padding: .375rem .75rem;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  width: 100%;
+}
+.react-datepicker-wrapper, .react-datepicker-wrapper div {
+  width: 100%;
+}
