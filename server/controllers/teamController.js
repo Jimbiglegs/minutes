@@ -15,3 +15,10 @@ function addTeam(request, response) {
 function editTeam(request, response) {
     response.status(200).send('ok');
 }
+
+// exporting signin for other files
+module.exports = {
+    getTeams : getTeams,
+    addTeam : addTeam,
+    editTeam : editTeam
+};

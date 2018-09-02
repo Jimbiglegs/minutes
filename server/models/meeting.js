@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 
 let meetingSchema = new mongoose.Schema({
     title: String,
-    level: String,
-    status: String,
     day: Number,
     time: Number,
+    location: String,
     created: {
         type: Date,
         default: Date.now

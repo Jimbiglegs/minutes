@@ -15,3 +15,10 @@ function addTask(request, response) {
 function editTask(request, response) {
     response.status(200).send('ok');
 }
+
+// exporting signin for other files
+module.exports = {
+    getTasks : getTasks,
+    addTask : addTask,
+    editTask : editTask
+};

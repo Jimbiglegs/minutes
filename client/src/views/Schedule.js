@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import Group from '../component/Group';
+import axios from 'axios';
 
 export default class Schedule extends Component {
 
@@ -29,6 +30,27 @@ export default class Schedule extends Component {
     onAttendeesChange = (attendees) => {
         this.setState({ attendees: attendees });
     }
+
+    //post call
+    postSchedule = () => {
+
+    let url = 'http://localhost:3000/meeting';
+
+        axios.post(url, {
+            title : title,
+            date: date,
+            time: time,
+            location: location,
+            owner: 'niti@niti.com',
+            attendees: attendees
+        }).then((data) => {    
+          console.log('sending data');
+        }).catch((err) => {              
+            console.log('Error retured API in posting schedule:', err);
+        });
+    }      
+    
+
     
     render() {
         return <Group>
@@ -51,6 +73,10 @@ export default class Schedule extends Component {
                                     showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
                                     dateFormat="LT" timeCaption="Time" />
                     </div>
+                    <div class="form-group col">
+                        <label for="meetingLocation">Meeting Location</label>
+                        <input type="text" class="form-control" id="meetingLocation" />
+                    </div>                    
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">

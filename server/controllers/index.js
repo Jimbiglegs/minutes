@@ -1,6 +1,6 @@
 module.exports = {
-    MeetingController: require('./meeting-controller'),
-    TaskController: require('./task-controller'),
-    TeamController: require('./team-controller'),
-    UserController: require('./user-controller')
+    MeetingController: require('./meetingController'),
+    TaskController: require('./taskController'),
+    TeamController: require('./teamController'),
+    UserController: require('./userController')
 };
