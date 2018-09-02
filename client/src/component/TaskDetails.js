@@ -2,15 +2,17 @@ export default class TaskDetails {
 
     static counter = 1;
 
-    taskID = 'task-' + TaskDetails.counter++;
+    _id = 'task-' + TaskDetails.counter++;
 
     meetingID = '';
 
     topic = '';
 
-    type = 'todo';
+    level = 'todo';
 
     title = '';
+
+    assignee = '';
 
     owner = '';
 

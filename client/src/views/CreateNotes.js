@@ -90,9 +90,10 @@ class CreateNotes extends React.Component {
                 let originalTask = tasks[index];
                 let updatedTask = response.data[index];
 
-                originalTask.taskID = updatedTask._id;
+                originalTask._id = updatedTask._id;
             }
 
+            console.log('setting final tasks list as: ', tasks);
             this.setState({ tasks : tasks});
         }).catch((err) => {              
             console.log('Error retured API in saving old meeting notes:', err);
@@ -115,7 +116,6 @@ class CreateNotes extends React.Component {
         this.setState({ attendees: attendees });
     }
     
-
     addNextTaskIfNeeded = () => {
         let tasks = this.state.tasks;
         tasks.push(new TaskDetails());
@@ -142,9 +142,12 @@ class CreateNotes extends React.Component {
         for(let index = 0; index < tasks.length; index++) {
             let task = tasks[index];
 
-            result.push(<InputTask key={ task.taskID } onNextTask={ this.addNextTaskIfNeeded } task={ task } 
+            result.push(<InputTask key={ task._id } onNextTask={ this.addNextTaskIfNeeded } task={ task } 
                                    onTitleChange={ (e) => this.updateTask(index, 'title', e.target.value) } 
                                    onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
+                                   onTaskLevelChange={ (e) => this.updateTask(index, 'level', e.target.value) }
+                                   onDateChange={ (e) => this.updateTask(index, 'due', e) }
+                                   onAssigneeChange={ (e) => this.updateTask(index, 'due', e) }
                                    attendees={this.state.attendees}  />)
         }
 

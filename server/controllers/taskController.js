@@ -8,6 +8,63 @@ function getTasks(request, response) {
     response.status(200).send('ok');
 }
 
+function insertOrUpdateTask(task) {
+    let id = task._id;
+    let update = true;
+    if(!id || id.startsWith('task-')) {
+        delete task._id;
+        update = false;
+    }
+
+    if(!update) {
+        // this is an insert operation
+        return new Promise((resolve, reject) => {
+            database.Task.create(task, function(error, updatedTask) {
+                if(error) {
+                    console.log('error inserting task', error);
+                    // store error in reject
+                    reject(error);
+                    return;
+                }
+    
+                // store updated task in promise
+                resolve(updatedTask);
+            });
+    
+        });
+    }
+
+    // this is an update operation
+    return new Promise((resolve, reject) => {
+        database.Task.findById(task._id, function(error, savedTask) {
+            if(error) {
+                console.log('unable to find task in database', error);
+                reject(error);
+                return;
+            }
+
+            console.log('previous saved task: ', savedTask);
+
+            savedTask.level = task.level;
+            savedTask.title = task.title;
+            savedTask.topic = task.topic;
+            savedTask.due = task.due;
+            savedTask.assignee = task.assignee;
+            savedTask.owner = task.owner;
+
+            savedTask.save(function(error2, saved) {
+                if(error2) {
+                    console.log('unable to update task in database', error2);
+                    reject(error2);
+                    return;
+                }
+
+                resolve(saved);
+            })
+        });
+    });
+}
+
 function addTasks(request, response) {
     let owner = request.body.owner;
     let tasks = request.body.tasks;
@@ -17,15 +74,20 @@ function addTasks(request, response) {
         return;
     }
 
-    database.Task.create(tasks, function(error, updatedTasks) {
-        if(error) {
-            console.log('Error creating new task: ', error);
-            response.status(500).send('unable to create tasks');
-            return;
-        }
+    let promiseArray = [];
+    for(let index = 0; index < tasks.length; index++) {
+        const task = tasks[index];
+        task.owner = owner;
+        let promise = insertOrUpdateTask(task);
+        promiseArray.push(promise);
+    }
 
-        response.json(updatedTasks);
-    });
+    Promise.all(promiseArray)
+        .then((values) => {
+            response.json(values);
+        }).catch((error) => {
+            response.status(500).send('task insert failed');
+        });
 }
 
 function editTask(request, response) {

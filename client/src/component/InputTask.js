@@ -1,15 +1,10 @@
 import React,{Component} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
+import moment from 'moment';
 
 export default class InputTask extends Component {
-
-    state = {
-        date: null,
-        taskLevel: null,
-    }
 
     detectTabKey = (event) => {
         
@@ -30,23 +25,14 @@ export default class InputTask extends Component {
         return results;
     }
 
-    onDateChange = (e) => {
-        this.setState( { date : e });
-    }
-
-    onTaskLevelChange = (e) => {
-        this.setState( { taskLevel : e.target.value });
-        console.log(this.state.taskLevel);
-    }
-
     render() {
-        return <div className={'form-row task-level-' + this.state.taskLevel}>
+        return <div className={'form-row task-level-' + this.props.task.level}>
             <div className="form-group col-md-1">
                 <input type="text" class="form-control" name="taskTopic" 
                        placeholder="Add Topic" onChange={ this.props.onTopicChange } />
             </div>
             <div className='form-group col-md-1'>
-                <select class="custom-select mb-3" name='taskType' onChange={ this.onTaskLevelChange }>
+                <select class="custom-select mb-3" name='taskType' onChange={ this.props.onTaskLevelChange }>
                     <option value="agenda">Agenda</option>
                     <option value="decision">Decision</option>
                     <option value="done">Done</option>
@@ -60,12 +46,13 @@ export default class InputTask extends Component {
                        value={ this.props.task.title } onChange={ this.props.onTitleChange }/>
             </div>
             <div className="form-group col-md-1">
-                <select>
+                <select className='custom-select mb-3' onChange={ this.props.onAssigneeChange } >
                      { this.populateAttendeesList() }
                 </select> 
             </div>
             <div className="form-group col-md-1">
-                <DatePicker placeholderText="Date" selected={ this.state.date } onChange={ this.onDateChange } onKeyDown={ this.detectTabKey } />
+                <DatePicker placeholderText="Date" selected={ moment(this.props.task.due) } 
+                    onChange={ this.props.onDateChange } onKeyDown={ this.detectTabKey } />
             </div>
         </div>;
     }
