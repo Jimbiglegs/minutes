@@ -5,6 +5,7 @@ let taskSchema = new mongoose.Schema({
     meetingID: String,
     level: String,
     status: String,
+    topic: String,
     created: {
         type: Date,
         default: Date.now

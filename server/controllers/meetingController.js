@@ -27,12 +27,12 @@ function addMeeting(request, response) {
 
     console.log('addmeeting called...');
 
-    let  title = request.body.title;
-    let  date = request.body.date;
-    let  time = request.body.time;
+    let title = request.body.title;
+    let date = request.body.date;
+    let time = request.body.time;
     let location = request.body.location;
     let owner = request.body.owner;
-    let  attendees = request.body.attendees;
+    let attendees = request.body.attendees;
 
     //empty check
     if (utils.isEmpty(owner)) {
@@ -83,7 +83,7 @@ function addMeeting(request, response) {
     console.log('trying to create meeting...');
 
     //create meeting
-    database.Meeting.create(schedule, function (error, newSchedule){
+    database.Meeting.create(schedule, function (error, newSchedule) {
         if(error) {
             console.log('Error creating new Schedule: ', error);
 
@@ -92,13 +92,70 @@ function addMeeting(request, response) {
         }
 
         console.log('New meeting is created as: ', newSchedule);
-
         response.json(newSchedule);
-    })
+    });
 }
 
 function editMeeting(request, response) {
-    response.status(200).send('ok');
+    const id = request.params.id;
+    const owner = request.body.owner; 
+
+    let attendees = request.body.attendees;
+
+    console.log('meeting id: ' + id);
+    console.log('owner email: ' + owner);
+
+    // // find and save
+    // database.Meeting.findOne({ _id : id }, function (error, findMeeting) {
+    //     if (error) {
+    //         console.log('error editing attendees');
+    //         response.status(500).send('insert attendees into database failed');
+    //         return;
+    //     }
+        
+    //     if(findMeeting.owner != owner) {
+    //         console.log('different owner editing this meeting');
+    //         response.status(401).send('unauthorized user editing meeting');
+    //         return;
+    //     }
+
+    // // find and save
+    // database.Tasks.findOne({ _id : id }, function (error, findTask) {
+    //     if (error) {
+    //         console.log('error editing task');
+    //         response.status(500).send('insert task into database failed');
+    //         return;
+    //     }
+       
+    //     if(findTask.owner != owner) {
+    //         console.log('different owner editing task of this meeting');
+    //         response.status(401).send('unauthorized owner editing task');
+    //         return;
+    //     }
+
+    //     findMeeting.attendees = attendees;
+    //     findMeeting.edited = Date.now();
+    //     findTask.tasks = tasks;      
+    //     findTask.created = Date.now();
+
+    //     // save in the meeting
+    //     findMeeting.save(function (error2, saved) {
+    //         if (error2) {
+    //             response.status(500).send("something failed");
+    //             return;
+    //         }
+
+    //     // save in the task
+    //     findTask.save(function (error2, saved) {
+    //         if (error2) {
+    //             response.status(500).send("something failed");
+    //             return;
+    //         }            
+
+    //         response.json(saved);
+    //     });  
+    // });
+    
 }
 
 

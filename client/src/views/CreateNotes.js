@@ -8,6 +8,7 @@ import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 
 class CreateNotes extends React.Component {
     state = {
@@ -18,6 +19,7 @@ class CreateNotes extends React.Component {
         location:null,
         attendees: [],
         editNotesFlag: false,
+        meetingID: null,
     }
 
     componentDidMount() {
@@ -31,10 +33,70 @@ class CreateNotes extends React.Component {
                     date: moment(meetingPassed.date),
                     time: meetingPassed.time,
                     location: meetingPassed.location,
-                    editNotesFlag: true
+                    editNotesFlag: true,
+                    meetingID: meetingPassed._id
                 });
             }
         }
+    }
+
+    saveMeetingNotes = () => {
+        let editNotes = this.state.editNotesFlag;
+        let meetingID = this.state.meetingID;
+
+        if  (editNotes && meetingID !== '') {
+            this.saveMeetingTasks(meetingID, this.state.tasks);
+            return;
+        }
+
+        // first save the meeting
+        axios.post('http://localhost:3000/api/meeting', {
+            title : this.state.title,
+            date: this.state.date.format('DD-MMM-YYYY'),
+            time: this.state.time.format('hh:mm a'),
+            location: this.state.location,
+            owner: 'niti@niti.com',
+            attendees: this.state.attendees,
+        }).then((response) => {
+            console.log('done saving the meeting:', response.data);
+
+            // let's save the tasks
+            let tasks = this.state.tasks;
+            let meetingID = response.data['_id'];
+            console.log('meeting iD is: ', meetingID);
+
+            for(let index = 0; index < tasks.length; index++) {
+                tasks[index].meetingID = meetingID;
+            }
+            
+            this.setState( { meetingID : meetingID, editNotesFlag : true } );
+            this.saveMeetingTasks(meetingID, tasks);
+        }).catch((err) => {              
+            console.log('Error retured API in saving new meeting notes:', err);
+        });
+    }
+
+    saveMeetingTasks = (meetingID, tasks) => {
+        console.log('saving tasks for id: ', meetingID, tasks);
+
+        let url = 'http://localhost:3000/api/tasks';
+        axios.post(url, {
+            id: meetingID,
+            owner: 'niti@niti.com',
+            tasks: tasks
+        }).then((response) => {    
+            console.log('done saving tasks: ', response.data);
+            for(let index = 0; index < tasks.length; index++) {
+                let originalTask = tasks[index];
+                let updatedTask = response.data[index];
+
+                originalTask.taskID = updatedTask._id;
+            }
+
+            this.setState({ tasks : tasks});
+        }).catch((err) => {              
+            console.log('Error retured API in saving old meeting notes:', err);
+        });
     }
 
     onTitleChange = (e) => {
@@ -88,6 +150,8 @@ class CreateNotes extends React.Component {
 
         return result;
     }
+
+
     render() {
         return <Group>
             <form className='container'>
@@ -140,7 +204,7 @@ class CreateNotes extends React.Component {
 
                 <div class='form-row'>
                     <div class='form-group col text-right'>
-                        <button type="button" className='btn btn-primary'>Save</button>
+                        <button type="button" className='btn btn-primary' onClick={this.saveMeetingNotes}>Save</button>
                         &nbsp;
                         <button type="button" className='btn btn-success'>Publish</button>
                     </div>

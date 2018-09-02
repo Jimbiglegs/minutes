@@ -4,6 +4,8 @@ export default class TaskDetails {
 
     taskID = 'task-' + TaskDetails.counter++;
 
+    meetingID = '';
+
     topic = '';
 
     type = 'todo';

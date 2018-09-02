@@ -6,9 +6,6 @@ import 'react-tagsinput/react-tagsinput.css'
 import Group from '../component/Group';
 import axios from 'axios';
 
-const MONTH_NAMES = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-
 export default class Schedule extends Component {
 
     state = {

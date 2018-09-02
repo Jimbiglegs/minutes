@@ -25,11 +25,11 @@ const database = require('./models');
 const controllers = require('./controllers');
 
 app.get('/api/meetings', controllers.MeetingController.getMeetings);
-app.put('/api/meeting', controllers.MeetingController.editMeeting);
+app.put('/api/meeting/:id', controllers.MeetingController.editMeeting);
 app.post('/api/meeting', controllers.MeetingController.addMeeting);
 
 app.get('/api/tasks', controllers.TaskController.getTasks);
-app.put('/api/task', controllers.TaskController.addTask);
+app.post('/api/tasks', controllers.TaskController.addTasks);
 app.post('/api/task', controllers.TaskController.editTask);
 
 app.get('/api/teams', controllers.TeamController.getTeams);
