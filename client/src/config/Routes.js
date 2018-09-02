@@ -16,8 +16,13 @@ class Routes extends Component{
             <Route exact path="/home" component={ homepage } />
             <Route exact path="/meetings" component={ Meetings } />
             <Route exact path="/tasks" component={ TaskView } />
-            <Route exact path="/create" component={ CreateNotes } />
-            <Route exact path="/schedule" component={ Schedule } />
+            <Route exact path="/adhocMeeting" render={ () => {
+                return <CreateNotes key='adhoc' />
+            } } />
+            <Route exact path="/createNotes" render={ () => {
+                return <CreateNotes key='create' />
+            } } />
+            <Route exact path="/scheduleMeeting" component={ Schedule } />
         </Switch>;
     }
 }

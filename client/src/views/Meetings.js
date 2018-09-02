@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Group from '../component/Group';
-import MeetingLists from '../containers/MeetingLists';
+import UpcomingMeetingLists from '../containers/UpcomingMeetingLists';
 
 export default class Meetings extends React.Component {
 
@@ -8,7 +8,7 @@ export default class Meetings extends React.Component {
         return <Group>
             <h3>Upcoming Meetings</h3>
 
-            <MeetingLists />
+            <UpcomingMeetingLists />
         </Group>;
     }
 

@@ -1,30 +1,26 @@
-import * as React from 'react';
+import React, {Component} from 'react';
 import Group from '../component/Group';
 import IfClause from '../component/IfClause';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-export default class MeetingList extends React.Component {
+class UpcomingMeetingList extends Component{
 
     state = {
         loaded: false,
         meetings: []
     }
 
-    setData = () => {
-
-    let url = 'http://localhost:3000/api/meetings';
-
-    axios.get(url)
-    .then((response) => {
-        console.log('Meetings retrieved from database : ', response)
-        this.setState({ meetings : response.data, loaded : true });
-    }).catch((e) => {
-        console.log('error fetching meetings', e);
-    });
-}
-
     componentDidMount() {
-        setTimeout(this.setData, 1000);
+        let url = 'http://localhost:3000/api/meetings';
+
+        axios.get(url)
+        .then((response) => {
+            console.log('Meetings retrieved from database : ', response)
+            this.setState({ meetings : response.data, loaded : true });
+        }).catch((e) => {
+            console.log('error fetching meetings', e);
+        });    
     }
 
     getMeetingsAsTableRows = () => {
@@ -37,11 +33,25 @@ export default class MeetingList extends React.Component {
                 <td>{ meeting.title }</td>
                 <td>{ meeting.day }</td>
                 <td>{ meeting.time }</td>
-                <td>{ meeting.location }</td>
-            </tr>);
+                <td>{ meeting.location }</td> 
+                <td>
+                    <button class='btn btn-primary' onClick={ (e) => { this.editMeeting(meeting) } }>Edit Meeting</button>
+                </td>
+                </tr>
+                );
+            
         }
 
         return result;
+    }
+
+    editMeeting = (meeting) => {
+        this.props.history.push( {
+            pathname : '/createNotes',
+            state : {
+                meeting: meeting
+            }
+        });
     }
 
     render() {
@@ -56,6 +66,7 @@ export default class MeetingList extends React.Component {
                     <table className='table table-striped table-sm'>
                         <tbody>
                          { this.getMeetingsAsTableRows() }
+                         
                         </tbody>
                     </table>
                 </IfClause>
@@ -67,3 +78,7 @@ export default class MeetingList extends React.Component {
     }
 
 }
+
+const Upcoming = withRouter(UpcomingMeetingList);
+
+export default Upcoming;

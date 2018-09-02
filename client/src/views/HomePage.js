@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MeetingLists from '../containers/MeetingLists';
+import UpcomingMeetingLists from '../containers/UpcomingMeetingLists';
 import TaskLists from '../containers/TaskLists';
 
 export default class HomePage extends Component{
@@ -8,7 +8,7 @@ export default class HomePage extends Component{
          <div className='row'>
             <div className='col'>
                 <h3>Upcoming Meetings</h3>
-                <MeetingLists />
+                <UpcomingMeetingLists />
             </div>
             <div className='col'>
                 <h3>Action Items</h3>

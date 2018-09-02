@@ -6,14 +6,35 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
+import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
-export default class CreateNotes extends React.Component {
+class CreateNotes extends React.Component {
     state = {
         tasks: [ new TaskDetails() ],
         title : null,
         date: null,
         time: null,
+        location:null,
         attendees: [],
+        editNotesFlag: false,
+    }
+
+    componentDidMount() {
+        if(this.props.location && this.props.location.state) {
+            let meetingPassed = this.props.location.state.meeting;
+            console.log('meeting passed via router: ', meetingPassed);
+            if(meetingPassed) {
+                console.log('change state: ' + meetingPassed.title);
+                this.setState({ 
+                    title : meetingPassed.title,
+                    date: moment(meetingPassed.date),
+                    time: meetingPassed.time,
+                    location: meetingPassed.location,
+                    editNotesFlag: true
+                });
+            }
+        }
     }
 
     onTitleChange = (e) => {
@@ -73,23 +94,36 @@ export default class CreateNotes extends React.Component {
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingTitle">Meeting Title</label>
-                        <input type="text" class="form-control" id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
+                        <input type="text" class="form-control" 
+                               id="meetingTitle" placeholder="My Meeting" 
+                               onChange={ this.onTitleChange } 
+                               value={ this.state.title } 
+                               disabled={ this.state.editNotesFlag} />
                     </div>
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingDate">Meeting Date</label>
-                        <DatePicker selected={ this.state.date } onChange={ this.onDateChange } />
+                        <DatePicker selected={ this.state.date } 
+                                    onChange={ this.onDateChange } 
+                                    openToDate={this.state.date} 
+                                    disabled={ this.state.editNotesFlag}/>
                     </div>
                     <div class="form-group col">
                         <label for="meetingTime">Meeting Time</label>
                         <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
                                     showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
-                                    dateFormat="LT" timeCaption="Time" />
+                                    dateFormat="LT" timeCaption="Time" 
+                                    value={ this.state.time } 
+                                    disabled={ this.state.editNotesFlag}/>
                     </div>                
                     <div class="form-group col">
                         <label for="meetingLocation">Meeting Location</label>
-                        <input type="text" class="form-control" id="meetingLocation" onChange={ this.onLocationChange }/>
+                        <input type="text" class="form-control" id="meetingLocation" 
+                            onChange={ this.onLocationChange } 
+                            value={ this.state.location }
+                            disabled={ this.state.editNotesFlag}
+                            />
                     </div>                                     
                     
                 </div>
@@ -115,3 +149,7 @@ export default class CreateNotes extends React.Component {
         </Group>;
     }
 }
+
+const MNotes = withRouter(CreateNotes);
+
+export default MNotes;
