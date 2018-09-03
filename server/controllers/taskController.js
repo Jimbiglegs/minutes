@@ -13,7 +13,7 @@ function getMeetingTasks(request, response) {
         return;
     }
 
-    database.Task.find( { meetingID : meetingID }, function(error, tasks) {
+    database.Task.find( { meetingID : meetingID }, null, { sort : { due : 1 } },function(error, tasks) {
         if(error) {
             console.log('error reading tasks from db for meeting id: ' + meetingID);
             response.status(500).send('db error reading tasks');
@@ -28,7 +28,7 @@ function getTasks(request, response) {
     let owner = 'niti@niti.com';
 
     // "assignee" : owner
-    database.Task.find( { }, function(error, tasks) {
+    database.Task.find( { }, null, { sort : { due : 1 } }, function(error, tasks) {
         if(error) {
             console.log('unable to get tasks from database');
             response.status(500).send('error reading db');

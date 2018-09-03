@@ -11,7 +11,7 @@ var badHttpRequestCode = 400;
 function getMeetings(request, response) {
 
         //get meetings
-        database.Meeting.find({}, null,{ sort : { day : 1 } }, function (error, getMeetings){
+        database.Meeting.find({}, null, { sort : { day : 1 } }, function (error, getMeetings){
             if(error) {
                 console.log('Error getting Meetings');
     
