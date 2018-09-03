@@ -207,8 +207,9 @@ class CreateNotes extends React.Component {
             </div>
 
             <h3>Action Items</h3>
-            
-            { this.renderTaskDetails() }
+            <div class='action-items'>
+                { this.renderTaskDetails() }
+            </div>
 
             <div class='form-row'>
                 <div class='form-group col text-right'>

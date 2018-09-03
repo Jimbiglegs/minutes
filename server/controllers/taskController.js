@@ -5,7 +5,18 @@ const mongoose = require('mongoose');
 const database = require('../models');
 
 function getTasks(request, response) {
-    response.status(200).send('ok');
+    let owner = 'niti@niti.com';
+
+    // "assignee" : owner
+    database.Task.find( { }, function(error, tasks) {
+        if(error) {
+            console.log('unable to get tasks from database');
+            response.status(500).send('error reading db');
+            return;
+        }
+
+        response.json(tasks);
+    });
 }
 
 function insertOrUpdateTask(task) {
