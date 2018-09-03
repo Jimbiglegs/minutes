@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React, {Component} from 'react';
 
-export default class IfClause extends React.Component {
+export default class IfClause extends Component {
 
     render() {
         if(this.props.condition) {

@@ -4,7 +4,6 @@ import  Landing from '../views/Landing';
 import homepage from '../views/HomePage';
 import Meetings from '../views/Meetings';
 import TaskView from '../views/TaskView';
-import { withRouter } from 'react-router-dom';
 import CreateNotes from '../views/CreateNotes';
 import Schedule from '../views/Schedule';
 
@@ -27,6 +26,4 @@ class Routes extends Component{
     }
 }
 
-const MyRoutes = withRouter(Routes);
-
-export default MyRoutes;
+export default Routes;
