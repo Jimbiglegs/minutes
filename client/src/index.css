@@ -55,6 +55,17 @@ footer {
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   width: 100%;
 }
+.react-datepicker__input-container input:disabled {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
 .react-datepicker-wrapper, .react-datepicker-wrapper div {
   width: 100%;
+}
+
+.react-tagsinput--focused {
+  border-color: #80bdff !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }

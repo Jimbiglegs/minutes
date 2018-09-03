@@ -47,6 +47,9 @@ export default class Header extends Component {
                             <Link to='/adhocMeeting' className='btn btn-primary'>Adhoc Meeting</Link>
                         </li>
                         <li className='nav-item'>
+                            &nbsp;
+                        </li>
+                        <li className='nav-item'>
                             <Link to='/scheduleMeeting' className='btn btn-success'>Schedule Meeting</Link>
                         </li>
                      </ul>

@@ -28,13 +28,15 @@ class CreateNotes extends React.Component {
             console.log('meeting passed via router: ', meetingPassed);
             if(meetingPassed) {
                 console.log('change state: ' + meetingPassed.title);
+                console.log('time is: ', moment(meetingPassed.time, 'hh:mm a'));
                 this.setState({ 
                     title : meetingPassed.title,
-                    date: moment(meetingPassed.date),
-                    time: meetingPassed.time,
+                    date: moment(meetingPassed.day),
+                    time: moment(meetingPassed.time, 'hh:mm a'),
                     location: meetingPassed.location,
                     editNotesFlag: true,
-                    meetingID: meetingPassed._id
+                    meetingID: meetingPassed._id,
+                    attendees : meetingPassed.attendees
                 });
             }
         }
@@ -172,12 +174,13 @@ class CreateNotes extends React.Component {
                     <label for="meetingDate">Meeting Date</label>
                     <DatePicker selected={ this.state.date } 
                                 onChange={ this.onDateChange } 
-                                openToDate={this.state.date} 
+                                openToDate={this.state.date } 
                                 disabled={ this.state.editNotesFlag}/>
                 </div>
                 <div class="form-group col">
                     <label for="meetingTime">Meeting Time</label>
-                    <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
+                    <DatePicker selected={ this.state.time } 
+                                onChange={ this.onTimeChange }
                                 showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
                                 dateFormat="LT" timeCaption="Time" 
                                 value={ this.state.time } 
@@ -196,7 +199,10 @@ class CreateNotes extends React.Component {
             <div className='form-row'>
                 <div class="form-group col">
                     <label for="meetingAttendees">Meeting Attendees</label>
-                    <TagsInput value={ this.state.attendees } onChange={ this.onAttendeesChange } />
+                    <TagsInput value={ this.state.attendees } 
+                               onChange={ this.onAttendeesChange } 
+                               disabled={ this.state.editNotesFlag} 
+                               inputProps={ { placeholder : 'Email' } }/>
                 </div>
             </div>
 
