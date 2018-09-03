@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import IfClause from '../component/IfClause';
 
 export default class Header extends Component {
+
+    onGoogleSuccess = (userObject) => {
+        this.props.onGoogleAuth(userObject);
+    }
+
+    onGoogleFailure = (error) => {
+        console.log('error user object: ', error);
+    }
+
+    onGoogleSignOut = () => {
+        this.props.onGoogleAuth(null);
+    }
 
     render() {      
         return (            
@@ -12,46 +26,49 @@ export default class Header extends Component {
                         <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"60px"}} alt=""></img>
                       MoM
                     </a>
-                    <ul className="navbar-nav ml-auto">                      
-                        {/* <li className="nav-item"> 
-                            <a className="nav-link" href="#">Sign In</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Sign Up</a>
-                        </li>                             */}
-                        <li className="nav-item">
-                            <Link to='/home' className='nav-link'>Home</Link>
-                        </li> 
-                        <li className="nav-item">
-                            <Link to='/tasks' className='nav-link'>Tasks</Link>
-                        </li>   
-                        <li className="nav-item">
-                            <Link to='/meetings' className='nav-link'>Meetings</Link>
-                        </li>                                                
-                        {/* <li className="nav-item">
-                            <a className="nav-link dropdown-toggle" 
-                                data-toggle="dropdown" 
-                                id="userDropdown" 
-                                aria-haspopup="true" aria-expanded="false"
-                                href="#" >Welcome,</a>
-
-                            <div className="dropdown-menu" aria-labeledby="userDropdown">
-                                <a className="dropdown-item" href="#" >Profile</a>
-                                <a className="dropdown-item" href="#" >Setting</a>
-                                <a className="dropdown-item" href="#" >SignOut</a>
-                            </div>   
-                        </li>                                                 */}
+                    <ul className="navbar-nav ml-auto">
+                        <IfClause condition={ this.props.profile }>
+                            <li className="nav-item">
+                                <Link to='/home' className='nav-link'>Home</Link>
+                            </li> 
+                            <li className="nav-item">
+                                <Link to='/tasks' className='nav-link'>Tasks</Link>
+                            </li>   
+                            <li className="nav-item">
+                                <Link to='/meetings' className='nav-link'>Meetings</Link>
+                            </li>
+                        </IfClause>                                              
                     </ul>
                     <ul className="navbar-nav ml-auto">
-                        <li className='nav-item'>
-                            <Link to='/adhocMeeting' className='btn btn-primary'>Adhoc Meeting</Link>
-                        </li>
-                        <li className='nav-item'>
-                            &nbsp;
-                        </li>
-                        <li className='nav-item'>
-                            <Link to='/scheduleMeeting' className='btn btn-success'>Schedule Meeting</Link>
-                        </li>
+                        <IfClause condition={ !this.props.profile }>
+                            <li className="nav-item">
+                                <GoogleLogin
+                                    clientId="207967201675-vgb9f164otahb3viu1j8qjvpkn4acgri.apps.googleusercontent.com"
+                                    buttonText="Sign In"
+                                    className='btn btn-primary'
+                                    onSuccess={ this.onGoogleSuccess }
+                                    onFailure={ this.onGoogleFailure } />
+                            </li>
+                        </IfClause>
+                        <IfClause condition={ this.props.profile }>
+                            <li className='nav-item'>
+                                <Link to='/adhocMeeting' className='btn btn-primary'>Adhoc Meeting</Link>
+                            </li>
+                            <li className='nav-item'>
+                                &nbsp;
+                            </li>
+                            <li className='nav-item'>
+                                <Link to='/scheduleMeeting' className='btn btn-success'>Schedule Meeting</Link>
+                            </li>
+                            <li className='nav-item'>
+                                &nbsp;
+                            </li>
+                            <li className='nav-item'>
+                                <GoogleLogout buttonText='Sign Out'
+                                              onLogoutSuccess={ this.onGoogleSignOut } 
+                                              className='btn btn-primary' />
+                            </li>
+                        </IfClause>
                      </ul>
                 </nav>
             

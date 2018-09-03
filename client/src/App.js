@@ -9,7 +9,9 @@ import ToastContainer from './containers/ToastContainer';
 export default class App extends Component {
 
   state = {
-    toasts : []
+    toasts : [],
+
+    googleProfile : null
   }
 
   componentDidMount() {
@@ -18,6 +20,11 @@ export default class App extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('minutes-toast', this.showToast);
+  }
+
+  setGoogleProfile = (profile) => {
+    this.setState( { googleProfile : profile });
+    console.log('google user object: ', profile);
   }
 
   showToast = (e) => {
@@ -42,7 +49,10 @@ export default class App extends Component {
   render() {
     return (
           <Group>
-            <Header className="page-header"/>            
+            <Header className="page-header" 
+                    onGoogleAuth={ (profile) => this.setGoogleProfile(profile) } 
+                    profile={ this.state.googleProfile } />
+                    
             <main className="page-body">
               <MyRoutes/>
             </main>
