@@ -78,12 +78,12 @@ export default class Schedule extends Component {
         time = this.state.time.format('hh:mm a');
 
         axios.post('http://localhost:3000/api/meeting', {
-            title : this.state.title,
+            title : title,
             date: date,
             time: time,
-            location: this.state.location,
+            location: location,
             owner: 'niti@niti.com',
-            attendees: this.state.attendees
+            attendees: attendees
         }).then((data) => {    
           console.log('sending data: ', data);
 
