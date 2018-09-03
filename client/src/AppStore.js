@@ -33,16 +33,21 @@ function appReducer(state = defaultState, action) {
             
         case 'SHOW_TOAST':
             return { ...state, toasts: [ ...state.toasts, action.toast ]};
+        
         case 'SET_TITLE':
-            return { ...state, title: action.title };
+            return { ...state, meeting: { ...state.meeting, title: action.title } };
+
         case 'SET_DATE':
-            return { ...state, date: action.date };
+            return { ...state, meeting: { ...state.meeting, date: action.date } };
+            
         case 'SET_TIME':
-            return { ...state, time: action.time };   
+            return { ...state, meeting: { ...state.meeting, time: action.time } };
+        
         case 'SET_LOCATION':
-            return { ...state, location: action.location }; 
+            return { ...state, meeting: { ...state.meeting, location: action.location } };
+
         case 'SET_ATTENDEES':
-            return { ...state, attendees: [ ...state.attendees, action.attendees ]}; 
+            return { ...state, meeting: { ...state.meeting, attendees: action.attendees } };
         
         case 'SET_MEETING_TITLE_ERROR':
             return { ...state, meetingError: { ...state.meetingError, titleError: action.titleError } };
@@ -59,6 +64,15 @@ function appReducer(state = defaultState, action) {
         case 'SET_MEETING_ATTENDEES_ERROR':
             return { ...state, meetingError: { ...state.meetingError, attendeesError: action.attendeesError } };            
 
+        case 'CLEAR_MEETING_ERRORS':
+            return { ...state, meetingError: {
+                titleError: false,
+                dateError: false,
+                timeError: false,
+                locationError: false,
+                attendeesError: false
+            } };
+            
         default:
             return state;
     }

@@ -94,6 +94,11 @@ const AllAppActions = (dispatch) => ({
         });
     },
 
+    clearMeetingErrors :  () => {
+        dispatch({
+            type: 'CLEAR_MEETING_ERRORS'
+        });
+    }
 
 });
 

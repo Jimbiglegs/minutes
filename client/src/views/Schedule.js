@@ -9,7 +9,7 @@ import * as AllAppActions from './../AppStoreActions';
 class Schedule extends Component {
 
     postSchedule = () => {
-        console.log('schedule post called');
+        console.log('schedule post called: ', this.props.meeting);
 
         const title = this.props.meeting.title;
         let date = this.props.meeting.date;
@@ -17,34 +17,37 @@ class Schedule extends Component {
         const location = this.props.meeting.location;
         const attendees = this.props.meeting.attendees;
 
+        // reset all error messages
+        this.props.clearMeetingErrors();
+
         // start validation
-        if(Utils.isEmpty(title)){
+        if(Utils.isEmpty(title)) {
             this.props.showErrorToast('Meeting title required');
             this.props.setMeetingTitleError(true);
             return;
         }
 
         if(Utils.isEmpty(date)) {
-            Utils.error('Meeting date required');
-            this.setState({ dateError : true });
+            this.props.showErrorToast('Meeting date required');
+            this.props.setMeetingDateError(true);
             return;
         }
 
         if(Utils.isEmpty(time)) {
-            Utils.error('Meeting time required');
-            this.setState({ timeError : true });
+            this.props.showErrorToast('Meeting time required');
+            this.props.setMeetingTimeError(true);
             return;
         }
 
         if(Utils.isEmpty(location)) {
-            Utils.error('Meeting location required');
-            this.setState({ locationError : true });
+            this.props.showErrorToast('Meeting location required');
+            this.props.setMeetingLocationError(true);
             return;
         }
 
         if(Utils.isEmpty(attendees)){
-            Utils.error('Atleast one attendee is required');
-            this.setState({ attendeesError : true });
+            this.props.showErrorToast('Atleast one attendee is required');
+            this.props.setMeetingAttendeesError(true);
             return;
         }
 
