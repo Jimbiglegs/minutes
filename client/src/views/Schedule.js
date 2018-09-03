@@ -1,27 +1,24 @@
 import React, {Component} from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import TagsInput from 'react-tagsinput'
-import 'react-tagsinput/react-tagsinput.css'
 import Group from '../component/Group';
 import axios from 'axios';
 import Utils from '../Utils';
+import MeetingDetails from '../component/MeetingDetails';
 
 export default class Schedule extends Component {
 
-    state = {
-        title : null,
-        date: null,
-        time: null,
-        location: null,
-        attendees: [],
+    // state = {
+    //     title : null,
+    //     date: null,
+    //     time: null,
+    //     location: null,
+    //     attendees: [],
 
-        titleError: false,
-        dateError: false,
-        timeError: false,
-        locationError: false,
-        attendeesError: false
-    }
+    //     titleError: false,
+    //     dateError: false,
+    //     timeError: false,
+    //     locationError: false,
+    //     attendeesError: false
+    // }
 
     onTitleChange = (e) => {
         this.setState( { title : e.target.value });
@@ -127,40 +124,7 @@ export default class Schedule extends Component {
     render() {
         return <Group>
             <form className='container-fluid'>
-                <div className='form-row'>
-                    <div class="form-group col">
-                        <label for="meetingTitle">Meeting Title</label>
-                        <input type="text" className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') } id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
-                    </div>
-                </div>
-                <div className='form-row'>
-                    <div class="form-group col">
-                        <label for="meetingDate">Meeting Date</label>
-                        <DatePicker selected={ this.state.date } 
-                                    onChange={ this.onDateChange } 
-                                    className={ this.state.dateError ? 'is-invalid' : '' } />
-                    </div>
-                    <div class="form-group col">
-                        <label for="meetingTime">Meeting Time</label>
-                        <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
-                                    showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
-                                    dateFormat="LT" timeCaption="Time"
-                                    className={ this.state.timeError ? 'is-invalid' : '' }  />
-                    </div>
-                    <div class="form-group col">
-                        <label for="meetingLocation">Meeting Location</label>
-                        <input type="text" className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
-                               id="meetingLocation" onChange={ this.onLocationChange }/>
-                    </div>                    
-                </div>
-                <div className='form-row'>
-                    <div class="form-group col">
-                        <label for="meetingAttendees">Meeting Attendees</label>
-                        <TagsInput value={ this.state.attendees }
-                                   className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
-                                   onChange={ this.onAttendeesChange } />
-                    </div>
-                </div>
+                <MeetingDetails />
 
                 <div class='form-row'>
                     <div class='form-group col text-right'>
