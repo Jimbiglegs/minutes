@@ -29,6 +29,8 @@ app.put('/api/meeting/:id', controllers.MeetingController.editMeeting);
 app.post('/api/meeting', controllers.MeetingController.addMeeting);
 
 app.get('/api/meeting/:id/tasks', controllers.TaskController.getMeetingTasks);
+
+app.post('/api/task/:id/status', controllers.TaskController.changeTaskStatus);
 app.get('/api/tasks', controllers.TaskController.getTasks);
 app.post('/api/tasks', controllers.TaskController.addTasks);
 app.post('/api/task', controllers.TaskController.editTask);

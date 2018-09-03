@@ -33,7 +33,7 @@ function addMeeting(request, response) {
     let location = request.body.location;
     let owner = request.body.owner;
     let attendees = request.body.attendees;
-q   
+  
     //empty check
     if (utils.isEmpty(owner)) {
         console.log("owner empty");

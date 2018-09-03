@@ -16,6 +16,8 @@ export default class TaskDetails {
 
     owner = '';
 
+    status = 'open';
+
     due = Date.now();
 
 }

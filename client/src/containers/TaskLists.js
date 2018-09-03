@@ -4,6 +4,7 @@ import IfClause from '../component/IfClause';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
+import Utils from '../Utils';
 
 export default class TaskLists extends React.Component {
 
@@ -34,11 +35,52 @@ export default class TaskLists extends React.Component {
                 <td>{ task.assignee }</td>
                 <td>{ moment(task.due).format('DD-MMM-YYYY') }</td>
                 <td>{ task.status }</td>
+                <td>
+                    <IfClause condition={ 'done' !== task.status}>
+                        <button className='btn btn-success btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'done') }>Done</button>
+                        
+                        <IfClause condition={ 'onhold' !== task.status && 'blocked' !== task.status }>
+                            <button className='btn btn-warning btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'onhold') }>On-Hold</button>
+                        </IfClause>
+                        
+                        <IfClause condition={ 'blocked' !== task.status }>
+                            <button className='btn btn-danger btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'blocked') }>Blocked</button>
+                        </IfClause>
+                        
+                        <IfClause condition={ 'blocked' === task.status }>
+                            <button className='btn btn-primary btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'open') }>Re-Open</button>
+                        </IfClause>
+                    </IfClause>
+                    <IfClause condition={ 'done' === task.status}>
+                        <button className='btn btn-danger btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'open') }>Re-Open</button>
+                    </IfClause>
+                </td>
             </tr>);
         }
 
         return result;
     }
+
+    changeTaskStatus = (task, status) => {
+        // first save the meeting
+        axios.post('http://localhost:3000/api/task/' + task._id + '/status', {
+            status : status,
+            taskID: task._id,
+            owner: 'niti@niti.com'
+        }).then((response) => {
+            console.log('done saving the meeting:', response.data);
+            Utils.success('Task status updated');
+            let tasks = this.state.tasks;
+            let index = tasks.indexOf(task);
+            task.status = status;
+            tasks[index] = task;
+            this.setState( { tasks : tasks });
+        }).catch((err) => {              
+            console.log('Error retured API in changing status of task:', err);
+            Utils.error('Unable to update task status');
+        });
+    }
+
 
     render() {
         return <Group>
@@ -58,6 +100,7 @@ export default class TaskLists extends React.Component {
                                 <th>Assignee</th>
                                 <th>Due</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -24,6 +24,29 @@ function getMeetingTasks(request, response) {
     });
 }
 
+function changeTaskStatus(request, response){
+    let taskID = request.body.taskID;
+    let status = request.body.status;
+
+    database.Task.findById(taskID, function(error, savedTask) {
+        if(error) {
+            // did not find a task in DB with such ID
+            return;
+        }
+
+        savedTask.status = status;
+        savedTask.save(function(error2, saved) {
+            if(error2) {
+                console.log('unable to update task in database', error2);
+                response.status(500).send(error2);
+                return;
+            }
+
+            response.json(savedTask);
+        });
+    });
+}
+
 function getTasks(request, response) {
     let owner = 'niti@niti.com';
 
@@ -91,7 +114,7 @@ function insertOrUpdateTask(task) {
                 }
 
                 resolve(saved);
-            })
+            });
         });
     });
 }
@@ -130,5 +153,6 @@ module.exports = {
     getTasks : getTasks,
     addTasks : addTasks,
     editTask : editTask,
-    getMeetingTasks : getMeetingTasks
+    getMeetingTasks : getMeetingTasks,
+    changeTaskStatus : changeTaskStatus
 };
