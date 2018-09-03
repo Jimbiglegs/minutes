@@ -14,7 +14,13 @@ export default class Schedule extends Component {
         date: null,
         time: null,
         location: null,
-        attendees: []
+        attendees: [],
+
+        titleError: false,
+        dateError: false,
+        timeError: false,
+        locationError: false,
+        attendeesError: false
     }
 
     onTitleChange = (e) => {
@@ -45,30 +51,43 @@ export default class Schedule extends Component {
          const location = this.state.location;
          const attendees = this.state.attendees;
 
-         console.log(title)
+         // reset all errors to false
+        this.setState({
+            titleError: false,
+            dateError: false,
+            timeError: false,
+            locationError: false,
+            attendeesError: false
+        });
         
-         if(Utils.isEmpty(title)){
-             Utils.error('Meeting title required');
-             return;
-         }
+        // start validation
+        if(Utils.isEmpty(title)){
+            Utils.error('Meeting title required');
+            this.setState({ titleError : true });
+            return;
+        }
 
-         if(Utils.isEmpty(date)){
+        if(Utils.isEmpty(date)) {
             Utils.error('Meeting date required');
+            this.setState({ dateError : true });
             return;
         }
 
-        if(Utils.isEmpty(time)){
+        if(Utils.isEmpty(time)) {
             Utils.error('Meeting time required');
+            this.setState({ timeError : true });
             return;
         }
 
-        if(Utils.isEmpty(location)){
+        if(Utils.isEmpty(location)) {
             Utils.error('Meeting location required');
+            this.setState({ locationError : true });
             return;
         }
 
         if(Utils.isEmpty(attendees)){
             Utils.error('Atleast one attendee is required');
+            this.setState({ attendeesError : true });
             return;
         }
 
@@ -111,29 +130,35 @@ export default class Schedule extends Component {
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingTitle">Meeting Title</label>
-                        <input type="text" class="form-control" id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
+                        <input type="text" className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') } id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
                     </div>
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingDate">Meeting Date</label>
-                        <DatePicker selected={ this.state.date } onChange={ this.onDateChange } />
+                        <DatePicker selected={ this.state.date } 
+                                    onChange={ this.onDateChange } 
+                                    className={ this.state.dateError ? 'is-invalid' : '' } />
                     </div>
                     <div class="form-group col">
                         <label for="meetingTime">Meeting Time</label>
                         <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
                                     showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
-                                    dateFormat="LT" timeCaption="Time" />
+                                    dateFormat="LT" timeCaption="Time"
+                                    className={ this.state.timeError ? 'is-invalid' : '' }  />
                     </div>
                     <div class="form-group col">
                         <label for="meetingLocation">Meeting Location</label>
-                        <input type="text" class="form-control" id="meetingLocation" onChange={ this.onLocationChange }/>
+                        <input type="text" className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
+                               id="meetingLocation" onChange={ this.onLocationChange }/>
                     </div>                    
                 </div>
                 <div className='form-row'>
                     <div class="form-group col">
                         <label for="meetingAttendees">Meeting Attendees</label>
-                        <TagsInput value={ this.state.attendees } onChange={ this.onAttendeesChange } />
+                        <TagsInput value={ this.state.attendees }
+                                   className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
+                                   onChange={ this.onAttendeesChange } />
                     </div>
                 </div>
 

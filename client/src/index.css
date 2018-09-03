@@ -57,13 +57,21 @@ footer {
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   width: 100%;
 }
+
 .react-datepicker__input-container input:disabled {
   background-color: #e9ecef;
   opacity: 1;
 }
+.react-datepicker__input-container input.is-invalid {
+  border-color: #dc3545;
+}
 
 .react-datepicker-wrapper, .react-datepicker-wrapper div {
   width: 100%;
+}
+
+.react-tagsinput {
+  border-radius: 0.25rem;
 }
 
 .react-tagsinput--focused {
@@ -71,7 +79,9 @@ footer {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
-
+.react-tagsinput.is-invalid {
+  border-color: #dc3545;
+}
 .action-items .form-group {
   margin-bottom: 0;
 }
