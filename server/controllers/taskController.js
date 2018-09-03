@@ -1,8 +1,28 @@
+const Utils = require('../utils');
+
 //connecting db
 const mongoose = require('mongoose');
 
 //adding models
 const database = require('../models');
+
+function getMeetingTasks(request, response) {
+    let meetingID = request.params.id;
+    if(Utils.isEmpty(meetingID)) {
+        response.status(400).send('meetingID is required');
+        return;
+    }
+
+    database.Task.find( { meetingID : meetingID }, function(error, tasks) {
+        if(error) {
+            console.log('error reading tasks from db for meeting id: ' + meetingID);
+            response.status(500).send('db error reading tasks');
+            return;
+        }
+
+        response.json(tasks);
+    });
+}
 
 function getTasks(request, response) {
     let owner = 'niti@niti.com';
@@ -109,5 +129,6 @@ function editTask(request, response) {
 module.exports = {
     getTasks : getTasks,
     addTasks : addTasks,
-    editTask : editTask
+    editTask : editTask,
+    getMeetingTasks : getMeetingTasks
 };

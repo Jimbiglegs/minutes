@@ -28,6 +28,7 @@ app.get('/api/meetings', controllers.MeetingController.getMeetings);
 app.put('/api/meeting/:id', controllers.MeetingController.editMeeting);
 app.post('/api/meeting', controllers.MeetingController.addMeeting);
 
+app.get('/api/meeting/:id/tasks', controllers.TaskController.getMeetingTasks);
 app.get('/api/tasks', controllers.TaskController.getTasks);
 app.post('/api/tasks', controllers.TaskController.addTasks);
 app.post('/api/task', controllers.TaskController.editTask);
