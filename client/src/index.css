@@ -11,6 +11,8 @@ body {
   margin-right: auto !important;
   margin-left: auto !important;
   flex-direction: column !important;
+
+  position: relative;
 }
 
 main {
@@ -72,4 +74,10 @@ footer {
 
 .action-items .form-group {
   margin-bottom: 0;
+}
+
+.toast-container {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
 }

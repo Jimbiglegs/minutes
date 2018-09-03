@@ -58,6 +58,12 @@ export default class Schedule extends Component {
             attendees: this.state.attendees
         }).then((data) => {    
           console.log('sending data: ', data);
+
+          let event = new Event('minutes-toast');
+          event.title = 'Meeting has been scheduled.';
+          event.level = 'success';
+
+          document.dispatchEvent(event);
         }).catch((err) => {              
             console.log('Error retured API in posting schedule:', err);
         });
