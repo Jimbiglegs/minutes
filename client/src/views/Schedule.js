@@ -45,13 +45,13 @@ export default class Schedule extends Component {
 
     //post call
     postSchedule = () => {
-         const title = this.state.title;
-         let date = this.state.date;
-         let time = this.state.time;
-         const location = this.state.location;
-         const attendees = this.state.attendees;
+        const title = this.state.title;
+        let date = this.state.date;
+        let time = this.state.time;
+        const location = this.state.location;
+        const attendees = this.state.attendees;
 
-         // reset all errors to false
+        // reset all errors to false
         this.setState({
             titleError: false,
             dateError: false,

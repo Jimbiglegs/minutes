@@ -20,6 +20,12 @@ class CreateNotes extends React.Component {
         attendees: [],
         editNotesFlag: false,
         meetingID: null,
+
+        titleError: false,
+        dateError: false,
+        timeError: false,
+        locationError: false,
+        attendeesError: false
     }
 
     componentDidMount() {
@@ -75,30 +81,43 @@ class CreateNotes extends React.Component {
         const location = this.state.location;
         const attendees = this.state.attendees;
 
-        console.log(title)
-       
-        if(Utils.isEmpty(title)){
+        // reset all errors to false
+        this.setState({
+            titleError: false,
+            dateError: false,
+            timeError: false,
+            locationError: false,
+            attendeesError: false
+        });
+
+        // start validation
+        if(Utils.isEmpty(title)) {
             Utils.error('Meeting title required');
+            this.setState({ titleError : true });
             return;
         }
 
-        if(Utils.isEmpty(date)){
+        if(Utils.isEmpty(date)) {
            Utils.error('Meeting date required');
+           this.setState({ dateError : true });
            return;
        }
 
-       if(Utils.isEmpty(time)){
+       if(Utils.isEmpty(time)) {
            Utils.error('Meeting time required');
+           this.setState({ timeError : true });
            return;
        }
 
-       if(Utils.isEmpty(location)){
+       if(Utils.isEmpty(location)) {
            Utils.error('Meeting location required');
+           this.setState({ locationError : true });
            return;
        }
 
-       if(Utils.isEmpty(attendees)){
+       if(Utils.isEmpty(attendees)) {
            Utils.error('Atleast one attendee is required');
+           this.setState({ attendeesError : true });
            return;
        }
 
@@ -226,9 +245,10 @@ class CreateNotes extends React.Component {
     render() {
         return <form >
             <div className='form-row'>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingTitle">Meeting Title</label>
-                    <input type="text" class="form-control" 
+                    <input type="text" 
+                            className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') }
                             id="meetingTitle" placeholder="My Meeting" 
                             onChange={ this.onTitleChange } 
                             value={ this.state.title } 
@@ -241,7 +261,8 @@ class CreateNotes extends React.Component {
                     <DatePicker selected={ this.state.date } 
                                 onChange={ this.onDateChange } 
                                 openToDate={this.state.date } 
-                                disabled={ this.state.editNotesFlag}/>
+                                disabled={ this.state.editNotesFlag}
+                                className={ this.state.dateError ? 'is-invalid' : '' } />
                 </div>
                 <div class="form-group col">
                     <label for="meetingTime">Meeting Time</label>
@@ -250,15 +271,16 @@ class CreateNotes extends React.Component {
                                 showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
                                 dateFormat="LT" timeCaption="Time" 
                                 value={ this.state.time } 
-                                disabled={ this.state.editNotesFlag}/>
+                                disabled={ this.state.editNotesFlag}
+                                className={ this.state.timeError ? 'is-invalid' : '' } />
                 </div>                
                 <div class="form-group col">
                     <label for="meetingLocation">Meeting Location</label>
                     <input type="text" class="form-control" id="meetingLocation" 
-                        onChange={ this.onLocationChange } 
-                        value={ this.state.location }
-                        disabled={ this.state.editNotesFlag}
-                        />
+                           onChange={ this.onLocationChange } 
+                           value={ this.state.location }
+                           className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') }
+                           disabled={ this.state.editNotesFlag} />
                 </div>                                     
                 
             </div>
@@ -266,7 +288,8 @@ class CreateNotes extends React.Component {
                 <div class="form-group col">
                     <label for="meetingAttendees">Meeting Attendees</label>
                     <TagsInput value={ this.state.attendees } 
-                               onChange={ this.onAttendeesChange } 
+                               onChange={ this.onAttendeesChange }
+                               className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
                                disabled={ this.state.editNotesFlag} 
                                inputProps={ { placeholder : 'Email' } }/>
                 </div>
