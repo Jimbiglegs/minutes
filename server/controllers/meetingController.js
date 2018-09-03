@@ -11,7 +11,7 @@ var badHttpRequestCode = 400;
 function getMeetings(request, response) {
 
         //get meetings
-        database.Meeting.find({}, function (error, getMeetings){
+        database.Meeting.find({}, null,{ sort : { day : 1 } }, function (error, getMeetings){
             if(error) {
                 console.log('Error getting Meetings');
     
@@ -33,7 +33,7 @@ function addMeeting(request, response) {
     let location = request.body.location;
     let owner = request.body.owner;
     let attendees = request.body.attendees;
-
+q   
     //empty check
     if (utils.isEmpty(owner)) {
         console.log("owner empty");
