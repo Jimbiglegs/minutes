@@ -69,14 +69,47 @@ class CreateNotes extends React.Component {
             return;
         }
 
+        const title = this.state.title;
+        let date = this.state.date;
+        let time = this.state.time;
+        const location = this.state.location;
+        const attendees = this.state.attendees;
+
+        console.log(title)
+       
+        if(Utils.isEmpty(title)){
+            Utils.error('Meeting title required');
+            return;
+        }
+
+        if(Utils.isEmpty(date)){
+           Utils.error('Meeting date required');
+           return;
+       }
+
+       if(Utils.isEmpty(time)){
+           Utils.error('Meeting time required');
+           return;
+       }
+
+       if(Utils.isEmpty(location)){
+           Utils.error('Meeting location required');
+           return;
+       }
+
+       if(Utils.isEmpty(attendees)){
+           Utils.error('Atleast one attendee is required');
+           return;
+       }
+
         // first save the meeting
         axios.post('http://localhost:3000/api/meeting', {
-            title : this.state.title,
-            date: this.state.date.format('DD-MMM-YYYY'),
-            time: this.state.time.format('hh:mm a'),
-            location: this.state.location,
+            title : title,
+            date: date.format('DD-MMM-YYYY'),
+            time: time.format('hh:mm a'),
+            location: location,
             owner: 'niti@niti.com',
-            attendees: this.state.attendees,
+            attendees: attendees,
         }).then((response) => {
             console.log('done saving the meeting:', response.data);
 
