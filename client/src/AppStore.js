@@ -43,17 +43,21 @@ function appReducer(state = defaultState, action) {
             return { ...state, location: action.location }; 
         case 'SET_ATTENDEES':
             return { ...state, attendees: [ ...state.attendees, action.attendees ]}; 
+        
         case 'SET_MEETING_TITLE_ERROR':
-            return { ...state, titleError: action.titleError }; 
+            return { ...state, meetingError: { ...state.meetingError, titleError: action.titleError } };
+
         case 'SET_MEETING_DATE_ERROR':
-            return { ...state, dateError: action.dateError }; 
+            return { ...state, meetingError: { ...state.meetingError, dateError: action.dateError } };
+
         case 'SET_MEETING_TIME_ERROR':
-            return { ...state, timeError: action.timeError }; 
+            return { ...state, meetingError: { ...state.meetingError, timeError: action.timeError } };
+
         case 'SET_MEETING_LOCATION_ERROR':
-            return { ...state, locationError: action.locationError }; 
+            return { ...state, meetingError: { ...state.meetingError, locationError: action.locationError } };
+
         case 'SET_MEETING_ATTENDEES_ERROR':
-            return { ...state, attendeesError: [ ...state.attendeesError, action.attendeesError ]}; 
-            
+            return { ...state, meetingError: { ...state.meetingError, attendeesError: action.attendeesError } };            
 
         default:
             return state;

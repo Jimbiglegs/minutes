@@ -10,6 +10,13 @@ const AllAppActions = (dispatch) => ({
         });
     },
 
+    showErrorToast: (toastTitle) => {
+        dispatch({
+            type : 'SHOW_TOAST',
+            toast: { title : toastTitle, level : 'danger' }
+        });
+    },
+
     showToast: (toastTitle, toastLevel) => {
         dispatch({
             type : 'SHOW_TOAST',

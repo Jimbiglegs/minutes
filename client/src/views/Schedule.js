@@ -3,64 +3,24 @@ import Group from '../component/Group';
 import axios from 'axios';
 import Utils from '../Utils';
 import MeetingDetails from '../component/MeetingDetails';
+import { connect } from 'react-redux';
+import * as AllAppActions from './../AppStoreActions';
 
-export default class Schedule extends Component {
+class Schedule extends Component {
 
-    // state = {
-    //     title : null,
-    //     date: null,
-    //     time: null,
-    //     location: null,
-    //     attendees: [],
-
-    //     titleError: false,
-    //     dateError: false,
-    //     timeError: false,
-    //     locationError: false,
-    //     attendeesError: false
-    // }
-
-    onTitleChange = (e) => {
-        this.setState( { title : e.target.value });
-    }
-
-    onDateChange = (e) => {
-        this.setState( { date : e });
-    }
-
-    onTimeChange = (e) => {
-        this.setState( { time : e });
-    }
-
-    onLocationChange = (e) => {
-        this.setState( { location : e.target.value });
-    }
-
-    onAttendeesChange = (attendees) => {
-        this.setState({ attendees: attendees });
-    }
-
-    //post call
     postSchedule = () => {
-        const title = this.state.title;
-        let date = this.state.date;
-        let time = this.state.time;
-        const location = this.state.location;
-        const attendees = this.state.attendees;
+        console.log('schedule post called');
 
-        // reset all errors to false
-        this.setState({
-            titleError: false,
-            dateError: false,
-            timeError: false,
-            locationError: false,
-            attendeesError: false
-        });
-        
+        const title = this.props.meeting.title;
+        let date = this.props.meeting.date;
+        let time = this.props.meeting.time;
+        const location = this.props.meeting.location;
+        const attendees = this.props.meeting.attendees;
+
         // start validation
         if(Utils.isEmpty(title)){
-            Utils.error('Meeting title required');
-            this.setState({ titleError : true });
+            this.props.showErrorToast('Meeting title required');
+            this.props.setMeetingTitleError(true);
             return;
         }
 
@@ -89,9 +49,9 @@ export default class Schedule extends Component {
         }
 
         //format date
-        date = this.state.date.format('DD-MMM-YYYY');
+        date = this.props.meeting.date.format('DD-MMM-YYYY');
         //format time
-        time = this.state.time.format('hh:mm a');
+        time = this.props.meeting.time.format('hh:mm a');
 
         axios.post('http://localhost:3000/api/meeting', {
             title : title,
@@ -136,3 +96,11 @@ export default class Schedule extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {   
+    return {
+        meeting: state.meeting
+    };
+};
+
+export default connect(mapStateToProps, AllAppActions.default)(Schedule);
