@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import IfClause from '../component/IfClause';
+import { connect } from 'react-redux';
+import * as AllAppActions from './../AppStoreActions';
 
-export default class Header extends Component {
+class Header extends Component {
 
     onGoogleSuccess = (userObject) => {
-        this.props.onGoogleAuth(userObject);
+        this.props.setUserProfile(userObject);
     }
 
     onGoogleFailure = (error) => {
@@ -14,14 +16,14 @@ export default class Header extends Component {
     }
 
     onGoogleSignOut = () => {
-        this.props.onGoogleAuth(null);
+        this.props.setUserProfile(null);
     }
 
     render() {      
         return (            
             <header className='mb-auto'>           
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
-                                style={{"background-color":"lightgray"}}>                   
+                                style={{ backgroundColor :"lightgray"}}>                   
                     <a className="navbar-brand" href="#" >
                         <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"60px"}} alt=""></img>
                       MoM
@@ -79,3 +81,13 @@ export default class Header extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    console.log('state in header:', state);
+    
+    return {
+        profile: state.profile
+    };
+};
+
+export default connect(mapStateToProps, AllAppActions.default)(Header);
+  

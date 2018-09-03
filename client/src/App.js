@@ -4,27 +4,9 @@ import MyRoutes from './config/Routes';
 import Group from './component/Group';
 import Footer from './component/Footer';
 import ToastContainer from './containers/ToastContainer';
+import { connect } from 'react-redux';
 
-export default class App extends Component {
-
-  state = {
-    toasts : [],
-
-    googleProfile : null
-  }
-
-  componentDidMount() {
-    document.addEventListener('minutes-toast', this.showToast);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('minutes-toast', this.showToast);
-  }
-
-  setGoogleProfile = (profile) => {
-    this.setState( { googleProfile : profile });
-    console.log('google user object: ', profile);
-  }
+class App extends Component {
 
   showToast = (e) => {
     if(!e) {
@@ -48,19 +30,23 @@ export default class App extends Component {
   render() {
     return (
           <Group>
-            <Header className="page-header" 
-                    onGoogleAuth={ (profile) => this.setGoogleProfile(profile) } 
-                    profile={ this.state.googleProfile } />
-                    
+            <Header className="page-header" />
             <main className="page-body">
               <MyRoutes/>
             </main>
             <Footer />
-            <ToastContainer toasts={ this.state.toasts } />
+            <ToastContainer toasts={ this.props.toasts } />
           </Group>
         
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    profile: state.profile,
+    toasts: state.toasts
+  };
+}
 
+export default connect(mapStateToProps)(App);
