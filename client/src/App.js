@@ -8,25 +8,6 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
-  showToast = (e) => {
-    if(!e) {
-      return;
-    }
-
-    let toast = { title : e.title, level: e.level };
-    let toasts = this.state.toasts;
-    toasts.push(toast);
-    this.setState({ toasts: toasts });
-
-    // settimer to hide this toast after 5 seconds
-    setTimeout(() => {
-      let ts = this.state.toasts;
-      let index = ts.indexOf(toast);
-      ts.splice(index, 1);
-      this.setState({ toasts : ts });
-    }, 5000);
-  }
-
   render() {
     return (
           <Group>
