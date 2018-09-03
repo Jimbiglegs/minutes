@@ -88,6 +88,7 @@ class CreateNotes extends React.Component {
             tasks: tasks
         }).then((response) => {    
             console.log('done saving tasks: ', response.data);
+            
             for(let index = 0; index < tasks.length; index++) {
                 let originalTask = tasks[index];
                 let updatedTask = response.data[index];
@@ -97,6 +98,12 @@ class CreateNotes extends React.Component {
 
             console.log('setting final tasks list as: ', tasks);
             this.setState({ tasks : tasks});
+
+            let event = new Event('minutes-toast');
+            event.title = 'Meeting has been saved.';
+            event.level = 'success';
+
+            document.dispatchEvent(event);
         }).catch((err) => {              
             console.log('Error retured API in saving old meeting notes:', err);
         });
