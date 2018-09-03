@@ -5,6 +5,7 @@ import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import Group from '../component/Group';
 import axios from 'axios';
+import Utils from '../Utils';
 
 export default class Schedule extends Component {
 
@@ -38,18 +39,45 @@ export default class Schedule extends Component {
 
     //post call
     postSchedule = () => {
+         const title = this.state.title;
+         let date = this.state.date;
+         let time = this.state.time;
+         const location = this.state.location;
+         const attendees = this.state.attendees;
 
-    let url = 'http://localhost:3000/api/meeting';
+         console.log(title)
+        
+         if(Utils.isEmpty(title)){
+             Utils.error('Meeting title required');
+             return;
+         }
 
-    console.log('Date from front-end: ', this.state.date);
+         if(Utils.isEmpty(date)){
+            Utils.error('Meeting date required');
+            return;
+        }
+
+        if(Utils.isEmpty(time)){
+            Utils.error('Meeting time required');
+            return;
+        }
+
+        if(Utils.isEmpty(location)){
+            Utils.error('Meeting location required');
+            return;
+        }
+
+        if(Utils.isEmpty(attendees)){
+            Utils.error('Atleast one attendee is required');
+            return;
+        }
 
         //format date
-        let date = this.state.date.format('DD-MMM-YYYY');
-
+        date = this.state.date.format('DD-MMM-YYYY');
         //format time
-        let time = this.state.time.format('hh:mm a');
+        time = this.state.time.format('hh:mm a');
 
-        axios.post(url, {
+        axios.post('http://localhost:3000/api/meeting', {
             title : this.state.title,
             date: date,
             time: time,
@@ -66,6 +94,12 @@ export default class Schedule extends Component {
           document.dispatchEvent(event);
         }).catch((err) => {              
             console.log('Error retured API in posting schedule:', err);
+
+            let event = new Event('minutes-toast');
+            event.title = 'Unable to schedule meeting.';
+            event.level = 'danger';
+
+            document.dispatchEvent(event);
         });
     }      
     
