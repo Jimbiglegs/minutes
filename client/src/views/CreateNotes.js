@@ -1,7 +1,6 @@
 import * as React from 'react';
 import InputTask from '../component/InputTask';
 import TaskDetails from '../component/TaskDetails';
-import Group from '../component/Group';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TagsInput from 'react-tagsinput'
@@ -9,6 +8,7 @@ import 'react-tagsinput/react-tagsinput.css'
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
+import Utils from '../Utils';
 
 class CreateNotes extends React.Component {
     state = {
@@ -81,23 +81,31 @@ class CreateNotes extends React.Component {
     saveMeetingTasks = (meetingID, tasks) => {
         console.log('saving tasks for id: ', meetingID, tasks);
 
+        let tasksToSave = [];
+        for(let index = 0; index < tasks.length; index++) {
+            const task = tasks[index];
+
+            if(Utils.isEmpty(task.title) && Utils.isEmpty(task.topic)) {
+                continue;
+            }
+
+            tasksToSave.push(task);
+        }
+
         let url = 'http://localhost:3000/api/tasks';
         axios.post(url, {
             id: meetingID,
             owner: 'niti@niti.com',
-            tasks: tasks
+            tasks: tasksToSave
         }).then((response) => {    
-            console.log('done saving tasks: ', response.data);
+            let serverTasks = response.data;
+            console.log('done saving tasks: ', serverTasks);
             
-            for(let index = 0; index < tasks.length; index++) {
-                let originalTask = tasks[index];
-                let updatedTask = response.data[index];
-
-                originalTask._id = updatedTask._id;
+            if(serverTasks.length === 0) {
+                serverTasks.push(new TaskDetails());
             }
-
-            console.log('setting final tasks list as: ', tasks);
-            this.setState({ tasks : tasks});
+            
+            this.setState({ tasks : serverTasks});
 
             let event = new Event('minutes-toast');
             event.title = 'Meeting has been saved.';
