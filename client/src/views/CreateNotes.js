@@ -189,15 +189,7 @@ class CreateNotes extends React.Component {
         for(let index = 0; index < tasks.length; index++) {
             let task = tasks[index];
 
-            result.push(<InputTask key={ task._id } 
-                                   task={ task } 
-                                //    onNextTask={ this.addNextTaskIfNeeded }
-                                //    onTitleChange={ (e) => this.updateTask(index, 'title', e.target.value) } 
-                                //    onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
-                                //    onTaskLevelChange={ (e) => this.updateTask(index, 'level', e.target.value) }
-                                //    onDateChange={ (e) => this.updateTask(index, 'due', e) }
-                                //    onAssigneeChange={ (e) => this.updateTask(index, 'due', e) }
-                                   attendees={ [] }  />)
+            result.push(<InputTask key={ task._id } task={ task } />)
         }
 
         return result;
