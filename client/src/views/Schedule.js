@@ -22,31 +22,31 @@ class Schedule extends Component {
 
         // start validation
         if(Utils.isEmpty(title)) {
-            this.props.showErrorToast('Meeting title required');
+            this.props.showToast('Meeting title required', 'danger');
             this.props.setMeetingTitleError(true);
             return;
         }
 
         if(Utils.isEmpty(date)) {
-            this.props.showErrorToast('Meeting date required');
+            this.props.showToast('Meeting date required', 'danger');
             this.props.setMeetingDateError(true);
             return;
         }
 
         if(Utils.isEmpty(time)) {
-            this.props.showErrorToast('Meeting time required');
+            this.props.showToast('Meeting time required', 'danger');
             this.props.setMeetingTimeError(true);
             return;
         }
 
         if(Utils.isEmpty(location)) {
-            this.props.showErrorToast('Meeting location required');
+            this.props.showToast('Meeting location required', 'danger');
             this.props.setMeetingLocationError(true);
             return;
         }
 
         if(Utils.isEmpty(attendees)){
-            this.props.showErrorToast('Atleast one attendee is required');
+            this.props.showToast('Atleast one attendee is required', 'danger');
             this.props.setMeetingAttendeesError(true);
             return;
         }

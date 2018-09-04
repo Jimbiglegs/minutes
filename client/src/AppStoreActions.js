@@ -10,18 +10,21 @@ const AllAppActions = (dispatch) => ({
         });
     },
 
-    showErrorToast: (toastTitle) => {
-        dispatch({
-            type : 'SHOW_TOAST',
-            toast: { title : toastTitle, level : 'danger' }
-        });
-    },
-
     showToast: (toastTitle, toastLevel) => {
+        const myToast = { title : toastTitle, level : toastLevel };
+
         dispatch({
             type : 'SHOW_TOAST',
-            toast: { title : toastTitle, level : toastLevel }
+            toast: myToast
         });
+
+        // schedule for it to be deleted in 5 seconds
+        setTimeout(function() {
+            dispatch({
+                type : 'DELETE_TOAST',
+                toast: myToast
+            });
+        }, 1000);
     },
 
     setMeetingTitle : (title) => {

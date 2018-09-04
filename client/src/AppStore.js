@@ -33,7 +33,10 @@ function appReducer(state = defaultState, action) {
             
         case 'SHOW_TOAST':
             return { ...state, toasts: [ ...state.toasts, action.toast ]};
-        
+
+        case 'DELETE_TOAST':
+            return { ...state, toasts : state.toasts.filter( element => element !== action.toast ) };
+
         case 'SET_TITLE':
             return { ...state, meeting: { ...state.meeting, title: action.title } };
 
