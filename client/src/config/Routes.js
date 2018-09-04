@@ -1,11 +1,14 @@
-import React, { Component }from 'react';
-import {Switch, Route} from 'react-router-dom';
-import  Landing from '../views/Landing';
+import React, { Component } from 'react';
+
+import Landing from '../views/Landing';
 import homepage from '../views/HomePage';
 import Meetings from '../views/Meetings';
 import TaskView from '../views/TaskView';
 import CreateNotes from '../views/CreateNotes';
 import Schedule from '../views/Schedule';
+
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router' // react-router v4
 
 class Routes extends Component{
 
@@ -26,4 +29,11 @@ class Routes extends Component{
     }
 }
 
-export default Routes;
+const mapStateToProps = (state) => {
+    return {
+        profile: state.profile,
+        location: state.router.location.pathname
+    };
+}
+
+export default connect(mapStateToProps)(Routes);
