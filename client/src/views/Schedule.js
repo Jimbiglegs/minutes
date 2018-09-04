@@ -51,15 +51,10 @@ class Schedule extends Component {
             return;
         }
 
-        //format date
-        date = this.props.meeting.date.format('DD-MMM-YYYY');
-        //format time
-        time = this.props.meeting.time.format('hh:mm a');
-
         axios.post('http://localhost:3000/api/meeting', {
             title : title,
-            date: date,
-            time: time,
+            date: this.props.meeting.date.format('DD-MMM-YYYY'),
+            time: this.props.meeting.time.format('hh:mm a'),
             location: location,
             owner: 'niti@niti.com',
             attendees: attendees

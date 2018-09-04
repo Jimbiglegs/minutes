@@ -1,3 +1,5 @@
+import TaskDetails from "./component/TaskDetails";
+
 const defaultState = {
     profile : null,
     toasts: [],
@@ -9,6 +11,7 @@ const defaultState = {
         loaded: false,
         list: []
     },
+    actionTasks: [ new TaskDetails() ],
     //schedule state
     meeting: {
         title : null,
@@ -75,6 +78,36 @@ function appReducer(state = defaultState, action) {
                 locationError: false,
                 attendeesError: false
             } };
+
+        case 'UPDATE_TASK_FIELD':
+            const updatedTasks = state.actionTasks.map(item => {
+                    if(item === action.task) {
+                        if(action.field === 'topic') {
+                            return { ...item, topic : action.value };
+                        }
+                        if(action.field === 'level') {
+                            return { ...item, level : action.value };
+                        }
+                        if(action.field === 'title') {
+                            return { ...item, title : action.value };
+                        }
+                        if(action.field === 'assignee') {
+                            return { ...item, assignee : action.value };
+                        }
+                        if(action.field === 'due') {
+                            return { ...item, due : action.value };
+                        }
+
+                        return item;
+                    }
+
+                    return item;
+                });
+
+            return { ...state, actionTasks : updatedTasks };
+
+        case 'ADD_NEW_ACTION_TASK':
+            return { ...state, actionTasks: [ ...state.actionTasks, new TaskDetails() ] };
             
         default:
             return state;

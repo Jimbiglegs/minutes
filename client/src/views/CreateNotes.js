@@ -1,216 +1,177 @@
 import * as React from 'react';
 import InputTask from '../component/InputTask';
 import TaskDetails from '../component/TaskDetails';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 import Utils from '../Utils';
+import MeetingDetails from '../component/MeetingDetails';
+import { connect } from 'react-redux';
+import * as AllAppActions from './../AppStoreActions';
 
 class CreateNotes extends React.Component {
-    state = {
-        tasks: [ new TaskDetails() ],
-        title : null,
-        date: null,
-        time: null,
-        location:null,
-        attendees: [],
-        editNotesFlag: false,
-        meetingID: null,
-
-        titleError: false,
-        dateError: false,
-        timeError: false,
-        locationError: false,
-        attendeesError: false
-    }
 
     componentDidMount() {
-        if(!(this.props.location && this.props.location.state)) {
-            // no meeting in router
-            return;
-        }
+        // if(!(this.props.location && this.props.location.state)) {
+        //     // no meeting in router
+        //     return;
+        // }
 
-        let meetingPassed = this.props.location.state.meeting;
-        console.log('meeting passed via router: ', meetingPassed);
-        if(!meetingPassed) {
-            // null meeting in router
-            return;
-        }
+        // let meetingPassed = this.props.location.state.meeting;
+        // console.log('meeting passed via router: ', meetingPassed);
+        // if(!meetingPassed) {
+        //     // null meeting in router
+        //     return;
+        // }
 
-        // set meeting details
-        this.setState({ 
-            title : meetingPassed.title,
-            date: moment(meetingPassed.day),
-            time: moment(meetingPassed.time, 'hh:mm a'),
-            location: meetingPassed.location,
-            editNotesFlag: true,
-            meetingID: meetingPassed._id,
-            attendees : meetingPassed.attendees
-        });
+        // // set meeting details
+        // this.setState({ 
+        //     title : meetingPassed.title,
+        //     date: moment(meetingPassed.day),
+        //     time: moment(meetingPassed.time, 'hh:mm a'),
+        //     location: meetingPassed.location,
+        //     editNotesFlag: true,
+        //     meetingID: meetingPassed._id,
+        //     attendees : meetingPassed.attendees
+        // });
 
         // we also need to load data for items
         // that match this meeting
-        axios.get('http://localhost:3000/api/meeting/' + meetingPassed._id + '/tasks')
-            .then((response) => {  
-                let tasksOnServer = response.data;
-                console.log('tasks for this meeting: ', tasksOnServer);
-                if(tasksOnServer.length > 0) {
-                    this.setState( { tasks : tasksOnServer });
-                }
-            }).catch((error) => {
+        // axios.get('http://localhost:3000/api/meeting/' + meetingPassed._id + '/tasks')
+        //     .then((response) => {  
+        //         let tasksOnServer = response.data;
+        //         console.log('tasks for this meeting: ', tasksOnServer);
+        //         if(tasksOnServer.length > 0) {
+        //             this.setState( { tasks : tasksOnServer });
+        //         }
+        //     }).catch((error) => {
 
-            });
+        //     });
     }
 
     saveMeetingNotes = () => {
-        let editNotes = this.state.editNotesFlag;
-        let meetingID = this.state.meetingID;
+        // let editNotes = this.state.editNotesFlag;
+        // let meetingID = this.state.meetingID;
 
-        if  (editNotes && meetingID !== '') {
-            this.saveMeetingTasks(meetingID, this.state.tasks);
-            return;
-        }
+        // if  (editNotes && meetingID !== '') {
+        //     this.saveMeetingTasks(meetingID, this.props.tasks);
+        //     return;
+        // }
 
-        const title = this.state.title;
-        let date = this.state.date;
-        let time = this.state.time;
-        const location = this.state.location;
-        const attendees = this.state.attendees;
+        console.log('save meeting called: ', this.props.meeting);
 
-        // reset all errors to false
-        this.setState({
-            titleError: false,
-            dateError: false,
-            timeError: false,
-            locationError: false,
-            attendeesError: false
-        });
+        const title = this.props.meeting.title;
+        let date = this.props.meeting.date;
+        let time = this.props.meeting.time;
+        const location = this.props.meeting.location;
+        const attendees = this.props.meeting.attendees;
+
+        // reset all error messages
+        this.props.clearMeetingErrors();
 
         // start validation
         if(Utils.isEmpty(title)) {
-            Utils.error('Meeting title required');
-            this.setState({ titleError : true });
+            this.props.showToast('Meeting title required', 'danger');
+            this.props.setMeetingTitleError(true);
             return;
         }
 
         if(Utils.isEmpty(date)) {
-           Utils.error('Meeting date required');
-           this.setState({ dateError : true });
-           return;
-       }
+            this.props.showToast('Meeting date required', 'danger');
+            this.props.setMeetingDateError(true);
+            return;
+        }
 
-       if(Utils.isEmpty(time)) {
-           Utils.error('Meeting time required');
-           this.setState({ timeError : true });
-           return;
-       }
+        if(Utils.isEmpty(time)) {
+            this.props.showToast('Meeting time required', 'danger');
+            this.props.setMeetingTimeError(true);
+            return;
+        }
 
-       if(Utils.isEmpty(location)) {
-           Utils.error('Meeting location required');
-           this.setState({ locationError : true });
-           return;
-       }
+        if(Utils.isEmpty(location)) {
+            this.props.showToast('Meeting location required', 'danger');
+            this.props.setMeetingLocationError(true);
+            return;
+        }
 
-       if(Utils.isEmpty(attendees)) {
-           Utils.error('Atleast one attendee is required');
-           this.setState({ attendeesError : true });
-           return;
-       }
+        if(Utils.isEmpty(attendees)){
+            this.props.showToast('Atleast one attendee is required', 'danger');
+            this.props.setMeetingAttendeesError(true);
+            return;
+        }
 
-        // first save the meeting
-        axios.post('http://localhost:3000/api/meeting', {
-            title : title,
-            date: date.format('DD-MMM-YYYY'),
-            time: time.format('hh:mm a'),
-            location: location,
-            owner: 'niti@niti.com',
-            attendees: attendees,
-        }).then((response) => {
-            console.log('done saving the meeting:', response.data);
+        // // first save the meeting
+        // axios.post('http://localhost:3000/api/meeting', {
+        //     title : title,
+        //     date: date.format('DD-MMM-YYYY'),
+        //     time: time.format('hh:mm a'),
+        //     location: location,
+        //     owner: 'niti@niti.com',
+        //     attendees: attendees,
+        // }).then((response) => {
+        //     console.log('done saving the meeting:', response.data);
 
-            // let's save the tasks
-            let tasks = this.state.tasks;
-            let meetingID = response.data['_id'];
-            console.log('meeting iD is: ', meetingID);
+        //     // let's save the tasks
+        //     let tasks = this.state.tasks;
+        //     let meetingID = response.data['_id'];
+        //     console.log('meeting iD is: ', meetingID);
 
-            for(let index = 0; index < tasks.length; index++) {
-                tasks[index].meetingID = meetingID;
-            }
+        //     for(let index = 0; index < tasks.length; index++) {
+        //         tasks[index].meetingID = meetingID;
+        //     }
             
-            this.setState( { meetingID : meetingID, editNotesFlag : true } );
-            this.saveMeetingTasks(meetingID, tasks);
-        }).catch((err) => {              
-            console.log('Error retured API in saving new meeting notes:', err);
-        });
+        //     this.setState( { meetingID : meetingID, editNotesFlag : true } );
+        //     this.saveMeetingTasks(meetingID, tasks);
+        // }).catch((err) => {              
+        //     console.log('Error retured API in saving new meeting notes:', err);
+        // });
     }
 
     saveMeetingTasks = (meetingID, tasks) => {
-        console.log('saving tasks for id: ', meetingID, tasks);
+        // console.log('saving tasks for id: ', meetingID, tasks);
 
-        let tasksToSave = [];
-        for(let index = 0; index < tasks.length; index++) {
-            const task = tasks[index];
+        // let tasksToSave = [];
+        // for(let index = 0; index < tasks.length; index++) {
+        //     const task = tasks[index];
 
-            if(Utils.isEmpty(task.title) && Utils.isEmpty(task.topic)) {
-                continue;
-            }
+        //     if(Utils.isEmpty(task.title) && Utils.isEmpty(task.topic)) {
+        //         continue;
+        //     }
 
-            tasksToSave.push(task);
-        }
+        //     tasksToSave.push(task);
+        // }
 
-        let url = 'http://localhost:3000/api/tasks';
-        axios.post(url, {
-            id: meetingID,
-            owner: 'niti@niti.com',
-            tasks: tasksToSave
-        }).then((response) => {    
-            let serverTasks = response.data;
-            console.log('done saving tasks: ', serverTasks);
+        // let url = 'http://localhost:3000/api/tasks';
+        // axios.post(url, {
+        //     id: meetingID,
+        //     owner: 'niti@niti.com',
+        //     tasks: tasksToSave
+        // }).then((response) => {    
+        //     let serverTasks = response.data;
+        //     console.log('done saving tasks: ', serverTasks);
             
-            if(serverTasks.length === 0) {
-                serverTasks.push(new TaskDetails());
-            }
+        //     if(serverTasks.length === 0) {
+        //         serverTasks.push(new TaskDetails());
+        //     }
             
-            this.setState({ tasks : serverTasks});
+        //     this.setState({ tasks : serverTasks});
 
-            let event = new Event('minutes-toast');
-            event.title = 'Meeting has been saved.';
-            event.level = 'success';
+        //     let event = new Event('minutes-toast');
+        //     event.title = 'Meeting has been saved.';
+        //     event.level = 'success';
 
-            document.dispatchEvent(event);
-        }).catch((err) => {              
-            console.log('Error retured API in saving old meeting notes:', err);
-        });
+        //     document.dispatchEvent(event);
+        // }).catch((err) => {              
+        //     console.log('Error retured API in saving old meeting notes:', err);
+        // });
     }
 
-    onTitleChange = (e) => {
-        this.setState( { title : e.target.value });
-    }
-
-    onDateChange = (e) => {
-        this.setState( { date : e });
-    }
-
-    onTimeChange = (e) => {
-        this.setState( { time : e });
-    }
-
-    onAttendeesChange = (attendees) => {
-        this.setState({ attendees: attendees });
-    }
-    
     addNextTaskIfNeeded = () => {
         let tasks = this.state.tasks;
         tasks.push(new TaskDetails());
         this.setState({ tasks: tasks });
-    }
-
-    onLocationChange = (e) => {
-        this.setState( { location : e.target.value });
     }
 
     updateTask = (index, field, value) => {
@@ -221,21 +182,22 @@ class CreateNotes extends React.Component {
         this.setState({ tasks : tasks });
     }
 
-
     renderTaskDetails = () => {
         let result = [];
-        let tasks = this.state.tasks;
+        let tasks = this.props.tasks;
 
         for(let index = 0; index < tasks.length; index++) {
             let task = tasks[index];
 
-            result.push(<InputTask key={ task._id } onNextTask={ this.addNextTaskIfNeeded } task={ task } 
-                                   onTitleChange={ (e) => this.updateTask(index, 'title', e.target.value) } 
-                                   onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
-                                   onTaskLevelChange={ (e) => this.updateTask(index, 'level', e.target.value) }
-                                   onDateChange={ (e) => this.updateTask(index, 'due', e) }
-                                   onAssigneeChange={ (e) => this.updateTask(index, 'due', e) }
-                                   attendees={this.state.attendees}  />)
+            result.push(<InputTask key={ task._id } 
+                                   task={ task } 
+                                //    onNextTask={ this.addNextTaskIfNeeded }
+                                //    onTitleChange={ (e) => this.updateTask(index, 'title', e.target.value) } 
+                                //    onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
+                                //    onTaskLevelChange={ (e) => this.updateTask(index, 'level', e.target.value) }
+                                //    onDateChange={ (e) => this.updateTask(index, 'due', e) }
+                                //    onAssigneeChange={ (e) => this.updateTask(index, 'due', e) }
+                                   attendees={ [] }  />)
         }
 
         return result;
@@ -243,57 +205,8 @@ class CreateNotes extends React.Component {
 
 
     render() {
-        return <form >
-            <div className='form-row'>
-                <div className="form-group col">
-                    <label for="meetingTitle">Meeting Title</label>
-                    <input type="text" 
-                            className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') }
-                            id="meetingTitle" placeholder="My Meeting" 
-                            onChange={ this.onTitleChange } 
-                            value={ this.state.title } 
-                            disabled={ this.state.editNotesFlag} />
-                </div>
-            </div>
-            <div className='form-row'>
-                <div class="form-group col">
-                    <label for="meetingDate">Meeting Date</label>
-                    <DatePicker selected={ this.state.date } 
-                                onChange={ this.onDateChange } 
-                                openToDate={this.state.date } 
-                                disabled={ this.state.editNotesFlag}
-                                className={ this.state.dateError ? 'is-invalid' : '' } />
-                </div>
-                <div class="form-group col">
-                    <label for="meetingTime">Meeting Time</label>
-                    <DatePicker selected={ this.state.time } 
-                                onChange={ this.onTimeChange }
-                                showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
-                                dateFormat="LT" timeCaption="Time" 
-                                value={ this.state.time } 
-                                disabled={ this.state.editNotesFlag}
-                                className={ this.state.timeError ? 'is-invalid' : '' } />
-                </div>                
-                <div class="form-group col">
-                    <label for="meetingLocation">Meeting Location</label>
-                    <input type="text" class="form-control" id="meetingLocation" 
-                           onChange={ this.onLocationChange } 
-                           value={ this.state.location }
-                           className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') }
-                           disabled={ this.state.editNotesFlag} />
-                </div>                                     
-                
-            </div>
-            <div className='form-row'>
-                <div class="form-group col">
-                    <label for="meetingAttendees">Meeting Attendees</label>
-                    <TagsInput value={ this.state.attendees } 
-                               onChange={ this.onAttendeesChange }
-                               className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
-                               disabled={ this.state.editNotesFlag} 
-                               inputProps={ { placeholder : 'Email' } }/>
-                </div>
-            </div>
+        return <form className='container-fluid'>
+            <MeetingDetails />
 
             <h3>Action Items</h3>
             <div class='action-items'>
@@ -311,6 +224,11 @@ class CreateNotes extends React.Component {
     }
 }
 
-const MNotes = withRouter(CreateNotes);
+const mapStateToProps = (state) => {   
+    return {
+        meeting: state.meeting,
+        tasks: state.actionTasks
+    };
+};
 
-export default MNotes;
+export default connect(mapStateToProps, AllAppActions.default)(CreateNotes);

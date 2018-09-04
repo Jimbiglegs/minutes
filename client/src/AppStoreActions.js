@@ -101,6 +101,21 @@ const AllAppActions = (dispatch) => ({
         dispatch({
             type: 'CLEAR_MEETING_ERRORS'
         });
+    },
+
+    updateTaskField : (task, field, value) => {
+        dispatch({
+            type: 'UPDATE_TASK_FIELD',
+            task: task,
+            field: field,
+            value: value
+        });
+    },
+
+    addNewActionTask : () => {
+        dispatch({
+            type: 'ADD_NEW_ACTION_TASK'
+        })
     }
 
 });
