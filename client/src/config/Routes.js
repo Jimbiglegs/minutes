@@ -16,49 +16,49 @@ class Routes extends Component{
         return <Switch>
             <Route exact path="/" component={ Landing } />
             <Route exact path="/home" render={ () => {
-                    if(!this.props.user) {
+                    if(!this.props.profile) {
                         this.props.history.push('/');
                         return null;
                     }                   
                     return <HomePage />
                 } } />
             <Route exact path="/meetings" render={ () => {
-                    if(!this.props.user) {
+                    if(!this.props.profile) {
                         this.props.history.push('/');
                         return null;
                     }                   
                     return <Meetings />
                 } } />
             <Route exact path="/tasks" render={ () => {
-                    if(!this.props.user) {
+                    if(!this.props.profile) {
                         this.props.history.push('/');
                         return null;
                     }                   
                     return <TaskView />
                 } } />
             <Route exact path="/teams" render={ () => {
-                    if(!this.props.user) {
+                    if(!this.props.profile) {
                         this.props.history.push('/');
                         return null;
                     }                   
                     return <TeamsView />
                 } } />
             <Route exact path="/adhocMeeting" render={ () => {
-                if(!this.props.user) {
+                if(!this.props.profile) {
                     this.props.history.push('/');
                     return null;
                 } 
                 return <CreateNotes key='adhoc' />
             } } />
             <Route exact path="/createNotes" render={ () => {
-                if(!this.props.user) {
+                if(!this.props.profile) {
                     this.props.history.push('/');
                     return null;
                 }                 
                 return <CreateNotes key='create' />
             } } />
             <Route exact path="/scheduleMeeting" render={ () => {
-                if(!this.props.user) {
+                if(!this.props.profile) {
                     this.props.history.push('/');
                     return null;
                 }                 
