@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{Component} from 'react';
 import Group from '../component/Group';
 import TeamList from '../containers/TeamList';
 
