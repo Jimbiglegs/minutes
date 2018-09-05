@@ -37,13 +37,12 @@ class CreateNotes extends React.Component {
     }
 
     saveMeetingNotes = () => {
-        // let editNotes = this.state.editNotesFlag;
-        // let meetingID = this.state.meetingID;
-
-        // if  (editNotes && meetingID !== '') {
-        //     this.saveMeetingTasks(meetingID, this.props.tasks);
-        //     return;
-        // }
+        let meetingID = this.props.meeting._id;
+        if(!Utils.isEmpty(meetingID)) {
+            console.log('meeting already exists');
+            this.saveMeetingTasks(meetingID, this.props.tasks);
+            return;
+        }
 
         console.log('save meeting called: ', this.props.meeting);
 
@@ -115,42 +114,33 @@ class CreateNotes extends React.Component {
     }
 
     saveMeetingTasks = (meetingID, tasks) => {
-        // console.log('saving tasks for id: ', meetingID, tasks);
+        console.log('saving tasks for id: ', meetingID, tasks);
 
-        // let tasksToSave = [];
-        // for(let index = 0; index < tasks.length; index++) {
-        //     const task = tasks[index];
+        let tasksToSave = [];
+        for(let index = 0; index < tasks.length; index++) {
+            const task = tasks[index];
 
-        //     if(Utils.isEmpty(task.title) && Utils.isEmpty(task.topic)) {
-        //         continue;
-        //     }
+            if(Utils.isEmpty(task.title) && Utils.isEmpty(task.topic)) {
+                continue;
+            }
 
-        //     tasksToSave.push(task);
-        // }
+            tasksToSave.push(task);
+        }
 
-        // let url = 'http://localhost:3000/api/tasks';
-        // axios.post(url, {
-        //     id: meetingID,
-        //     owner: 'niti@niti.com',
-        //     tasks: tasksToSave
-        // }).then((response) => {    
-        //     let serverTasks = response.data;
-        //     console.log('done saving tasks: ', serverTasks);
-            
-        //     if(serverTasks.length === 0) {
-        //         serverTasks.push(new TaskDetails());
-        //     }
-            
-        //     this.setState({ tasks : serverTasks});
-
-        //     let event = new Event('minutes-toast');
-        //     event.title = 'Meeting has been saved.';
-        //     event.level = 'success';
-
-        //     document.dispatchEvent(event);
-        // }).catch((err) => {              
-        //     console.log('Error retured API in saving old meeting notes:', err);
-        // });
+        let url = 'http://localhost:3000/api/tasks';
+        axios.post(url, {
+            id: meetingID,
+            owner: 'niti@niti.com',
+            tasks: tasksToSave
+        }).then((response) => {    
+            let serverTasks = response.data;
+            console.log('done saving tasks: ', serverTasks);            
+            this.props.setActionTasks(serverTasks);
+            this.props.showToast('Meeting notes updated.', 'success');
+        }).catch((err) => {              
+            console.log('Error retured API in saving old meeting notes:', err);
+            this.props.showToast('Unable to save meeting notes.', 'danger');
+        });
     }
 
     addNextTaskIfNeeded = () => {
