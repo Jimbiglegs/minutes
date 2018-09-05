@@ -6,6 +6,8 @@ import Meetings from '../views/Meetings';
 import TaskView from '../views/TaskView';
 import CreateNotes from '../views/CreateNotes';
 import Schedule from '../views/Schedule';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class Routes extends Component{
 
@@ -26,4 +28,11 @@ class Routes extends Component{
     }
 }
 
-export default Routes;
+const mapStateToProps = (state) => {
+    return {
+      profile: state.profile,
+      location: state.router.location.pathname
+    };
+  }
+  
+  export default connect(mapStateToProps)(withRouter(Routes));

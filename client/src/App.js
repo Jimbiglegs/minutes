@@ -26,7 +26,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.profile,
-    toasts: state.toasts
+    toasts: state.toasts,
+    location: state.router.location.pathname
   };
 }
 
