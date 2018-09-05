@@ -3,32 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { BrowserRouter, ConnectedRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import appReducer from './AppStore';
 
-import { createBrowserHistory } from 'history';
-import { applyMiddleware, compose, createStore } from 'redux';
-import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-react-router';
-
-const history = createBrowserHistory();
-
-const appStore = createStore(
-    connectRouter(history)(appReducer), // new root reducer with router state
-    compose(
-      applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
-        // ... other middlewares ...
-      ),
-    ),
-)
-
-// const appStore = createStore(appReducer)
+const appStore = createStore(appReducer)
 
 ReactDOM.render((
     <Provider store={ appStore }>
-        <ConnectedRouter history={ history }>
+        <BrowserRouter>
             <App />
-        </ConnectedRouter>
+        </BrowserRouter>
     </Provider>
 ), document.body);
 

@@ -8,11 +8,7 @@ import * as AllAppActions from './../AppStoreActions';
 class Header extends Component {
 
     onGoogleSuccess = (userObject) => {
-        // set in memory
         this.props.setUserProfile(userObject);
-        
-        // set in local store
-        localStorage.setItem('profile', JSON.stringify(userObject));
     }
 
     onGoogleFailure = (error) => {
@@ -21,9 +17,6 @@ class Header extends Component {
 
     onGoogleSignOut = () => {
         this.props.setUserProfile(null);
-
-        // remove from local storage
-        localStorage.removeItem('profile');
     }
 
     render() {      
@@ -89,6 +82,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('state in header:', state);
+    
     return {
         profile: state.profile
     };
