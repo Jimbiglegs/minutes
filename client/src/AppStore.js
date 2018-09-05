@@ -17,7 +17,7 @@ function appReducer(state = defaultState, action) {
             return { ...state, profile: action.profile };
             
         case 'SHOW_TOAST':
-            return { ...state, toasts: [ ...state.toasts, action.toast ]};
+            return { ...state, toasts: [ ...state.toasts, action.newToast ]};
             
         default:
             return state;

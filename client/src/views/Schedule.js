@@ -6,8 +6,10 @@ import 'react-tagsinput/react-tagsinput.css'
 import Group from '../component/Group';
 import axios from 'axios';
 import Utils from '../Utils';
+import { connect } from 'react-redux';
+import * as AppStoreActions from './../AppStoreActions';
 
-export default class Schedule extends Component {
+class Schedule extends Component {
 
     state = {
         title : null,
@@ -62,31 +64,31 @@ export default class Schedule extends Component {
         
         // start validation
         if(Utils.isEmpty(title)){
-            Utils.error('Meeting title required');
+            this.props.showToast('Meeting title required', 'danger');
             this.setState({ titleError : true });
             return;
         }
 
         if(Utils.isEmpty(date)) {
-            Utils.error('Meeting date required');
+            this.props.showToast('Meeting date required', 'danger');
             this.setState({ dateError : true });
             return;
         }
 
         if(Utils.isEmpty(time)) {
-            Utils.error('Meeting time required');
+            this.props.showToast('Meeting time required', 'danger');
             this.setState({ timeError : true });
             return;
         }
 
         if(Utils.isEmpty(location)) {
-            Utils.error('Meeting location required');
+            this.props.showToast('Meeting location required', 'danger');
             this.setState({ locationError : true });
             return;
         }
 
         if(Utils.isEmpty(attendees)){
-            Utils.error('Atleast one attendee is required');
+            this.props.showToast('Atleast one attendee is required', 'danger');
             this.setState({ attendeesError : true });
             return;
         }
@@ -172,3 +174,11 @@ export default class Schedule extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+      profile: state.profile
+    };
+}
+  
+export default connect(mapStateToProps, AppStoreActions.default)(Schedule);
