@@ -29,7 +29,7 @@ class UpcomingMeetingList extends Component{
         let result = [];
         for(let index = 0; index < meetings.length; index++) {
             let meeting = meetings[index];
-            result.push(<tr>
+            result.push(<tr key={ meeting._id }>
                 <td>{ meeting.title }</td>
                 <td>{ meeting.day }</td>
                 <td>{ meeting.time }</td>

@@ -28,7 +28,7 @@ export default class TaskLists extends Component {
         let result = [];
         for(let index = 0; index < tasks.length; index++) {
             let task = tasks[index];
-            result.push(<tr>
+            result.push(<tr key={ task._id }>
                 <td>{ task.topic }</td>
                 <td>{ task.level }</td>
                 <td>{ task.title }</td>
