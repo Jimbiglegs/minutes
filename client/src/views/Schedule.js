@@ -9,6 +9,7 @@ import Utils from '../Utils';
 import { connect } from 'react-redux';
 import * as AppStoreActions from './../AppStoreActions';
 import { withRouter } from 'react-router-dom';
+import IfClause from '../component/IfClause';
 
 class Schedule extends Component {
 
@@ -23,7 +24,19 @@ class Schedule extends Component {
         dateError: false,
         timeError: false,
         locationError: false,
-        attendeesError: false
+        attendeesError: false,
+
+        teams: []
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:3000/api/teams?owner=' + this.props.profile.profileObj.email)
+            .then((response) => {
+                console.log('Tasks retrieved from database : ', response)
+                this.setState({ teams : response.data });
+            }).catch((e) => {
+                console.log('error fetching meetings', e);
+            });    
     }
 
     onTitleChange = (e) => {
@@ -116,7 +129,31 @@ class Schedule extends Component {
         });
     }      
     
+    getTeamsAsButtons = () => {
+        let result = [];
+        for(let index = 0; index < this.state.teams.length; index++) {
+            let team = this.state.teams[index];
 
+            result.push(<button type='button' className='btn-sm btn btn-primary' onClick={ (e) => { this.addTeamMembers(team) } }>{ team.name }</button>);
+        }
+
+        return result;
+    }
+
+    addTeamMembers = (team) => {
+        if(!team) {
+            return;
+        }
+
+        let attendees = this.state.attendees;
+        let members = team.members;
+        if(members && members.length > 0) {
+            let merged = attendees.concat(members);
+            this.setState({ attendees : merged});
+        }
+
+        return false;
+    }
     
     render() {
         return <Group>
@@ -153,6 +190,11 @@ class Schedule extends Component {
                         <TagsInput value={ this.state.attendees }
                                    className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
                                    onChange={ this.onAttendeesChange } />
+                        
+                        <IfClause condition={ this.state.teams.length > 0 }>
+                            <br />
+                            Available teams: { this.getTeamsAsButtons() }
+                        </IfClause>
                     </div>
                 </div>
 
