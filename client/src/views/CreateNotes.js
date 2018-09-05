@@ -11,6 +11,7 @@ import Utils from '../Utils';
 import { connect } from 'react-redux';
 import * as AppStoreActions from './../AppStoreActions';
 import { withRouter } from 'react-router-dom';
+import IfClause from '../component/IfClause';
 
 class CreateNotes extends React.Component {
     state = {
@@ -27,12 +28,21 @@ class CreateNotes extends React.Component {
         dateError: false,
         timeError: false,
         locationError: false,
-        attendeesError: false
+        attendeesError: false,
+
+        teams: []
     }
 
     componentDidMount() {
         if(!(this.props.location && this.props.location.state)) {
             // no meeting in router
+            axios.get('http://localhost:3000/api/teams?owner=' + this.props.profile.profileObj.email)
+                .then((response) => {
+                    console.log('Tasks retrieved from database : ', response)
+                    this.setState({ teams : response.data });
+                }).catch((e) => {
+                    console.log('error fetching meetings', e);
+                });
             return;
         }
 
@@ -243,6 +253,31 @@ class CreateNotes extends React.Component {
         return result;
     }
 
+    getTeamsAsButtons = () => {
+        let result = [];
+        for(let index = 0; index < this.state.teams.length; index++) {
+            let team = this.state.teams[index];
+
+            result.push(<button type='button' className='btn-sm btn btn-primary' onClick={ (e) => { this.addTeamMembers(team) } }>{ team.name }</button>);
+        }
+
+        return result;
+    }
+
+    addTeamMembers = (team) => {
+        if(!team) {
+            return;
+        }
+
+        let attendees = this.state.attendees;
+        let members = team.members;
+        if(members && members.length > 0) {
+            let merged = attendees.concat(members);
+            this.setState({ attendees : merged});
+        }
+
+        return false;
+    }
 
     render() {
         return <form >
@@ -294,6 +329,10 @@ class CreateNotes extends React.Component {
                                className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
                                disabled={ this.state.editNotesFlag} 
                                inputProps={ { placeholder : 'Email' } }/>
+                    <IfClause condition={ this.state.teams.length > 0 }>
+                        <br />
+                        Available teams: { this.getTeamsAsButtons() }
+                    </IfClause>
                 </div>
             </div>
 
