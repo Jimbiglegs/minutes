@@ -5,10 +5,12 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
-import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 import Utils from '../Utils';
+import { connect } from 'react-redux';
+import * as AppStoreActions from './../AppStoreActions';
+import { withRouter } from 'react-router-dom';
 
 class CreateNotes extends React.Component {
     state = {
@@ -92,31 +94,31 @@ class CreateNotes extends React.Component {
 
         // start validation
         if(Utils.isEmpty(title)) {
-            Utils.error('Meeting title required');
+            this.props.showToast('Meeting title required', 'danger');
             this.setState({ titleError : true });
             return;
         }
 
         if(Utils.isEmpty(date)) {
-           Utils.error('Meeting date required');
+            this.props.showToast('Meeting date required', 'danger');
            this.setState({ dateError : true });
            return;
        }
 
        if(Utils.isEmpty(time)) {
-           Utils.error('Meeting time required');
+            this.props.showToast('Meeting time required', 'danger');
            this.setState({ timeError : true });
            return;
        }
 
        if(Utils.isEmpty(location)) {
-           Utils.error('Meeting location required');
+            this.props.showToast('Meeting location required', 'danger');
            this.setState({ locationError : true });
            return;
        }
 
        if(Utils.isEmpty(attendees)) {
-           Utils.error('Atleast one attendee is required');
+            this.props.showToast('Atleast one attendee is required', 'danger');
            this.setState({ attendeesError : true });
            return;
        }
@@ -135,7 +137,7 @@ class CreateNotes extends React.Component {
             // let's save the tasks
             let tasks = this.state.tasks;
             let meetingID = response.data['_id'];
-            console.log('meeting iD is: ', meetingID);
+            console.log('meeting ID is: ', meetingID);
 
             for(let index = 0; index < tasks.length; index++) {
                 tasks[index].meetingID = meetingID;
@@ -311,6 +313,10 @@ class CreateNotes extends React.Component {
     }
 }
 
-const MNotes = withRouter(CreateNotes);
-
-export default MNotes;
+const mapStateToProps = (state) => {
+    return {
+      profile: state.profile
+    };
+}
+  
+export default connect(mapStateToProps, AppStoreActions.default)(withRouter(CreateNotes));
