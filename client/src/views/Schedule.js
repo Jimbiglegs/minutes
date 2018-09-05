@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import TagsInput from 'react-tagsinput'
-import 'react-tagsinput/react-tagsinput.css'
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css';
 import Group from '../component/Group';
 import axios from 'axios';
 import Utils from '../Utils';
@@ -104,7 +104,7 @@ class Schedule extends Component {
             date: date,
             time: time,
             location: location,
-            owner: 'niti@niti.com',
+            owner: this.props.profile.profileObj.email,
             attendees: attendees
         }).then((data) => {    
           console.log('sending data: ', data);

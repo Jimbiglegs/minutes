@@ -9,6 +9,7 @@ import Schedule from '../views/Schedule';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TeamsView from '../views/TeamsView';
+import CreateTeam from '../component/CreateTeam';
 
 class Routes extends Component{
 
@@ -41,7 +42,7 @@ class Routes extends Component{
                         this.props.history.push('/');
                         return null;
                     }                   
-                    return <TeamsView />
+                    return <CreateTeam />
                 } } />
             <Route exact path="/adhocMeeting" render={ () => {
                 if(!this.props.profile) {
