@@ -19,9 +19,9 @@ function getTeams(request, response) {
 }
 
 function addTeam(request, response) {
-    let name = request.body.title;
-    let owner = request.body.date;
-    let members = request.body.time;
+    let name = request.body.name;
+    let owner = request.body.owner;
+    let members = request.body.members;
 
     let team = {
         name : name,
@@ -29,7 +29,9 @@ function addTeam(request, response) {
         members : members
     }
 
-    database.Meeting.create(schedule, function (error, savedTeam) {
+    console.log('team to save:', team);
+
+    database.Team.create(team, function (error, savedTeam) {
         if(error) {
             console.log('unable to save team');
             response.status(500).send('error saving team');

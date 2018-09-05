@@ -3,8 +3,11 @@ import Group from '../component/Group';
 import TagsInput from 'react-tagsinput';
 import axios from 'axios';
 import Utils from '../Utils';
+import { connect } from 'react-redux';
+import * as AppStoreActions from './../AppStoreActions';
+import { withRouter } from 'react-router-dom';
 
-export default class CreateTeam extends Component {
+class CreateTeam extends Component {
 
     state = {
         teamName : null,
@@ -53,7 +56,7 @@ export default class CreateTeam extends Component {
         }).then((data) => {    
           console.log('sending data: ', data);
           this.props.showToast('Team has been added.', 'success');
-          this.props.history.push('/home');
+        //   this.props.history.push('/home');
         }).catch((err) => {              
             console.log('Error retured API in adding Team:', err);
             this.props.showToast('Unable to add team..', 'danger')
@@ -89,3 +92,12 @@ export default class CreateTeam extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+      profile: state.profile,
+      toasts: state.toasts
+    };
+}
+  
+export default connect(mapStateToProps, AppStoreActions.default)(withRouter(CreateTeam));
