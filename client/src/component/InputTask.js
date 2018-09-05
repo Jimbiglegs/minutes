@@ -28,11 +28,11 @@ export default class InputTask extends Component {
     render() {
         return <div className={'form-row task-level-' + this.props.task.level}>
             <div className="form-group col-md-1">
-                <input type="text" class="form-control" name="taskTopic" 
+                <input type="text" className="form-control" name="taskTopic" 
                        placeholder="Add Topic" onChange={ this.props.onTopicChange } />
             </div>
             <div className='form-group col-md-1'>
-                <select class="custom-select mb-3" name='taskType' onChange={ this.props.onTaskLevelChange }>
+                <select className="custom-select mb-3" name='taskType' onChange={ this.props.onTaskLevelChange }>
                     <option value="agenda">Agenda</option>
                     <option value="decision">Decision</option>
                     <option value="done">Done</option>
@@ -42,7 +42,7 @@ export default class InputTask extends Component {
                 </select>
             </div>
             <div className="form-group col">
-                <input type="text" class="form-control" name="taskTitle" placeholder="Note" 
+                <input type="text" className="form-control" name="taskTitle" placeholder="Note" 
                        value={ this.props.task.title } onChange={ this.props.onTitleChange }/>
             </div>
             <div className="form-group col-md-1">

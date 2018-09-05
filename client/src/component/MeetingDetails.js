@@ -32,7 +32,7 @@ class MeetingDetails extends Component {
     render() {
         return <Group>
             <div className='form-row'>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingTitle">Meeting Title</label>
                     <input type="text" 
                             className={ "form-control " + (this.props.meetingError.titleError ? 'is-invalid' : '') }
@@ -42,13 +42,13 @@ class MeetingDetails extends Component {
                 </div>
             </div>
             <div className='form-row'>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingDate">Meeting Date</label>
                     <DatePicker selected={ this.props.meeting.date } 
                                 onChange={ this.onDateChange } 
                                 className={ this.props.meetingError.dateError ? 'is-invalid' : '' } />
                 </div>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingTime">Meeting Time</label>
                     <DatePicker selected={ this.props.meeting.time } 
                                 onChange={ this.onTimeChange }
@@ -56,7 +56,7 @@ class MeetingDetails extends Component {
                                 dateFormat="LT" timeCaption="Time"
                                 className={ this.props.meetingError.timeError ? 'is-invalid' : '' }  />
                 </div>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingLocation">Meeting Location</label>
                     <input type="text" 
                            className={ "form-control " + (this.props.meetingError.locationError ? 'is-invalid' : '') } 
@@ -65,7 +65,7 @@ class MeetingDetails extends Component {
                 </div>                    
             </div>
             <div className='form-row'>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingAttendees">Meeting Attendees</label>
                     <TagsInput value={ this.props.meeting.attendees }
                             className={ 'react-tagsinput ' + (this.props.meetingError.attendeesError ? 'is-invalid' : '') }

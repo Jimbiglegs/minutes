@@ -35,7 +35,7 @@ class UpcomingMeetingList extends Component{
                 <td>{ meeting.time }</td>
                 <td>{ meeting.location }</td> 
                 <td>
-                    <button class='btn btn-primary' onClick={ (e) => { this.editMeeting(meeting) } }>Edit Meeting</button>
+                    <button className='btn btn-primary' onClick={ (e) => { this.editMeeting(meeting) } }>Edit Meeting</button>
                 </td>
                 </tr>
                 );

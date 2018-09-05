@@ -26,7 +26,7 @@ class ToastContainer extends Component {
             return null;
         }
 
-        return <div class='toast-container'>
+        return <div className='toast-container'>
             { this.getToasts() }
         </div>;
     }

@@ -258,7 +258,7 @@ class CreateNotes extends React.Component {
                 </div>
             </div>
             <div className='form-row'>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingDate">Meeting Date</label>
                     <DatePicker selected={ this.state.date } 
                                 onChange={ this.onDateChange } 
@@ -266,7 +266,7 @@ class CreateNotes extends React.Component {
                                 disabled={ this.state.editNotesFlag}
                                 className={ this.state.dateError ? 'is-invalid' : '' } />
                 </div>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingTime">Meeting Time</label>
                     <DatePicker selected={ this.state.time } 
                                 onChange={ this.onTimeChange }
@@ -276,9 +276,9 @@ class CreateNotes extends React.Component {
                                 disabled={ this.state.editNotesFlag}
                                 className={ this.state.timeError ? 'is-invalid' : '' } />
                 </div>                
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingLocation">Meeting Location</label>
-                    <input type="text" class="form-control" id="meetingLocation" 
+                    <input type="text" className="form-control" id="meetingLocation" 
                            onChange={ this.onLocationChange } 
                            value={ this.state.location }
                            className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') }
@@ -287,7 +287,7 @@ class CreateNotes extends React.Component {
                 
             </div>
             <div className='form-row'>
-                <div class="form-group col">
+                <div className="form-group col">
                     <label for="meetingAttendees">Meeting Attendees</label>
                     <TagsInput value={ this.state.attendees } 
                                onChange={ this.onAttendeesChange }
@@ -298,12 +298,12 @@ class CreateNotes extends React.Component {
             </div>
 
             <h3>Action Items</h3>
-            <div class='action-items'>
+            <div className='action-items'>
                 { this.renderTaskDetails() }
             </div>
 
-            <div class='form-row'>
-                <div class='form-group col text-right'>
+            <div className='form-row'>
+                <div className='form-group col text-right'>
                     <button type="button" className='btn btn-primary' onClick={this.saveMeetingNotes}>Save</button>
                     &nbsp;
                     <button type="button" className='btn btn-success'>Publish</button>

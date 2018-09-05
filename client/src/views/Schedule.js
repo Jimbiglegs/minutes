@@ -122,33 +122,33 @@ class Schedule extends Component {
         return <Group>
             <form className='container-fluid'>
                 <div className='form-row'>
-                    <div class="form-group col">
+                    <div className="form-group col">
                         <label for="meetingTitle">Meeting Title</label>
                         <input type="text" className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') } id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
                     </div>
                 </div>
                 <div className='form-row'>
-                    <div class="form-group col">
+                    <div className="form-group col">
                         <label for="meetingDate">Meeting Date</label>
                         <DatePicker selected={ this.state.date } 
                                     onChange={ this.onDateChange } 
                                     className={ this.state.dateError ? 'is-invalid' : '' } />
                     </div>
-                    <div class="form-group col">
+                    <div className="form-group col">
                         <label for="meetingTime">Meeting Time</label>
                         <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
                                     showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
                                     dateFormat="LT" timeCaption="Time"
                                     className={ this.state.timeError ? 'is-invalid' : '' }  />
                     </div>
-                    <div class="form-group col">
+                    <div className="form-group col">
                         <label for="meetingLocation">Meeting Location</label>
                         <input type="text" className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
                                id="meetingLocation" onChange={ this.onLocationChange }/>
                     </div>                    
                 </div>
                 <div className='form-row'>
-                    <div class="form-group col">
+                    <div className="form-group col">
                         <label for="meetingAttendees">Meeting Attendees</label>
                         <TagsInput value={ this.state.attendees }
                                    className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
@@ -156,8 +156,8 @@ class Schedule extends Component {
                     </div>
                 </div>
 
-                <div class='form-row'>
-                    <div class='form-group col text-right'>
+                <div className='form-row'>
+                    <div className='form-group col text-right'>
                         <button type="button" className='btn btn-primary' onClick={this.postSchedule}>Schedule</button>
                     </div>
                 </div>
