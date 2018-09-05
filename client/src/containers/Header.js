@@ -4,11 +4,14 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import IfClause from '../component/IfClause';
 import { connect } from 'react-redux';
 import * as AllAppActions from './../AppStoreActions';
+import { withRouter } from 'react-router-dom';
+
 
 class Header extends Component {
 
     onGoogleSuccess = (userObject) => {
         this.props.setUserProfile(userObject);
+        this.props.history.push('/home');
 
         // save in local store
         localStorage.setItem('profile', JSON.stringify(userObject));
@@ -98,5 +101,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, AllAppActions.default)(Header);
+export default connect(mapStateToProps, AllAppActions.default)(withRouter(Header));
   
