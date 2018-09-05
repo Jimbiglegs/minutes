@@ -14,41 +14,23 @@ import * as AllAppActions from './../AppStoreActions';
 class CreateNotes extends React.Component {
 
     componentDidMount() {
-        // if(!(this.props.location && this.props.location.state)) {
-        //     // no meeting in router
-        //     return;
-        // }
-
-        // let meetingPassed = this.props.location.state.meeting;
-        // console.log('meeting passed via router: ', meetingPassed);
-        // if(!meetingPassed) {
-        //     // null meeting in router
-        //     return;
-        // }
-
-        // // set meeting details
-        // this.setState({ 
-        //     title : meetingPassed.title,
-        //     date: moment(meetingPassed.day),
-        //     time: moment(meetingPassed.time, 'hh:mm a'),
-        //     location: meetingPassed.location,
-        //     editNotesFlag: true,
-        //     meetingID: meetingPassed._id,
-        //     attendees : meetingPassed.attendees
-        // });
+        let meetingID = this.props.meeting ? this.props.meeting._id : null;
+        if(!meetingID) {
+            return;
+        }
 
         // we also need to load data for items
         // that match this meeting
-        // axios.get('http://localhost:3000/api/meeting/' + meetingPassed._id + '/tasks')
-        //     .then((response) => {  
-        //         let tasksOnServer = response.data;
-        //         console.log('tasks for this meeting: ', tasksOnServer);
-        //         if(tasksOnServer.length > 0) {
-        //             this.setState( { tasks : tasksOnServer });
-        //         }
-        //     }).catch((error) => {
+        axios.get('http://localhost:3000/api/meeting/' + meetingID + '/tasks')
+            .then((response) => {  
+                let tasksOnServer = response.data;
+                console.log('tasks for this meeting: ', tasksOnServer);
+                if(tasksOnServer.length > 0) {
+                    this.props.setActionTasks(tasksOnServer);
+                }
+            }).catch((error) => {
 
-        //     });
+            });
     }
 
     saveMeetingNotes = () => {

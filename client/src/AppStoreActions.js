@@ -10,6 +10,13 @@ const AllAppActions = (dispatch) => ({
         });
     },
 
+    setMeeting : (meeting) => {
+        dispatch({
+            type : 'SET_MEETING',
+            meeting : meeting
+        });
+    },
+
     showToast: (toastTitle, toastLevel) => {
         const myToast = { title : toastTitle, level : toastLevel };
 
@@ -116,6 +123,13 @@ const AllAppActions = (dispatch) => ({
         dispatch({
             type: 'ADD_NEW_ACTION_TASK'
         })
+    },
+
+    setActionTasks : (tasks) => {
+        dispatch({
+            type: 'SET_ACTION_TASKS',
+            tasks: tasks
+        });
     }
 
 });

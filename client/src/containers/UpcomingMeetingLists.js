@@ -3,6 +3,8 @@ import Group from '../component/Group';
 import IfClause from '../component/IfClause';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 class UpcomingMeetingList extends Component{
 
@@ -46,12 +48,11 @@ class UpcomingMeetingList extends Component{
     }
 
     editMeeting = (meeting) => {
-        this.props.history.push( {
-            pathname : '/createNotes',
-            state : {
-                meeting: meeting
-            }
-        });
+        meeting.date = moment(meeting.day);
+        meeting.time = moment(meeting.time, 'hh:mm a'),
+        this.props.dispatch({ type: 'SET_MEETING', meeting : meeting });
+
+        this.props.history.push('/createNotes');
     }
 
     render() {
@@ -79,6 +80,10 @@ class UpcomingMeetingList extends Component{
 
 }
 
-const Upcoming = withRouter(UpcomingMeetingList);
+const mapStateToProps = (state) => {   
+    return {
+        dispatch: state.dispatch
+    };
+};
 
-export default Upcoming;
+export default withRouter(connect(mapStateToProps)(UpcomingMeetingList));

@@ -33,6 +33,9 @@ function appReducer(state = defaultState, action) {
     switch(action.type) {
         case 'SET_PROFILE':
             return { ...state, profile: action.profile };
+
+        case 'SET_MEETING':
+            return { ...state, meeting : action.meeting };
             
         case 'SHOW_TOAST':
             return { ...state, toasts: [ ...state.toasts, action.toast ]};
@@ -108,6 +111,9 @@ function appReducer(state = defaultState, action) {
 
         case 'ADD_NEW_ACTION_TASK':
             return { ...state, actionTasks: [ ...state.actionTasks, new TaskDetails() ] };
+            
+        case 'SET_ACTION_TASKS':
+            return { ...state, actionTasks : action.tasks };
             
         default:
             return state;

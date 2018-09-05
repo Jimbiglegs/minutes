@@ -37,7 +37,8 @@ class MeetingDetails extends Component {
                     <input type="text" 
                             className={ "form-control " + (this.props.meetingError.titleError ? 'is-invalid' : '') }
                             id="meetingTitle" placeholder="My Meeting" 
-                            onChange={ this.onTitleChange }/>
+                            onChange={ this.onTitleChange } 
+                            value={ this.props.meeting.title } />
                 </div>
             </div>
             <div className='form-row'>
@@ -58,8 +59,9 @@ class MeetingDetails extends Component {
                 <div class="form-group col">
                     <label for="meetingLocation">Meeting Location</label>
                     <input type="text" 
-                            className={ "form-control " + (this.props.meetingError.locationError ? 'is-invalid' : '') } 
-                            id="meetingLocation" onChange={ this.onLocationChange }/>
+                           className={ "form-control " + (this.props.meetingError.locationError ? 'is-invalid' : '') } 
+                           id="meetingLocation" onChange={ this.onLocationChange }
+                           value={ this.props.meeting.location } />
                 </div>                    
             </div>
             <div className='form-row'>
