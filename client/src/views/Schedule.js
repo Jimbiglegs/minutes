@@ -8,6 +8,7 @@ import axios from 'axios';
 import Utils from '../Utils';
 import { connect } from 'react-redux';
 import * as AppStoreActions from './../AppStoreActions';
+import { withRouter } from 'react-router-dom';
 
 class Schedule extends Component {
 
@@ -107,20 +108,11 @@ class Schedule extends Component {
             attendees: attendees
         }).then((data) => {    
           console.log('sending data: ', data);
-
-          let event = new Event('minutes-toast');
-          event.title = 'Meeting has been scheduled.';
-          event.level = 'success';
-
-          document.dispatchEvent(event);
+          this.props.showToast('Meeting has been scheduled.', 'success');
+          this.props.history.push('/home');
         }).catch((err) => {              
             console.log('Error retured API in posting schedule:', err);
-
-            let event = new Event('minutes-toast');
-            event.title = 'Unable to schedule meeting.';
-            event.level = 'danger';
-
-            document.dispatchEvent(event);
+            this.props.showToast('Unable to schedule meeting.', 'danger')
         });
     }      
     
@@ -181,4 +173,4 @@ const mapStateToProps = (state) => {
     };
 }
   
-export default connect(mapStateToProps, AppStoreActions.default)(Schedule);
+export default connect(mapStateToProps, AppStoreActions.default)(withRouter(Schedule));
