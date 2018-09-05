@@ -23,6 +23,28 @@ class TeamList extends Component {
                 this.props.showToast('Unable to load team list', 'danger');
             });    
     }
+
+    getTeamsAsRows = () => {
+        let teams = this.state.teams;
+        let result = [];
+        for(let index = 0; index < teams.length; index++) {
+            let team = teams[index];
+
+            result.push(<tr key='team._id'>
+                <td>
+                    { team.name }
+                </td>
+                <td>
+                    { team.members.join(', ') }
+                </td>
+                <td>
+                    <button className='btn btn-danger'>Delete Team</button>
+                </td>
+            </tr>);
+        }
+
+        return result;
+    }
     
     render() {
         return <Group>
@@ -30,12 +52,24 @@ class TeamList extends Component {
                 Loading team list...
             </IfClause>
             <IfClause condition={ this.state.loaded }>
-                <IfClause condition={ !(this.state.team && this.state.teams.length > 0) }>
+                <IfClause condition={ !(this.state.teams && this.state.teams.length > 0) }>
                     <div class='alert alert-info'>
                         No teams are yet available.
                     </div>
                 </IfClause>
-                <IfClause condition={ this.state.team && this.state.teams.length > 0 }>
+                <IfClause condition={ this.state.teams && this.state.teams.length > 0 }>
+                    <table className='table table-striped table-sm'>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Members</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.getTeamsAsRows() }
+                        </tbody>
+                    </table>
                 </IfClause>
             </IfClause>
         </Group>;
