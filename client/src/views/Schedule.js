@@ -61,19 +61,10 @@ class Schedule extends Component {
         }).then((data) => {    
           console.log('sending data: ', data);
 
-          let event = new Event('minutes-toast');
-          event.title = 'Meeting has been scheduled.';
-          event.level = 'success';
-
-          document.dispatchEvent(event);
+          this.props.showToast('Meeting has been scheduled.', 'success');
         }).catch((err) => {              
             console.log('Error retured API in posting schedule:', err);
-
-            let event = new Event('minutes-toast');
-            event.title = 'Unable to schedule meeting.';
-            event.level = 'danger';
-
-            document.dispatchEvent(event);
+            this.props.showToast('Unable to schedule the meeting.', 'danger');
         });
     }      
     
