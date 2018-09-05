@@ -8,6 +8,10 @@ import * as AllAppActions from './../AppStoreActions';
 
 class Schedule extends Component {
 
+    componentDidMount() {
+        this.props.clearMeeting();
+    }
+
     postSchedule = () => {
         console.log('schedule post called: ', this.props.meeting);
 

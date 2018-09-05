@@ -5,6 +5,7 @@ import 'react-tagsinput/react-tagsinput.css'
 import moment from 'moment';
 import { connect } from 'react-redux';
 import * as AllAppActions from './../AppStoreActions';
+import TaskDetails from './TaskDetails';
 
 class InputTask extends Component {
 

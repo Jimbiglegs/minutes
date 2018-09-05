@@ -130,8 +130,21 @@ const AllAppActions = (dispatch) => ({
             type: 'SET_ACTION_TASKS',
             tasks: tasks
         });
-    }
+    },
 
+    clearMeeting : () => {
+        dispatch({
+            type: 'SET_MEETING',
+            meeting: {
+                title : null,
+                date: null,
+                time: null,
+                location: null,
+                attendees: [],
+                _id: null
+            }
+        });
+    }
 });
 
 export default AllAppActions;

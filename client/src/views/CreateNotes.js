@@ -16,6 +16,9 @@ class CreateNotes extends React.Component {
     componentDidMount() {
         let meetingID = this.props.meeting ? this.props.meeting._id : null;
         if(!meetingID) {
+            // clear the form
+            console.log('meeting id not found');
+            this.props.clearMeeting();
             return;
         }
 

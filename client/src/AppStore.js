@@ -19,6 +19,7 @@ const defaultState = {
         time: null,
         location: null,
         attendees: [],
+        _id: null
     },
     meetingError: {
         titleError: false,
@@ -114,7 +115,7 @@ function appReducer(state = defaultState, action) {
             
         case 'SET_ACTION_TASKS':
             return { ...state, actionTasks : action.tasks };
-            
+
         default:
             return state;
     }
