@@ -8,10 +8,18 @@ const AppStoreActions = (dispatch) => ({
     },
 
     showToast: (toastTitle, toastLevel) => {
+        const toast = { title : toastTitle, level : toastLevel };
         dispatch({
             type : 'SHOW_TOAST',
-            newToast: { title : toastTitle, level : toastLevel }
+            toast: toast
         });
+
+        setTimeout(() => {
+            dispatch({
+                type: 'REMOVE_TOAST',
+                toast: toast
+            })
+        }, 2000);
     }
 
 });
