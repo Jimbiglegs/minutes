@@ -42,6 +42,13 @@ class Routes extends Component{
                         this.props.history.push('/');
                         return null;
                     }                   
+                    return <TeamsView />
+                } } />
+            <Route exact path="/newTeam" render={ () => {
+                    if(!this.props.profile) {
+                        this.props.history.push('/');
+                        return null;
+                    }                   
                     return <CreateTeam />
                 } } />
             <Route exact path="/adhocMeeting" render={ () => {

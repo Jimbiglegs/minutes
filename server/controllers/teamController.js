@@ -4,16 +4,27 @@ const Utils = require('./../utils');
 const database = require('../models');
 
 function getTeams(request, response) {
-    let owner = 'niti@niti.com';
+    let owner = request.query.owner;
 
-    let teams = database.Team.find( { owner : owner }, null, { sort : { name : 1 } }, function(error, tasks) {
+    if(Utils.isEmpty(owner)) {
+        response.status(400).send('team owner is required');
+        return;
+    }
+
+    if(Utils.isEmpty(owner)) {
+        response.status(400).send('team owner is required');
+        return;
+    }
+
+    let teams = database.Team.find( { owner : owner }, null, { sort : { name : 1 } }, function(error, serverTeams) {
         if(error) {
             console.log('unable to get teams from database');
             response.status(500).send('error reading db');
             return;
         }
 
-        response.json(teams);
+        console.log('teams found as:', serverTeams);
+        response.json(serverTeams);
     });
 }
 
