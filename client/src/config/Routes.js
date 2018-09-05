@@ -8,6 +8,7 @@ import CreateNotes from '../views/CreateNotes';
 import Schedule from '../views/Schedule';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import TeamsView from '../views/TeamsView';
 
 class Routes extends Component{
 
@@ -17,6 +18,7 @@ class Routes extends Component{
             <Route exact path="/home" component={ homepage } />
             <Route exact path="/meetings" component={ Meetings } />
             <Route exact path="/tasks" component={ TaskView } />
+            <Route exact path="/teams" component={ TeamsView } />
             <Route exact path="/adhocMeeting" render={ () => {
                 return <CreateNotes key='adhoc' />
             } } />

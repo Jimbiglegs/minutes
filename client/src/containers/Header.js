@@ -45,6 +45,9 @@ class Header extends Component {
                             <li className="nav-item">
                                 <Link to='/meetings' className='nav-link'>Meetings</Link>
                             </li>
+                            <li className='nav-item'>
+                                <Link to='/teams' className='nav-link'>Teams</Link>
+                            </li>
                         </IfClause>                                              
                     </ul>
                     <ul className="navbar-nav ml-auto">

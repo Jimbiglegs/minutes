@@ -36,9 +36,7 @@ app.post('/api/tasks', controllers.TaskController.addTasks);
 app.post('/api/task', controllers.TaskController.editTask);
 
 app.get('/api/teams', controllers.TeamController.getTeams);
-app.put('/api/team', controllers.TeamController.addTeam);
-app.post('/api/team', controllers.TeamController.editTeam);
-
+app.post('/api/team', controllers.TeamController.addTeam);
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express server is running on http://localhost:3000/');
