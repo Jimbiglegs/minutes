@@ -1,8 +1,5 @@
-const AllAppActions = (dispatch) => ({
+const AppStoreActions = (dispatch) => ({
 
-    /**
-     * Method to fire SET_PROFILE reducer action.
-     */
     setUserProfile: (profile) => {
         dispatch({
             type : 'SET_PROFILE',
@@ -19,4 +16,4 @@ const AllAppActions = (dispatch) => ({
 
 });
 
-export default AllAppActions;
+export default AppStoreActions;

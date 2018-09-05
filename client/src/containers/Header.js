@@ -9,6 +9,9 @@ class Header extends Component {
 
     onGoogleSuccess = (userObject) => {
         this.props.setUserProfile(userObject);
+
+        // save in local store
+        localStorage.setItem('profile', JSON.stringify(userObject));
     }
 
     onGoogleFailure = (error) => {
@@ -17,6 +20,9 @@ class Header extends Component {
 
     onGoogleSignOut = () => {
         this.props.setUserProfile(null);
+
+        // remove from local store
+        localStorage.removeItem('profile');
     }
 
     render() {      

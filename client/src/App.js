@@ -8,6 +8,19 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
+    componentDidMount() {
+        let json = localStorage.getItem('profile');
+        if(json) {
+            let profile = JSON.parse(json);
+            if(profile) {
+                this.props.dispatch({
+                    type: 'SET_PROFILE',
+                    profile: profile
+                });
+            }
+        }
+    }
+
   render() {
     return (
           <Group>
