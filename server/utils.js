@@ -1,10 +1,14 @@
 // file contains code repeated amongst multiple files
-function isEmpty(string) {
-    if (!string) {
+function isEmpty(obj) {
+    if(!obj || obj === null) {
         return true;
     }
 
-    if (string === '' || string.length == 0) {
+    if(Array.isArray(obj) && obj.length === 0) {
+        return true;
+    }
+
+    if(typeof obj === 'string' && obj.trim() === '') {
         return true;
     }
 

@@ -1,5 +1,4 @@
-//connecting db
-const mongoose = require('mongoose');
+const Utils = require('./../utils');
 
 //adding models
 const database = require('../models');
@@ -22,6 +21,21 @@ function addTeam(request, response) {
     let name = request.body.name;
     let owner = request.body.owner;
     let members = request.body.members;
+
+    if(Utils.isEmpty(name)) {
+        response.status(400).send('team name is required');
+        return;
+    }
+
+    if(Utils.isEmpty(owner)) {
+        response.status(400).send('team owner is required');
+        return;
+    }
+
+    if(Utils.isEmpty(members)) {
+        response.status(400).send('team members is required');
+        return;
+    }
 
     let team = {
         name : name,
