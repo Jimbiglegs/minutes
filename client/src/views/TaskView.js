@@ -30,7 +30,7 @@ export default class TaskView extends React.Component {
 
             <br />
             
-            <TaskLists />
+            <TaskLists showButtons={true} />
         </Group>;
     }
 

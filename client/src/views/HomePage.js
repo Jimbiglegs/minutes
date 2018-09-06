@@ -12,7 +12,7 @@ export default class HomePage extends Component{
             </div>
             <div className='col'>
                 <h3>Action Items</h3>
-                <TaskLists />
+                <TaskLists showButtons={false} />
             </div>
          </div>
         );
