@@ -1,9 +1,5 @@
-//connecting db
-const mongoose = require('mongoose');
-
 //adding models
 const database = require('../models');
-
 const utils  = require('../utils');
 
 var badHttpRequestCode = 400;
@@ -26,6 +22,12 @@ function getMeetings(request, response) {
 function addMeeting(request, response) {
 
     console.log('addmeeting called...');
+
+    let meetingID = request.body.meetingID;
+    if(!utils.isEmpty(meetingID)) {
+        editMeeting(request, response);
+        return;
+    }
 
     let title = request.body.title;
     let date = request.body.date;
@@ -97,64 +99,86 @@ function addMeeting(request, response) {
 }
 
 function editMeeting(request, response) {
-    const id = request.params.id;
-    const owner = request.body.owner; 
-
+    let meetingID = request.body.meetingID;
+    if(utils.isEmpty(meetingID)) {
+        response.status(400).send('bad request');
+        return;
+    }
+    
+    let title = request.body.title;
+    let date = request.body.date;
+    let time = request.body.time;
+    let location = request.body.location;
+    let owner = request.body.owner;
     let attendees = request.body.attendees;
+  
+    //empty check
+    if (utils.isEmpty(owner)) {
+        console.log("owner empty");
+        response.status(badHttpRequestCode).send('Owner is required');
+        return;
+    }
 
-    console.log('meeting id: ' + id);
-    console.log('owner email: ' + owner);
+    if (utils.isEmpty(title)) {
+        console.log("title empty");
+        response.status(badHttpRequestCode).send('Title is required');
+        return;
+    }
 
-    // // find and save
-    // database.Meeting.findOne({ _id : id }, function (error, findMeeting) {
-    //     if (error) {
-    //         console.log('error editing attendees');
-    //         response.status(500).send('insert attendees into database failed');
-    //         return;
-    //     }
-        
-    //     if(findMeeting.owner != owner) {
-    //         console.log('different owner editing this meeting');
-    //         response.status(401).send('unauthorized user editing meeting');
-    //         return;
-    //     }
+    if (utils.isEmpty(date)) {
+        console.log("date empty");
+        response.status(badHttpRequestCode).send('Date is required');
+        return;
+    }
 
-    // // find and save
-    // database.Tasks.findOne({ _id : id }, function (error, findTask) {
-    //     if (error) {
-    //         console.log('error editing task');
-    //         response.status(500).send('insert task into database failed');
-    //         return;
-    //     }
-       
-    //     if(findTask.owner != owner) {
-    //         console.log('different owner editing task of this meeting');
-    //         response.status(401).send('unauthorized owner editing task');
-    //         return;
-    //     }
+    if (utils.isEmpty(time)) {
+        console.log("time");
+        response.status(badHttpRequestCode).send('time is required');
+        return;
+    }
 
-    //     findMeeting.attendees = attendees;
-    //     findMeeting.edited = Date.now();
-    //     findTask.tasks = tasks;      
-    //     findTask.created = Date.now();
+    if (utils.isEmpty(location)) {
+        console.log("location");
+        response.status(badHttpRequestCode).send('Location is required');
+        return;
+    }
 
-    //     // save in the meeting
-    //     findMeeting.save(function (error2, saved) {
-    //         if (error2) {
-    //             response.status(500).send("something failed");
-    //             return;
-    //         }
+    if (utils.isEmpty(attendees)) {
+        console.log("attendees");
+        response.status(badHttpRequestCode).send('Atleast one attendee is required');
+        return;
+    }    
 
-    //     // save in the task
-    //     findTask.save(function (error2, saved) {
-    //         if (error2) {
-    //             response.status(500).send("something failed");
-    //             return;
-    //         }            
+    //create meeting
+    database.Meeting.findById(meetingID, function (error, saved) {
+        if(error) {
+            console.log('Error edit meeting: ', error);
+            response.status(500).send('cannot find meeting in db');
+            return;
+        }
 
-    //         response.json(saved);
-    //     });  
-    // });
+        if(saved.owner != owner) {
+            response.status(401).send('unauthorized user');
+            return;
+        }
+
+        saved.title = title;
+        saved.day = date;
+        saved.time = time;
+        saved.location = location;
+        saved.owner = owner;
+        saved.attendees = attendees;
+
+        saved.save(function(error2, updated) {
+            if(error2) {
+                console.log('unable to update meeting in database', error2);
+                response.status(500).send('unable to update meeting');
+                return;
+            }
+
+            response.json(updated);
+        });
+    });
     
 }
 
