@@ -97,3 +97,24 @@ footer {
   padding-left: 0;
   padding-right: 0;
 }
+
+.landing-container svg {
+  width: 128px;
+}
+.my-big {
+  margin: 80px 0;
+}
+.landing-block, .feature-block {
+  margin-top: 40px;
+  line-height: 1.8;
+}
+.feature-block {
+  max-width: 300px;
+  margin-bottom: 40px;
+}
+.work-block svg {
+  margin-bottom: 20px;
+}
+.awesome-block {
+  margin-bottom: 60px;
+}
