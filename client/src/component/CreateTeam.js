@@ -11,6 +11,7 @@ class CreateTeam extends Component {
 
     state = {
         teamName : null,
+        slack: null,
         members: [],
 
         teamNameError: false,
@@ -21,6 +22,10 @@ class CreateTeam extends Component {
         this.setState( { teamName : e.target.value });
     }
 
+    onSlackChange = (e) => {
+        this.setState( { slack : e.target.value });
+    }
+
     onMembersChange = (members) => {
         this.setState({ members: members });
     }
@@ -29,6 +34,7 @@ class CreateTeam extends Component {
     postTeam = () => {
         const name = this.state.teamName;
         const members = this.state.members;
+        const slack = this.state.slack;
 
         // reset all errors to false
         this.setState({
@@ -52,6 +58,7 @@ class CreateTeam extends Component {
         axios.post('http://localhost:3000/api/team', {
             name : name,
             owner: this.props.profile.profileObj.email,
+            slack: slack,
             members: members
         }).then((data) => {    
           console.log('sending data: ', data);
@@ -71,6 +78,14 @@ class CreateTeam extends Component {
                     <div className="form-group col">
                         <label for="teamName">Team Name</label>
                         <input type="text" className={ "form-control " + (this.state.teamNameError ? 'is-invalid' : '') } id="teamName" placeholder="Team Name" onChange={ this.onTeamNameChange }/>
+                    </div>
+                </div>
+                <div className='form-row'>
+                    <div className="form-group col">
+                        <label for="slackChannel">Slack Channel</label>
+                        <input type="text" 
+                               className={ "form-control " + (this.state.slackError ? 'is-invalid' : '') } 
+                               placeholder="Slack Channel" onChange={ this.onSlackChange }/>
                     </div>
                 </div>
                 <div className='form-row'>
