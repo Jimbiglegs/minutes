@@ -15,7 +15,13 @@ class Routes extends Component{
 
     render() {
         return <Switch>
-            <Route exact path="/" component={ Landing } />
+            <Route exact path="/" render={ () => {
+                    if(this.props.profile) {
+                        this.props.history.push('/home');
+                        return null;
+                    }                   
+                    return <Landing />
+            } } />
             <Route exact path="/home" render={ () => {
                     if(!this.props.profile) {
                         this.props.history.push('/');
