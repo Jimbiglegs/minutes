@@ -49,9 +49,9 @@ class UpcomingMeetingList extends Component{
                 <td>{ meeting.time }</td>
                 <td>{ meeting.location }</td> 
                 <td class='text-right'>
-                    <button className='btn btn-primary' 
+                    <button className='btn btn-primary btn-sm mx-1' 
                             onClick={ (e) => { this.takeNotes(meeting) } }>Take Notes</button>
-                    <button className='btn btn-warning' 
+                    <button className='btn btn-warning btn-sm mx-1' 
                             onClick={ (e) => { this.editMeeting(meeting) } }>Edit Meeting</button>
 
                 </td>
@@ -91,6 +91,15 @@ class UpcomingMeetingList extends Component{
                 </IfClause>
                 <IfClause condition={ this.state.meetings.length > 0 }>
                     <table className='table table-striped table-sm'>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>On</th>
+                                <th>At</th>
+                                <th>Location</th>
+                                <th class='text-right'>Actions</th>
+                            </tr>
+                        </thead>
                         <tbody>
                          { this.getMeetingsAsTableRows() }
                          
