@@ -9,7 +9,17 @@ import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
+    state = {
+        dropdownOpen : false
+    }
+
+    toggleDropdown = () => {
+        let value = !this.state.dropdownOpen;
+        this.setState({ dropdownOpen : value });
+    }
+
     onGoogleSuccess = (userObject) => {
+        console.log('google object', userObject)
         this.props.setUserProfile(userObject);
         this.props.history.push('/home');
 
@@ -23,12 +33,17 @@ class Header extends Component {
 
     onGoogleSignOut = () => {
         this.props.setUserProfile(null);
-
+        this.setState({ dropdownOpen : false });
         // remove from local store
         localStorage.removeItem('profile');
     }
 
     render() {      
+        let dropDownExtraClass = '';
+        if(this.state.dropdownOpen) {
+            dropDownExtraClass = 'show';
+        }
+
         return (            
             <header className='mb-auto'>           
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
@@ -66,21 +81,33 @@ class Header extends Component {
                         </IfClause>
                         <IfClause condition={ this.props.profile }>
                             <li className='nav-item'>
-                                <Link to='/adhocMeeting' className='btn btn-primary'>Adhoc Meeting</Link>
+                                <Link to='/adhocMeeting' className='nav-link'>Adhoc Meeting</Link>
                             </li>
-                            <li className='nav-item'>
+                            {/* <li className='nav-item'>
                                 &nbsp;
-                            </li>
+                            </li> */}
                             <li className='nav-item'>
-                                <Link to='/scheduleMeeting' className='btn btn-success'>Schedule Meeting</Link>
+                                <Link to='/scheduleMeeting' className='nav-link'>Schedule Meeting</Link>
                             </li>
-                            <li className='nav-item'>
+                            {/* <li className='nav-item'>
                                 &nbsp;
-                            </li>
-                            <li className='nav-item'>
+                            </li> */}
+                            {/* <li className='nav-item'>
                                 <GoogleLogout buttonText='Sign Out'
                                               onLogoutSuccess={ this.onGoogleSignOut } 
                                               className='btn btn-info' />
+                            </li> */}
+                            <li className="dropdown">                       
+                                 <a className='dropdown-toggle' aria-haspopup="true" aria-expanded="false" href="#" onClick={ this.toggleDropdown } >  
+                                   <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  />
+                                </a>
+                                <div class={ 'dropdown-menu user-dropdown ' + dropDownExtraClass } aria-labelledby="dropdownMenuButton">
+                                  <div class="dropdown-item">Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</div>
+                                  <div class="dropdown-divider"></div>
+                                <GoogleLogout buttonText='Sign Out'
+                                              onLogoutSuccess={ this.onGoogleSignOut } 
+                                              className='btn btn-info dropdown-item' /> 
+                                </div>                                              
                             </li>
                         </IfClause>
                      </ul>

@@ -118,3 +118,10 @@ footer {
 .awesome-block {
   margin-bottom: 60px;
 }
+.nav-img {
+  width: 32px;
+}
+.user-dropdown {
+  right: 0;
+  left: unset;
+}
