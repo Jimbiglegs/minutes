@@ -14,6 +14,13 @@ The web application codebase built using React and Boostrap.
 
 The server side code written in NodeJS, ExpressJS and Mongoose.
 
+
+## References:
+
+* `Group` component based on Aux from https://github.com/gajus/react-aux
+* `IfClause` component from https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
+
+
 ## License
 
 Copyright (C) 2018, Niti Singhal.
