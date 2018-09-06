@@ -132,8 +132,10 @@ class Schedule extends Component {
         //format time
         time = this.state.time.format('hh:mm a');
 
+        const existingID = this.state._id;
+
         axios.post('http://localhost:3000/api/meeting', {
-            meetingID: this.state._id,
+            meetingID: existingID,
             title : title,
             date: date,
             time: time,
@@ -142,7 +144,12 @@ class Schedule extends Component {
             attendees: attendees
         }).then((data) => {    
           console.log('sending data: ', data);
-          this.props.showToast('Meeting has been scheduled.', 'success');
+          if(existingID) {
+            this.props.showToast('Meeting has been updated.', 'success');
+          } else {
+            this.props.showToast('Meeting has been scheduled.', 'success');
+          }
+
           this.props.history.push('/home');
         }).catch((err) => {              
             console.log('Error retured API in posting schedule:', err);

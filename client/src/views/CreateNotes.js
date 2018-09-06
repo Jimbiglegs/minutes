@@ -188,12 +188,7 @@ class CreateNotes extends React.Component {
             }
             
             this.setState({ tasks : serverTasks});
-
-            let event = new Event('minutes-toast');
-            event.title = 'Meeting has been saved.';
-            event.level = 'success';
-
-            document.dispatchEvent(event);
+            this.props.showToast('Meeting notes have been saved.', 'success');
         }).catch((err) => {              
             console.log('Error retured API in saving old meeting notes:', err);
         });
