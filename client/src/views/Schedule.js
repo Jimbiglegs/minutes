@@ -31,6 +31,25 @@ class Schedule extends Component {
     }
 
     componentDidMount() {
+        // fetch details of meeting
+        if(this.props.location && this.props.location.state) {
+
+            let meeting = this.props.location.state.meeting;
+            if(meeting) {
+                console.log('meeting passed to schedule:', meeting);
+                // already have a meeting to display
+                this.setState({
+                    _id: meeting._id,
+                    title: meeting.title,
+                    date: moment(meeting.date),
+                    time: moment(meeting.time, 'hh:mm a'),
+                    location: meeting.location,
+                    attendees: meeting.attendees
+                });
+            }
+        }
+
+        // fetch list of teams
         axios.get('http://localhost:3000/api/teams?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 console.log('Tasks retrieved from database : ', response)
@@ -114,6 +133,7 @@ class Schedule extends Component {
         time = this.state.time.format('hh:mm a');
 
         axios.post('http://localhost:3000/api/meeting', {
+            meetingID: this.state._id,
             title : title,
             date: date,
             time: time,
@@ -135,7 +155,7 @@ class Schedule extends Component {
         for(let index = 0; index < this.state.teams.length; index++) {
             let team = this.state.teams[index];
 
-            result.push(<button type='button' className='btn-sm btn btn-primary' onClick={ (e) => { this.addTeamMembers(team) } }>{ team.name }</button>);
+            result.push(<button type='button' className='btn-sm btn btn-primary mx-1' onClick={ (e) => { this.addTeamMembers(team) } }>{ team.name }</button>);
         }
 
         return result;
@@ -162,7 +182,12 @@ class Schedule extends Component {
                 <div className='form-row'>
                     <div className="form-group col">
                         <label for="meetingTitle">Meeting Title</label>
-                        <input type="text" className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') } id="meetingTitle" placeholder="My Meeting" onChange={ this.onTitleChange }/>
+                        <input type="text" 
+                               className={ "form-control " + (this.state.titleError ? 'is-invalid' : '') } 
+                               id="meetingTitle" 
+                               placeholder="My Meeting" 
+                               value={ this.state.title }
+                               onChange={ this.onTitleChange }/>
                     </div>
                 </div>
                 <div className='form-row'>
@@ -171,19 +196,25 @@ class Schedule extends Component {
                         <DatePicker selected={ this.state.date } 
                                     onChange={ this.onDateChange } 
                                     minDate={moment()}
+                                    selected={ this.state.date } 
                                     className={ this.state.dateError ? 'is-invalid' : '' } />
                     </div>
                     <div className="form-group col">
                         <label for="meetingTime">Meeting Time</label>
-                        <DatePicker selected={ this.state.time } onChange={ this.onTimeChange }
+                        <DatePicker selected={ this.state.time } 
+                                    onChange={ this.onTimeChange }
                                     showTimeSelect showTimeSelectOnly timeIntervals={ 30 }
                                     dateFormat="LT" timeCaption="Time"
+                                    selected={ this.state.time } 
                                     className={ this.state.timeError ? 'is-invalid' : '' }  />
                     </div>
                     <div className="form-group col">
                         <label for="meetingLocation">Meeting Location</label>
-                        <input type="text" className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
-                               id="meetingLocation" onChange={ this.onLocationChange }/>
+                        <input type="text" 
+                               className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
+                               id="meetingLocation" 
+                               value={ this.state.location }
+                               onChange={ this.onLocationChange }/>
                     </div>                    
                 </div>
                 <div className='form-row'>
@@ -202,7 +233,13 @@ class Schedule extends Component {
 
                 <div className='form-row'>
                     <div className='form-group col text-right'>
-                        <button type="button" className='btn btn-primary' onClick={this.postSchedule}>Schedule</button>
+                        <IfClause condition={ !this.state._id }>
+                            <button type="button" className='btn btn-primary' onClick={this.postSchedule}>Schedule</button>
+                        </IfClause>
+
+                        <IfClause condition={ this.state._id }>
+                            <button type="button" className='btn btn-primary' onClick={this.postSchedule}>Update</button>
+                        </IfClause>
                     </div>
                 </div>
             </form>
