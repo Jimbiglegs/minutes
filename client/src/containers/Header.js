@@ -34,7 +34,7 @@ class Header extends Component {
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
                                 style={{ backgroundColor :"lightgray"}}>                   
                     <a className="navbar-brand" href="#" >
-                        <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"60px"}} alt=""></img>
+                        <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"32px"}}></img>
                       MoM
                     </a>
                     <ul className="navbar-nav ml-auto">
