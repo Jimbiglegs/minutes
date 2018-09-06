@@ -100,18 +100,25 @@ class Header extends Component {
                                    <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  style={{ width :"60px"}}/>
                                 </a>
                                 <div className={ 'dropdown-menu user-dropdown ' + dropDownExtraClass } aria-labelledby="dropdownMenuButton">
-                                  <div className="dropdown-item">Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</div>
+                                  <div className="dropdown-item styleUserWindow">
+                                        <div>
+                                             <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  style={{ width :"60px"}}/>
+                                        </div>
+                                        <div>
+                                            <h5>Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</h5>
+                                            <p>{  this.props.profile ? this.props.profile.profileObj.email : ''}</p>
+                                        </div>
+                                  </div>
                                   <div className="dropdown-divider"></div>
                                 <GoogleLogout buttonText='Sign Out'
+                                              type='button'
                                               onLogoutSuccess={ this.onGoogleSignOut } 
                                               className='btn btn-info dropdown-item' /> 
                                 </div>                                              
                             </li>
                         </IfClause>
-                     </ul>
-                      
-                </nav>
-               
+                     </ul>                      
+                </nav>             
             </header>
             
     
