@@ -11,11 +11,6 @@ function getTeams(request, response) {
         return;
     }
 
-    if(Utils.isEmpty(owner)) {
-        response.status(400).send('team owner is required');
-        return;
-    }
-
     let teams = database.Team.find( { owner : owner }, null, { sort : { name : 1 } }, function(error, serverTeams) {
         if(error) {
             console.log('unable to get teams from database');

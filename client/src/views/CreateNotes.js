@@ -139,7 +139,7 @@ class CreateNotes extends React.Component {
             date: date.format('DD-MMM-YYYY'),
             time: time.format('hh:mm a'),
             location: location,
-            owner: 'niti@niti.com',
+            owner: this.props.profile.profileObj.email,
             attendees: attendees,
         }).then((response) => {
             console.log('done saving the meeting:', response.data);
@@ -177,7 +177,7 @@ class CreateNotes extends React.Component {
         let url = 'http://localhost:3000/api/tasks';
         axios.post(url, {
             id: meetingID,
-            owner: 'niti@niti.com',
+            owner: this.props.profile.profileObj.email,
             tasks: tasksToSave
         }).then((response) => {    
             let serverTasks = response.data;

@@ -4,8 +4,11 @@ import IfClause from '../component/IfClause';
 import axios from 'axios';
 import moment from 'moment';
 import Utils from '../Utils';
+import { connect } from 'react-redux';
+import * as AppStoreActions from './../AppStoreActions';
+import { withRouter } from 'react-router-dom';
 
-export default class TaskLists extends Component {
+class TaskLists extends Component {
 
     state = {
         loaded: false,
@@ -13,7 +16,7 @@ export default class TaskLists extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/api/tasks')
+        axios.get('http://localhost:3000/api/tasks?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 console.log('Tasks retrieved from database : ', response)
                 this.setState({ tasks : response.data, loaded : true });
@@ -65,7 +68,7 @@ export default class TaskLists extends Component {
         axios.post('http://localhost:3000/api/task/' + task._id + '/status', {
             status : status,
             taskID: task._id,
-            owner: 'niti@niti.com'
+            owner: this.props.profile.profileObj.email
         }).then((response) => {
             console.log('done saving the meeting:', response.data);
             Utils.success('Task status updated');
@@ -115,3 +118,11 @@ export default class TaskLists extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+      profile: state.profile
+    };
+}
+  
+export default connect(mapStateToProps, AppStoreActions.default)(withRouter(TaskLists));

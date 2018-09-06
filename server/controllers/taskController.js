@@ -48,7 +48,12 @@ function changeTaskStatus(request, response){
 }
 
 function getTasks(request, response) {
-    let owner = 'niti@niti.com';
+    let owner = request.query.owner;
+
+    if(Utils.isEmpty(owner)) {
+        response.status(400).send('Owner is required');
+        return;
+    }
 
     // "assignee" : owner
     database.Task.find( { }, null, { sort : { due : 1 } }, function(error, tasks) {
@@ -122,6 +127,11 @@ function insertOrUpdateTask(task) {
 function addTasks(request, response) {
     let owner = request.body.owner;
     let tasks = request.body.tasks;
+
+    if(Utils.isEmpty(owner)) {
+        response.status(400).send('owner is required');
+        return;
+    }
 
     if(!tasks || tasks.length == 0) {
         response.status(200).send(tasks);
