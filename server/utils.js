@@ -25,12 +25,13 @@ function sendSlack(message) {
             console.log('Error sending slack message:', err);
             return;
         }
-        
+
         console.log('slack Message sent: ', res);
     });
 }
 
 //exporting it make it available to other files
 module.exports = {
-    isEmpty: isEmpty
+    isEmpty: isEmpty,
+    sendSlack: sendSlack
 };
