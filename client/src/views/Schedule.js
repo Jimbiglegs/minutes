@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import * as AppStoreActions from './../AppStoreActions';
 import { withRouter } from 'react-router-dom';
 import IfClause from '../component/IfClause';
+import moment from 'moment';
 
 class Schedule extends Component {
 
@@ -169,6 +170,7 @@ class Schedule extends Component {
                         <label for="meetingDate">Meeting Date</label>
                         <DatePicker selected={ this.state.date } 
                                     onChange={ this.onDateChange } 
+                                    minDate={moment()}
                                     className={ this.state.dateError ? 'is-invalid' : '' } />
                     </div>
                     <div className="form-group col">

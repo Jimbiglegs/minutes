@@ -258,7 +258,7 @@ class CreateNotes extends React.Component {
         for(let index = 0; index < this.state.teams.length; index++) {
             let team = this.state.teams[index];
 
-            result.push(<button type='button' className='btn-sm btn btn-primary' onClick={ (e) => { this.addTeamMembers(team) } }>{ team.name }</button>);
+            result.push(<button type='button' className='btn-sm btn btn-primary mx-1' onClick={ (e) => { this.addTeamMembers(team) } }>{ team.name }</button>);
         }
 
         return result;
@@ -298,7 +298,8 @@ class CreateNotes extends React.Component {
                     <DatePicker selected={ this.state.date } 
                                 onChange={ this.onDateChange } 
                                 openToDate={this.state.date } 
-                                disabled={ this.state.editNotesFlag}
+                                disabled={ this.state.editNotesFlag }
+                                minDate={moment()}
                                 className={ this.state.dateError ? 'is-invalid' : '' } />
                 </div>
                 <div className="form-group col">
