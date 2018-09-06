@@ -72,6 +72,13 @@ class Routes extends Component{
                 }                 
                 return <Schedule />
             } } />
+            <Route exact path="/editMeeting" render={ () => {
+                if(!this.props.profile) {
+                    this.props.history.push('/');
+                    return null;
+                }                 
+                return <Schedule />
+            } } />
         </Switch>;
     }
 }
