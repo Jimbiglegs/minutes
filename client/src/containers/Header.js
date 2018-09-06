@@ -93,7 +93,7 @@ class Header extends Component {
                             </li>
                             <li className="dropdown">                       
                                  <a className='dropdown-toggle' aria-haspopup="true" aria-expanded="false" href="#" onClick={ this.toggleDropdown } >  
-                                   <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  />
+                                   <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  style={{ width :"60px"}}/>
                                 </a>
                                 <div class={ 'dropdown-menu user-dropdown ' + dropDownExtraClass } aria-labelledby="dropdownMenuButton">
                                   <div class="dropdown-item">Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</div>

@@ -38,7 +38,9 @@ class TeamList extends Component {
                     { team.members.join(', ') }
                 </td>
                 <td>
-                    <button className='btn btn-danger'>Delete Team</button>
+                    <button className='btn btn-orange' data-balloon="delete team" data-balloon-pos="up">
+                    <i class="fas fa-trash-alt"></i>
+                    </button>
                 </td>
             </tr>);
         }

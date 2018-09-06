@@ -40,22 +40,32 @@ class TaskLists extends Component {
                 <td>
                     <IfClause condition={ this.props.showButtons === true }>
                         <IfClause condition={ 'done' !== task.status}>
-                            <button className='btn btn-success btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'done') }>Done</button>
+                            <button className='btn btn-warning btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'done') } data-balloon="Task Done" data-balloon-pos="up">
+                            <i class="fas fa-clipboard-check"></i>
+                            </button>
                             
                             <IfClause condition={ 'onhold' !== task.status && 'blocked' !== task.status }>
-                                <button className='btn btn-warning btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'onhold') }>On-Hold</button>
+                                <button className='btn btn-warning btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'onhold') } data-balloon="On Hold" data-balloon-pos="up">
+                                 <i class="fas fa-child"></i>
+                                </button>
                             </IfClause>
                             
                             <IfClause condition={ 'blocked' !== task.status }>
-                                <button className='btn btn-danger btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'blocked') }>Blocked</button>
+                                <button className='btn btn-danger btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'blocked') } data-balloon="Task Blocked" data-balloon-pos="up">
+                                <i class="fas fa-user-lock"></i>
+                                </button>
                             </IfClause>
                             
                             <IfClause condition={ 'blocked' === task.status }>
-                                <button className='btn btn-primary btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'open') }>Re-Open</button>
+                                <button className='btn btn-primary btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'open') } data-balloon="Task Re-Open" data-balloon-pos="up">
+                                  <i class="fas fa-lock-open"></i>
+                                </button>
                             </IfClause>
                         </IfClause>
                         <IfClause condition={ 'done' === task.status}>
-                            <button className='btn btn-danger btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'open') }>Re-Open</button>
+                            <button className='btn btn-danger btn-sm mx-1' onClick={ (e) => this.changeTaskStatus(task, 'open') } data-balloon="Task Re-Open" data-balloon-pos="up">
+                              <i class="fas fa-lock-open"></i>
+                            </button>
                         </IfClause>
                     </IfClause>
                 </td>
