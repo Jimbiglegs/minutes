@@ -63,7 +63,7 @@ class CreateTeam extends Component {
         }).then((data) => {    
           console.log('sending data: ', data);
           this.props.showToast('Team has been added.', 'success');
-        //   this.props.history.push('/home');
+          this.props.history.push('/teams');
         }).catch((err) => {              
             console.log('Error retured API in adding Team:', err);
             this.props.showToast('Unable to add team..', 'danger')

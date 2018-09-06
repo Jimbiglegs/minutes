@@ -27,6 +27,7 @@ function addTeam(request, response) {
     let name = request.body.name;
     let owner = request.body.owner;
     let members = request.body.members;
+    let slack = request.body.slack;
 
     if(Utils.isEmpty(name)) {
         response.status(400).send('team name is required');
@@ -46,6 +47,7 @@ function addTeam(request, response) {
     let team = {
         name : name,
         owner : owner,
+        slack: slack,
         members : members
     }
 
