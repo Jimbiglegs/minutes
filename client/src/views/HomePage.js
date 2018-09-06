@@ -8,7 +8,7 @@ export default class HomePage extends Component{
          <div className='row'>
             <div className='col'>
                 <h3>Upcoming Meetings</h3>
-                <UpcomingMeetingLists />
+                <UpcomingMeetingLists onlyUpcoming={true} />
             </div>
             <div className='col'>
                 <h3>Action Items</h3>

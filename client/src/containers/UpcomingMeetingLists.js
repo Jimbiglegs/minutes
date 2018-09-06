@@ -3,6 +3,9 @@ import Group from '../component/Group';
 import IfClause from '../component/IfClause';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
+
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
 class UpcomingMeetingList extends Component{
 
@@ -27,14 +30,25 @@ class UpcomingMeetingList extends Component{
         
         let meetings = this.state.meetings;
         let result = [];
+        const today = moment().startOf('day').valueOf();
         for(let index = 0; index < meetings.length; index++) {
             let meeting = meetings[index];
+
+            if(this.props.onlyUpcoming) {
+                // check if meeting falls in next 7 days
+                let millis = moment(meeting.day);
+                let remaining = millis - today;
+                if(!(remaining < SEVEN_DAYS)) {
+                    continue;
+                }
+            }
+
             result.push(<tr key={ meeting._id }>
                 <td>{ meeting.title }</td>
                 <td>{ meeting.day }</td>
                 <td>{ meeting.time }</td>
                 <td>{ meeting.location }</td> 
-                <td>
+                <td class='text-right'>
                     <button className='btn btn-primary' 
                             onClick={ (e) => { this.takeNotes(meeting) } }>Take Notes</button>
                     <button className='btn btn-warning' 

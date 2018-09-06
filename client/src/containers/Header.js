@@ -80,7 +80,7 @@ class Header extends Component {
                             <li className='nav-item'>
                                 <GoogleLogout buttonText='Sign Out'
                                               onLogoutSuccess={ this.onGoogleSignOut } 
-                                              className='btn btn-primary' />
+                                              className='btn btn-info' />
                             </li>
                         </IfClause>
                      </ul>
