@@ -17,6 +17,7 @@ The server side code written in NodeJS, ExpressJS and Mongoose.
 
 ## References:
 
+* Logo attribution to this <a href="https://clipartxtras.com/">clipartxtras.com</a>
 * `Group` component based on Aux from https://github.com/gajus/react-aux
 * `IfClause` component from https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
 

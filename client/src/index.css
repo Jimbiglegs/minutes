@@ -125,3 +125,7 @@ footer {
   right: 0;
   left: unset;
 }
+
+.btn-orange {
+  color:orange;
+}

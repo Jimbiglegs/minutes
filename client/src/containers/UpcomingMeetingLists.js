@@ -49,10 +49,15 @@ class UpcomingMeetingList extends Component{
                 <td>{ meeting.time }</td>
                 <td>{ meeting.location }</td> 
                 <td class='text-right'>
-                    <button className='btn btn-primary btn-sm mx-1' 
-                            onClick={ (e) => { this.takeNotes(meeting) } }>Take Notes</button>
-                    <button className='btn btn-warning btn-sm mx-1' 
-                            onClick={ (e) => { this.editMeeting(meeting) } }>Edit Meeting</button>
+                    <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Notes" data-balloon-pos="up"
+                            onClick={ (e) => { this.takeNotes(meeting) } }>                   
+                            <i className="fas fa-edit" ></i>
+                            </button>
+                            
+                    <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Meeting" data-balloon-pos="up"
+                            onClick={ (e) => { this.editMeeting(meeting) } }>
+                            <i class="fas fa-calendar-alt"></i>
+                            </button>
 
                 </td>
                 </tr>

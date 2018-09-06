@@ -49,8 +49,7 @@ class Header extends Component {
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
                                 style={{ backgroundColor :"lightgray"}}>                   
                     <a className="navbar-brand" href="#" >
-                        <img src="https://png.icons8.com/color/50/000000/multi-edit.png" style={{"width":"32px"}}></img>
-                      MoM
+                    <a href="https://clipartxtras.com/download/a1f30746717f6273b8e5db7606d2ffc1e011a847.html" title="Image from clipartxtras.com"><img src="https://img.clipartxtras.com/796efa4602ec208e4d33a786bed43e89_note-taking-royalty-free-cliparts-vectors-and-stock-illustration-taking-notes-clipart_1300-1205.jpeg" width="70" alt="taking notes clipart" /></a>
                     </a>
                     <ul className="navbar-nav ml-auto">
                         <IfClause condition={ this.props.profile }>
@@ -74,7 +73,7 @@ class Header extends Component {
                                 <GoogleLogin
                                     clientId="207967201675-vgb9f164otahb3viu1j8qjvpkn4acgri.apps.googleusercontent.com"
                                     buttonText="Sign In"
-                                    className='btn btn-primary'
+                                    className='btn btn-success'
                                     onSuccess={ this.onGoogleSuccess }
                                     onFailure={ this.onGoogleFailure } />
                             </li>
@@ -83,20 +82,15 @@ class Header extends Component {
                             <li className='nav-item'>
                                 <Link to='/adhocMeeting' className='nav-link'>Adhoc Meeting</Link>
                             </li>
-                            {/* <li className='nav-item'>
+                            <li className='nav-item'>
                                 &nbsp;
-                            </li> */}
+                            </li>
                             <li className='nav-item'>
                                 <Link to='/scheduleMeeting' className='nav-link'>Schedule Meeting</Link>
                             </li>
-                            {/* <li className='nav-item'>
+                            <li className='nav-item'>
                                 &nbsp;
-                            </li> */}
-                            {/* <li className='nav-item'>
-                                <GoogleLogout buttonText='Sign Out'
-                                              onLogoutSuccess={ this.onGoogleSignOut } 
-                                              className='btn btn-info' />
-                            </li> */}
+                            </li>
                             <li className="dropdown">                       
                                  <a className='dropdown-toggle' aria-haspopup="true" aria-expanded="false" href="#" onClick={ this.toggleDropdown } >  
                                    <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  />
