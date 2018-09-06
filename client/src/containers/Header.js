@@ -45,13 +45,16 @@ class Header extends Component {
         }
 
         return (            
-            <header className='mb-auto'>           
+            <header className='mb-auto'>  
+                
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
-                                style={{ backgroundColor :"lightgray"}}>                   
+                                style={{ backgroundColor :"lightgray"}}>   
+                                                  
                     <a className="navbar-brand" href="#" >
                     <a href="https://clipartxtras.com/download/a1f30746717f6273b8e5db7606d2ffc1e011a847.html" title="Image from clipartxtras.com"><img src="https://img.clipartxtras.com/796efa4602ec208e4d33a786bed43e89_note-taking-royalty-free-cliparts-vectors-and-stock-illustration-taking-notes-clipart_1300-1205.jpeg" width="70" alt="taking notes clipart" /></a>
                     </a>
                     <ul className="navbar-nav ml-auto">
+                    <div className="container flexItems">
                         <IfClause condition={ this.props.profile }>
                             <li className="nav-item">
                                 <Link to='/home' className='nav-link'>Home</Link>
@@ -65,7 +68,8 @@ class Header extends Component {
                             <li className='nav-item'>
                                 <Link to='/teams' className='nav-link'>Teams</Link>
                             </li>
-                        </IfClause>                                              
+                        </IfClause>
+                        </div>                                              
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <IfClause condition={ !this.props.profile }>
@@ -95,9 +99,9 @@ class Header extends Component {
                                  <a className='dropdown-toggle' aria-haspopup="true" aria-expanded="false" href="#" onClick={ this.toggleDropdown } >  
                                    <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  style={{ width :"60px"}}/>
                                 </a>
-                                <div class={ 'dropdown-menu user-dropdown ' + dropDownExtraClass } aria-labelledby="dropdownMenuButton">
-                                  <div class="dropdown-item">Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</div>
-                                  <div class="dropdown-divider"></div>
+                                <div className={ 'dropdown-menu user-dropdown ' + dropDownExtraClass } aria-labelledby="dropdownMenuButton">
+                                  <div className="dropdown-item">Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</div>
+                                  <div className="dropdown-divider"></div>
                                 <GoogleLogout buttonText='Sign Out'
                                               onLogoutSuccess={ this.onGoogleSignOut } 
                                               className='btn btn-info dropdown-item' /> 
@@ -105,8 +109,9 @@ class Header extends Component {
                             </li>
                         </IfClause>
                      </ul>
+                      
                 </nav>
-            
+               
             </header>
             
     

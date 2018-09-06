@@ -39,7 +39,7 @@ class TeamList extends Component {
                 </td>
                 <td>
                     <button className='btn btn-orange' data-balloon="delete team" data-balloon-pos="up">
-                    <i class="fas fa-trash-alt"></i>
+                    <i className="fas fa-trash-alt"></i>
                     </button>
                 </td>
             </tr>);
@@ -55,7 +55,7 @@ class TeamList extends Component {
             </IfClause>
             <IfClause condition={ this.state.loaded }>
                 <IfClause condition={ !(this.state.teams && this.state.teams.length > 0) }>
-                    <div class='alert alert-info'>
+                    <div className='alert alert-info'>
                         No teams are yet available.
                     </div>
                 </IfClause>

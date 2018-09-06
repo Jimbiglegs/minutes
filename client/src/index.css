@@ -129,3 +129,13 @@ footer {
 .btn-orange {
   color:orange;
 }
+
+.flexItems {
+  display: flex;
+   
+}
+
+li.nav-item {
+  display: flex;
+  align-self: center;
+}

@@ -48,7 +48,7 @@ class UpcomingMeetingList extends Component{
                 <td>{ meeting.day }</td>
                 <td>{ meeting.time }</td>
                 <td>{ meeting.location }</td> 
-                <td class='text-right'>
+                <td className='text-right'>
                     <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Notes" data-balloon-pos="up"
                             onClick={ (e) => { this.takeNotes(meeting) } }>                   
                             <i className="fas fa-edit" ></i>
@@ -56,7 +56,7 @@ class UpcomingMeetingList extends Component{
                             
                     <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Meeting" data-balloon-pos="up"
                             onClick={ (e) => { this.editMeeting(meeting) } }>
-                            <i class="fas fa-calendar-alt"></i>
+                            <i className="fas fa-calendar-alt"></i>
                             </button>
 
                 </td>
@@ -102,7 +102,7 @@ class UpcomingMeetingList extends Component{
                                 <th>On</th>
                                 <th>At</th>
                                 <th>Location</th>
-                                <th class='text-right'>Actions</th>
+                                <th className='text-right'>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
