@@ -208,6 +208,7 @@ class CreateNotes extends React.Component {
                 continue;
             }
 
+            task.meetingID = meetingID;
             tasksToSave.push(task);
         }
 
@@ -282,7 +283,7 @@ class CreateNotes extends React.Component {
                                    onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
                                    onTaskLevelChange={ (e) => this.updateTask(index, 'level', e.target.value) }
                                    onDateChange={ (e) => this.updateTask(index, 'due', e) }
-                                   onAssigneeChange={ (e) => this.updateTask(index, 'due', e) }
+                                   onAssigneeChange={ (e) => this.updateTask(index, 'assignee', e) }
                                    attendees={this.state.attendees}  />)
         }
 
