@@ -32,6 +32,10 @@ class TeamList extends Component {
         axios.delete('http://localhost:3000/api/team/' + team._id + '?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 this.props.showToast('Team has been deleted', 'success');
+
+                // remove team from UI
+                let filtered = this.state.teams.filter( e => e._id !== team._id);
+                this.setState( { teams : filtered });
             }).catch((e) => {
                 console.log('error removing team', e);
                 this.props.showToast('Unable to delete team', 'danger');
