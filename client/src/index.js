@@ -29,4 +29,3 @@ ReactDOM.render((
     </Provider>
 ), document.body);
 
-registerServiceWorker();
