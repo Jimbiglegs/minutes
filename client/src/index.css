@@ -124,6 +124,7 @@ footer {
 .user-dropdown {
   right: 0;
   left: unset;
+  min-width: 340px;
 }
 
 .btn-orange {
@@ -156,4 +157,8 @@ li.nav-item {
 .navbar {
   padding-left: 50px;
   padding-right: 50px;
+}
+
+.welcome-msg {
+  margin-bottom: 0;
 }

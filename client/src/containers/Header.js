@@ -92,13 +92,13 @@ class Header extends Component {
                                    <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  style={{ width :"60px"}}/>
                                 </a>
                                 <div className={ 'dropdown-menu user-dropdown ' + dropDownExtraClass } aria-labelledby="dropdownMenuButton">
-                                  <div className="dropdown-item styleUserWindow">
+                                  <div className="dropdown-item styleUserWindow" style={{ 'height' : '65px'}}>
                                         <div>
                                              <img className="rounded-circle nav-img" src={  this.props.profile ? this.props.profile.profileObj.imageUrl : ''}  style={{ width :"60px"}}/>
                                         </div>
                                         <div>
-                                            <h5>Welcome {  this.props.profile ? this.props.profile.profileObj.name : ''}</h5>
-                                            <p>{  this.props.profile ? this.props.profile.profileObj.email : ''}</p>
+                                            <h5 className='welcome-msg'>Welcome, {  this.props.profile ? this.props.profile.profileObj.name : ''}</h5>
+                                            <a href='#'>{  this.props.profile ? this.props.profile.profileObj.email : ''}</a>
                                         </div>
                                   </div>
                                   <div className="dropdown-divider"></div>
