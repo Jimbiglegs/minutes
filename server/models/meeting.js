@@ -4,6 +4,7 @@ let meetingSchema = new mongoose.Schema({
     title: String,
     day: String,
     time: String,
+    duration: Number,
     location: String,
     created: {
         type: Date,

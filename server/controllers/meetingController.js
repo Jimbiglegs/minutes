@@ -35,6 +35,7 @@ function addMeeting(request, response) {
     let location = request.body.location;
     let owner = request.body.owner;
     let attendees = request.body.attendees;
+    let duration = request.body.duration;
   
     //empty check
     if (utils.isEmpty(owner)) {
@@ -50,25 +51,31 @@ function addMeeting(request, response) {
     }
 
     if (utils.isEmpty(date)) {
-        console.log("date empty");
+        console.log("date required");
         response.status(badHttpRequestCode).send('Date is required');
         return;
     }
 
     if (utils.isEmpty(time)) {
-        console.log("time");
+        console.log("time required");
         response.status(badHttpRequestCode).send('time is required');
         return;
     }
 
+    if (utils.isEmpty(duration)) {
+        console.log("duration required");
+        response.status(badHttpRequestCode).send('Duration is required');
+        return;
+    }
+
     if (utils.isEmpty(location)) {
-        console.log("location");
+        console.log("location required");
         response.status(badHttpRequestCode).send('Location is required');
         return;
     }
 
     if (utils.isEmpty(attendees)) {
-        console.log("attendees");
+        console.log("attendees required");
         response.status(badHttpRequestCode).send('Atleasy one attendee is required');
         return;
     }    
@@ -79,7 +86,8 @@ function addMeeting(request, response) {
         time : time,
         location : location,
         owner : owner,
-        attendees : attendees
+        attendees : attendees,
+        duration: duration
     }
 
     console.log('trying to create meeting...');
