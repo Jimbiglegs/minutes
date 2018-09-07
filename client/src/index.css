@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 body {
@@ -32,7 +33,7 @@ footer {
 }
 
 .task-level-decision input, .task-level-decision select {
-  background-color: rgb(255,255,186) !important;
+  background-color: rgb(246, 231, 186) !important;
 }
 
 .task-level-agenda input, .task-level-agenda select {
@@ -40,7 +41,7 @@ footer {
 }
 
 .task-level-done input, .task-level-done select {
-  background-color: rgb(186,255,201) !important;
+  background-color: rgb(202, 229, 205) !important;
 }
 
 .task-level-todo input, .task-level-todo select {
@@ -161,4 +162,14 @@ li.nav-item {
 
 .welcome-msg {
   margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    display: none;
+  }
+}
+
+.nav-link:hover {
+  color: #007bff !important;
 }
