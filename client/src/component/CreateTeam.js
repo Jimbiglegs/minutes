@@ -55,6 +55,16 @@ class CreateTeam extends Component {
             return;
         }
 
+        for(let eindex = 0; eindex < members.length; eindex++) {
+            let em = members[eindex];
+
+            if(!Utils.validateEmail(em)) {
+                this.props.showToast('Not a valid email address: ' + em, 'danger');
+                this.setState({ membersError : true });
+                return;
+            }
+        }
+
         axios.post('http://localhost:3000/api/team', {
             name : name,
             owner: this.props.profile.profileObj.email,
@@ -70,14 +80,18 @@ class CreateTeam extends Component {
         });
     }      
     
-
     render() {
         return <Group>
             <form className='container-fluid'>
                 <div className='form-row'>
                     <div className="form-group col">
                         <label for="teamName">Team Name</label>
-                        <input type="text" className={ "form-control " + (this.state.teamNameError ? 'is-invalid' : '') } id="teamName" placeholder="Team Name" onChange={ this.onTeamNameChange }/>
+                        <input type="text" 
+                               className={ "form-control " + (this.state.teamNameError ? 'is-invalid' : '') } id="teamName" 
+                               placeholder="Team Name" 
+                               autocomplete='off'
+                               onChange={ this.onTeamNameChange }
+                               />
                     </div>
                 </div>
                 <div className='form-row'>
