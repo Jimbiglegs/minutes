@@ -23,12 +23,14 @@ class CreateNotes extends React.Component {
         attendees: [],
         editNotesFlag: false,
         meetingID: null,
+        duration: null,
 
         titleError: false,
         dateError: false,
         timeError: false,
         locationError: false,
         attendeesError: false,
+        durationError: false,
 
         teams: []
     }
@@ -61,7 +63,8 @@ class CreateNotes extends React.Component {
             location: meetingPassed.location,
             editNotesFlag: true,
             meetingID: meetingPassed._id,
-            attendees : meetingPassed.attendees
+            attendees : meetingPassed.attendees,
+            duration: meetingPassed.duration
         });
 
         // we also need to load data for items
@@ -92,6 +95,7 @@ class CreateNotes extends React.Component {
         let time = this.state.time;
         const location = this.state.location;
         const attendees = this.state.attendees;
+        const duration = this.state.duration;
 
         // reset all errors to false
         this.setState({
@@ -117,14 +121,20 @@ class CreateNotes extends React.Component {
 
        if(Utils.isEmpty(time)) {
             this.props.showToast('Meeting time required', 'danger');
-           this.setState({ timeError : true });
-           return;
+            this.setState({ timeError : true });
+            return;
+       }
+
+       if(Utils.isEmpty(duration)) {
+            this.props.showToast('Meeting duration required', 'danger');
+            this.setState({ durationError : true });
+            return;
        }
 
        if(Utils.isEmpty(location)) {
             this.props.showToast('Meeting location required', 'danger');
-           this.setState({ locationError : true });
-           return;
+            this.setState({ locationError : true });
+            return;
        }
 
        if(Utils.isEmpty(attendees)) {
@@ -220,6 +230,10 @@ class CreateNotes extends React.Component {
         this.setState( { location : e.target.value });
     }
 
+    onDurationChange = (e) => {
+        this.setState( { duration : e.target.value });
+    }
+
     updateTask = (index, field, value) => {
         let tasks = this.state.tasks;
         let task = tasks[index];
@@ -307,6 +321,13 @@ class CreateNotes extends React.Component {
                                 disabled={ this.state.editNotesFlag}
                                 className={ this.state.timeError ? 'is-invalid' : '' } />
                 </div>                
+                <div className="form-group col">
+                    <label for="meetingDuration">Meeting Duration</label>
+                    <input type="number" 
+                            className={ "form-control " + (this.state.durationError ? 'is-invalid' : '') } 
+                            value={ this.state.duration }
+                            onChange={ this.onDurationChange }/>
+                </div>                    
                 <div className="form-group col">
                     <label for="meetingLocation">Meeting Location</label>
                     <input type="text" className="form-control" id="meetingLocation" 
