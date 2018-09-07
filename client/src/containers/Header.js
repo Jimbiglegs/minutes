@@ -76,6 +76,8 @@ class Header extends Component {
                                     clientId="207967201675-vgb9f164otahb3viu1j8qjvpkn4acgri.apps.googleusercontent.com"
                                     buttonText="Sign In"
                                     className='btn btn-success'
+                                    scope='profile email https://www.googleapis.com/auth/calendar'
+                                    discoveryDocs={ [ 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest' ] }
                                     onSuccess={ this.onGoogleSuccess }
                                     onFailure={ this.onGoogleFailure } />
                             </li>

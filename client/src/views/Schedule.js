@@ -158,8 +158,7 @@ class Schedule extends Component {
         time = this.state.time.format('hh:mm a');
 
         const existingID = this.state._id;
-
-        axios.post('https://minutes-api.herokuapp.com/api/meeting', {
+        const meetingPayload = {
             meetingID: existingID,
             title : title,
             date: date,
@@ -168,13 +167,17 @@ class Schedule extends Component {
             location: location,
             owner: this.props.profile.profileObj.email,
             attendees: attendees
-        }).then((data) => {    
+        };
+
+        axios.post('https://minutes-api.herokuapp.com/api/meeting', meetingPayload)
+        .then((data) => {    
           console.log('sending data: ', data);
           if(existingID) {
             this.props.showToast('Meeting has been updated.', 'success');
           } else {
             this.props.showToast('Meeting has been scheduled.', 'success');
-          }
+            Utils.addToGoogleCalendar(meetingPayload);
+        }
 
           this.props.history.push('/home');
         }).catch((err) => {              

@@ -96,14 +96,6 @@ class CreateTeam extends Component {
                 </div>
                 <div className='form-row'>
                     <div className="form-group col">
-                        <label for="slackChannel">Slack Channel</label>
-                        <input type="text" 
-                               className={ "form-control " + (this.state.slackError ? 'is-invalid' : '') } 
-                               placeholder="Slack Channel" onChange={ this.onSlackChange }/>
-                    </div>
-                </div>
-                <div className='form-row'>
-                    <div className="form-group col">
                         <label for="teamMembers">Team Members</label>
                         <TagsInput value={ this.state.members }
                                    className={ 'react-tagsinput ' + (this.state.membersError ? 'is-invalid' : '') }

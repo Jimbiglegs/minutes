@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default class Utils {
 
     static isEmpty(obj) {
@@ -37,6 +39,47 @@ export default class Utils {
         event.title = title;
         event.level = level;
         document.dispatchEvent(event);
+    }
+
+    static addToGoogleCalendar(meeting) {
+        const event = {
+            'summary': meeting.title,
+            'location': meeting.location,
+            'description': 'Meeting scheduled by ' + meeting.owner,
+            'start': {
+              'dateTime': moment(meeting.date).toISOString(),
+              'timeZone': 'America/Los_Angeles'
+            },
+            'end': {
+              'dateTime': moment(meeting.date).add(meeting.duration, 'hours').toISOString(),
+              'timeZone': 'America/Los_Angeles'
+            },
+            'attendees': [
+            ],
+            'reminders': {
+              'useDefault': false,
+              'overrides': [
+                {'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': 10}
+              ]
+            }
+        };
+
+        for(let index = 0; index < meeting.attendees; index++) {
+            event.attendees.push(meeting.attendees[index]);
+        }
+
+        // https://developers.google.com/calendar/v3/reference/events/insert
+        window.gapi.client.load('calendar', 'v3', function() {
+            let request = window.gapi.client.calendar.events.insert({
+                'calendarId': 'primary',
+                'resource': event
+            });
+              
+            request.execute(function(event) {
+                console.log('Google calendar event created as: ' + event.htmlLink);
+            });
+        });
     }
 
     static validateEmail(email) {

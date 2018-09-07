@@ -12,8 +12,7 @@ export default class TeamsView extends React.Component {
             <div className='row'>
                 <div className='col text-right'>
                 <Link to='/newTeam' className='btn btn-orange' data-balloon="Create New Team" data-balloon-pos="left">
-                <i className="fas fa-user-plus faa-pulse animated">
-                </i>
+                    <i className="fas fa-user-plus faa-pulse animated" style={{ "font-size": '40px'}}/>
                 </Link>
                 </div>
             </div>

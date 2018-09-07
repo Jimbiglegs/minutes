@@ -170,16 +170,26 @@ class CreateNotes extends React.Component {
             }
         }
 
-        // first save the meeting
-        axios.post('https://minutes-api.herokuapp.com/api/meeting', {
+        console.log('saving meeting: ', duration);
+
+        const meetingPayload = {
             title : title,
             date: date.format('DD-MMM-YYYY'),
             time: time.format('hh:mm a'),
             location: location,
             owner: this.props.profile.profileObj.email,
             attendees: attendees,
-        }).then((response) => {
+            duration: duration
+        };
+        
+        // first save the meeting
+        axios.post('https://minutes-api.herokuapp.com/api/meeting', meetingPayload)
+        .then((response) => {
             console.log('done saving the meeting:', response.data);
+
+            meetingPayload.meetingID = response.data['_id'];
+            meetingPayload._id = response.data['_id'];
+            Utils.addToGoogleCalendar(meetingPayload);
 
             // let's save the tasks
             let tasks = this.state.tasks;
@@ -208,6 +218,7 @@ class CreateNotes extends React.Component {
                 continue;
             }
 
+            task.owner = this.props.profile.profileObj.email;
             task.meetingID = meetingID;
             tasksToSave.push(task);
         }
@@ -263,6 +274,8 @@ class CreateNotes extends React.Component {
     }
 
     updateTask = (index, field, value) => {
+        console.log('changing field: ' + field + ' with value: ', value);
+
         let tasks = this.state.tasks;
         let task = tasks[index];
         task[field] = value;
@@ -283,7 +296,7 @@ class CreateNotes extends React.Component {
                                    onTopicChange={ (e) => this.updateTask(index, 'topic', e.target.value) }
                                    onTaskLevelChange={ (e) => this.updateTask(index, 'level', e.target.value) }
                                    onDateChange={ (e) => this.updateTask(index, 'due', e) }
-                                   onAssigneeChange={ (e) => this.updateTask(index, 'assignee', e) }
+                                   onAssigneeChange={ (e) => this.updateTask(index, 'assignee', e.target.value) }
                                    attendees={this.state.attendees}  />)
         }
 
