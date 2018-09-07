@@ -39,4 +39,27 @@ export default class Utils {
         document.dispatchEvent(event);
     }
 
+    static validateEmail(email) {
+        console.log('validate email: ' + email);
+        
+        if(!email || email == null) {
+            return false;
+        }
+        
+        if(email.trim().length == 0) {
+            return false;
+        }
+
+        let index = email.indexOf('@');
+        if(index <= 0) {
+            return false;
+        }
+
+        if(index == email.length - 1) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
