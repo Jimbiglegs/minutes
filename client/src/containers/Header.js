@@ -49,12 +49,13 @@ class Header extends Component {
                 
                 <nav className="navbar navbar-expand-md navbar-light fixed-top"
                                 style={{ backgroundColor :"lightgray"}}>   
-                                                  
-                    <a className="navbar-brand" href="#" >
-                    <a href="https://clipartxtras.com/download/a1f30746717f6273b8e5db7606d2ffc1e011a847.html" title="Image from clipartxtras.com"><img src="https://img.clipartxtras.com/796efa4602ec208e4d33a786bed43e89_note-taking-royalty-free-cliparts-vectors-and-stock-illustration-taking-notes-clipart_1300-1205.jpeg" width="70" alt="taking notes clipart" /></a>
+                    <a href="#">
+                        <img src="https://img.clipartxtras.com/796efa4602ec208e4d33a786bed43e89_note-taking-royalty-free-cliparts-vectors-and-stock-illustration-taking-notes-clipart_1300-1205.jpeg" width="64" />
                     </a>
+                    <div className='brand-name'>
+                        Meeting Minutes
+                    </div>
                     <ul className="navbar-nav ml-auto">
-                    <div className="container flexItems">
                         <IfClause condition={ this.props.profile }>
                             <li className="nav-item">
                                 <Link to='/home' className='nav-link'>Home</Link>
@@ -69,9 +70,6 @@ class Header extends Component {
                                 <Link to='/teams' className='nav-link'>Teams</Link>
                             </li>
                         </IfClause>
-                        </div>                                              
-                    </ul>
-                    <ul className="navbar-nav ml-auto">
                         <IfClause condition={ !this.props.profile }>
                             <li className="nav-item">
                                 <GoogleLogin
@@ -87,13 +85,7 @@ class Header extends Component {
                                 <Link to='/adhocMeeting' className='nav-link'>Adhoc Meeting</Link>
                             </li>
                             <li className='nav-item'>
-                                &nbsp;
-                            </li>
-                            <li className='nav-item'>
                                 <Link to='/scheduleMeeting' className='nav-link'>Schedule Meeting</Link>
-                            </li>
-                            <li className='nav-item'>
-                                &nbsp;
                             </li>
                             <li className="dropdown">                       
                                  <a className='dropdown-toggle' aria-haspopup="true" aria-expanded="false" href="#" onClick={ this.toggleDropdown } >  
