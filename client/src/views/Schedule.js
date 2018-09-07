@@ -53,7 +53,7 @@ class Schedule extends Component {
         }
 
         // fetch list of teams
-        axios.get('https://minutes.herokuapp.com/api/teams?owner=' + this.props.profile.profileObj.email)
+        axios.get('https://minutes-api.herokuapp.com/api/teams?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 console.log('Tasks retrieved from database : ', response)
                 this.setState({ teams : response.data });
@@ -159,7 +159,7 @@ class Schedule extends Component {
 
         const existingID = this.state._id;
 
-        axios.post('https://minutes.herokuapp.com/api/meeting', {
+        axios.post('https://minutes-api.herokuapp.com/api/meeting', {
             meetingID: existingID,
             title : title,
             date: date,
