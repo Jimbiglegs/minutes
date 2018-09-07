@@ -114,7 +114,9 @@ class TaskLists extends Component {
                                 <th>Assignee</th>
                                 <th>Due</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <IfClause condition={ this.props.showButtons === true }>
+                                    <th>Action</th>
+                                </IfClause>
                             </tr>
                         </thead>
                         <tbody>
