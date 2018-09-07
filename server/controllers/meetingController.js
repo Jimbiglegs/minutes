@@ -102,7 +102,7 @@ function addMeeting(request, response) {
         }
 
         console.log('New meeting is created as: ', newSchedule);
-        utils.sendSlack('meeting ' + title + ' has been scheduled.');
+        utils.sendSlack('Meeting named *' + title.trim() + '* has been scheduled for ' + date + ' at ' + time + '.');
         response.json(newSchedule);
     });
 }
