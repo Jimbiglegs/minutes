@@ -26,9 +26,7 @@ class UpcomingMeetingList extends Component{
         });    
     }
 
-    getMeetingsAsTableRows = () => {
-        
-        let meetings = this.state.meetings;
+    getMeetingsAsTableRows = (meetings) => {
         let result = [];
         const today = moment().startOf('day').valueOf();
         for(let index = 0; index < meetings.length; index++) {
@@ -49,16 +47,17 @@ class UpcomingMeetingList extends Component{
                 <td>{ meeting.time }</td>
                 <td>{ meeting.location }</td> 
                 <td className='text-right'>
-                    <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Notes" data-balloon-pos="up"
-                            onClick={ (e) => { this.takeNotes(meeting) } }>                   
-                            <i className="fas fa-edit" ></i>
-                            </button>
-                            
-                    <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Meeting" data-balloon-pos="up"
-                            onClick={ (e) => { this.editMeeting(meeting) } }>
-                            <i className="fas fa-calendar-alt"></i>
-                            </button>
-
+                    <IfClause condition={ !meeting.published }>
+                        <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Notes" data-balloon-pos="up"
+                                onClick={ (e) => { this.takeNotes(meeting) } }>                   
+                                <i className="fas fa-edit" ></i>
+                                </button>
+                                
+                        <button className='btn btn-orange btn-sm mx-1' data-balloon="Edit Meeting" data-balloon-pos="up"
+                                onClick={ (e) => { this.editMeeting(meeting) } }>
+                                <i className="fas fa-calendar-alt"></i>
+                                </button>
+                    </IfClause>
                 </td>
                 </tr>
                 );
@@ -86,6 +85,31 @@ class UpcomingMeetingList extends Component{
         });
     }
 
+    // filtering old meeting based on published field
+    filterOld = (meetings) => {
+        let result = [];
+        for(let index = 0; index < meetings.length; index++) {
+            let meeting = meetings[index];
+            if(meeting.published) {
+                result.push(meeting);
+            }
+        }
+
+        return result;
+    }
+
+    filterNew = (meetings) => {
+        let result = [];
+        for(let index = 0; index < meetings.length; index++) {
+            let meeting = meetings[index];
+            if(!meeting.published) {
+                result.push(meeting);
+            }
+        }
+
+        return result;
+    }
+
     render() {
         return <Group>
             <IfClause condition={ this.state.loaded }>
@@ -106,8 +130,19 @@ class UpcomingMeetingList extends Component{
                             </tr>
                         </thead>
                         <tbody>
-                         { this.getMeetingsAsTableRows() }
-                         
+                            <IfClause condition={ !this.props.showGrouped }>
+                                { this.getMeetingsAsTableRows(this.state.meetings) }
+                            </IfClause>
+                            <IfClause condition={ this.props.showGrouped }>
+                                <tr className='table-success'>
+                                    <td colspan='5'>Upcoming Meetings</td>
+                                </tr>
+                                { this.getMeetingsAsTableRows(this.filterNew(this.state.meetings)) }
+                                <tr className='table-warning'>
+                                    <td colspan='5'>Old Meetings</td>
+                                </tr>
+                                { this.getMeetingsAsTableRows(this.filterOld(this.state.meetings)) }
+                            </IfClause>
                         </tbody>
                     </table>
                 </IfClause>

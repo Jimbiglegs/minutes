@@ -6,9 +6,9 @@ export default class Meetings extends React.Component {
 
     render() {
         return <Group>
-            <h3>Upcoming Meetings</h3>
+            <h3>My Meetings</h3>
 
-            <UpcomingMeetingLists />
+            <UpcomingMeetingLists showGrouped={ true } />
         </Group>;
     }
 
