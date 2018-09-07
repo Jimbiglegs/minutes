@@ -346,6 +346,7 @@ class CreateNotes extends React.Component {
                     <input type="text" className="form-control" id="meetingLocation" 
                            onChange={ this.onLocationChange } 
                            value={ this.state.location }
+                           autocomplete='off'
                            className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') }
                            disabled={ this.state.editNotesFlag} />
                 </div>                                     

@@ -256,6 +256,7 @@ class Schedule extends Component {
                         <input type="text" 
                                className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
                                id="meetingLocation"
+                               autocomplete='off'
                                value={ this.state.location }
                                onChange={ this.onLocationChange }/>
                     </div>                    
