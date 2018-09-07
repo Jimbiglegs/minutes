@@ -20,11 +20,14 @@ assigning action items, and tracking them to closure.
 ## Technologies Used
 
 * HTML5, CSS, JavaScript
-* Bootstrap 4.0
+* ReactJS and Redux
+* Bootstrap 4.0 & Font Awesome
 * NodeJS
 * MongoDB
 * MongooseJS
 * ExpressJS
+* Google Authentication
+* Google Calendar API
 * Slack SDK
 
 ## Modules
@@ -84,12 +87,24 @@ The following features can be added in future:
 
 ## References
 
+* React docs: https://reactjs.org/
+* Redux docs: https://redux.js.org/
+* Redux Router docs: https://github.com/supasate/connected-react-router
+* Bootstrap docs: http://getbootstrap.com/docs/4.1
+* Axios docs: https://github.com/axios/axios
+* MomentJS docs: https://github.com/moment/moment/
+* Font awesome docs: https://fontawesome.com/
 * Logo attribution to this <a href="https://clipartxtras.com/">clipartxtras.com</a>
 * `Group` component based on Aux from https://github.com/gajus/react-aux
 * `IfClause` component from https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
+* React date picker: https://github.com/Hacker0x01/react-datepicker/
+* React tags input: https://github.com/olahol/react-tagsinput
 * Slack SDK: https://github.com/slackapi/node-slack-sdk
 * Google Calendar API: https://developers.google.com/calendar/v3/reference/events/insert
 * Google Developer Console: https://console.cloud.google.com/apis/credentials
+* Font-Awesome Icon ToolTips : https://kazzkiq.github.io/balloon.css/
+* Frontend validations using Toasts and have implemented server side validations as well
+* Implemented localStorage
 
 ## License
 
