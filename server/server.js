@@ -36,6 +36,7 @@ app.post('/api/tasks', controllers.TaskController.addTasks);
 app.post('/api/task', controllers.TaskController.editTask);
 
 app.get('/api/teams', controllers.TeamController.getTeams);
+app.delete('/api/team/:id', controllers.TeamController.deleteTeam);
 app.post('/api/team', controllers.TeamController.addTeam);
 
 app.listen(process.env.PORT || 3000, function () {

@@ -68,9 +68,35 @@ function editTeam(request, response) {
     response.status(200).send('ok');
 }
 
+function deleteTeam(request, response) {
+    let teamID = request.params.id;
+    let owner = request.query.owner;
+
+    if(Utils.isEmpty(teamID)) {
+        response.status(400).send('team ID is required');
+        return;
+    }
+
+    if(Utils.isEmpty(owner)) {
+        response.status(400).send('team owner is required');
+        return;
+    }
+
+    database.Team.findByIdAndRemove(teamID, function(error, removed) {
+        if(error) {
+            console.log('unable to remove team');
+            response.status(500).send('error removing team');
+            return;
+        }
+
+        response.json(removed);
+    });
+}
+
 // exporting signin for other files
 module.exports = {
     getTeams : getTeams,
     addTeam : addTeam,
-    editTeam : editTeam
+    editTeam : editTeam,
+    deleteTeam: deleteTeam
 };
