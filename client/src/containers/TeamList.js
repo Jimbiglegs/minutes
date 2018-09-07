@@ -24,6 +24,20 @@ class TeamList extends Component {
             });    
     }
 
+    deleteTeam = (team) => {
+        if(!team) {
+            return;
+        }
+
+        axios.delete('http://localhost:3000/api/team/' + team._id + '?owner=' + this.props.profile.profileObj.email)
+            .then((response) => {
+                this.props.showToast('Team has been deleted', 'success');
+            }).catch((e) => {
+                console.log('error removing team', e);
+                this.props.showToast('Unable to delete team', 'danger');
+            });
+    }
+
     getTeamsAsRows = () => {
         let teams = this.state.teams;
         let result = [];
@@ -38,8 +52,11 @@ class TeamList extends Component {
                     { team.members.join(', ') }
                 </td>
                 <td>
-                    <button className='btn btn-orange' data-balloon="delete team" data-balloon-pos="up">
-                    <i className="fas fa-trash-alt"></i>
+                    <button className='btn btn-orange' 
+                            data-balloon="Delete team" 
+                            data-balloon-pos="up"
+                            onClick={ e => this.deleteTeam(team) }>
+                        <i className="fas fa-trash-alt"></i>
                     </button>
                 </td>
             </tr>);

@@ -255,7 +255,8 @@ class Schedule extends Component {
                         <label for="meetingAttendees">Meeting Attendees</label>
                         <TagsInput value={ this.state.attendees }
                                    className={ 'react-tagsinput ' + (this.state.attendeesError ? 'is-invalid' : '') }
-                                   onChange={ this.onAttendeesChange } />
+                                   onChange={ this.onAttendeesChange } 
+                                   validate={ (tag) => { return Utils.validateEmail(tag) } } />
                         
                         <IfClause condition={ this.state.teams.length > 0 }>
                             <br />
