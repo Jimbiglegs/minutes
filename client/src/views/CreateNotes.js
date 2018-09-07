@@ -81,6 +81,23 @@ class CreateNotes extends React.Component {
             });
     }
 
+    publishMeeting = () => {
+        let meetingID = this.state.meetingID;
+        if(!meetingID) {
+            this.props.showToast('Only a saved meeting can be published', 'danger');
+            return;
+        }
+
+        axios.get('http://localhost:3000/api/meeting/' + meetingID + '/publish?owner=' + this.props.profile.profileObj.email)
+            .then((response) => {
+                console.log('done saving the meeting:', response.data);
+                this.props.showToast('Meeting published successfully', 'success');
+                this.props.history.push('/home');
+            }).catch((error) => {
+                this.props.showToast('Unable to publish meeting', 'danger');
+            });
+    }
+
     saveMeetingNotes = () => {
         let editNotes = this.state.editNotesFlag;
         let meetingID = this.state.meetingID;
@@ -374,9 +391,13 @@ class CreateNotes extends React.Component {
 
             <div className='form-row'>
                 <div className='form-group col text-right'>
-                    <button type="button" className='btn btn-primary' onClick={this.saveMeetingNotes}>Save</button>
+                    <button type="button" 
+                            className='btn btn-primary' 
+                            onClick={ this.saveMeetingNotes }>Save</button>
                     &nbsp;
-                    <button type="button" className='btn btn-success'>Publish</button>
+                    <button type="button" 
+                            className='btn btn-success'
+                            onClick={ this.publishMeeting }>Publish</button>
                 </div>
             </div>
         </form>;

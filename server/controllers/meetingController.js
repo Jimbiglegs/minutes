@@ -191,10 +191,54 @@ function editMeeting(request, response) {
     
 }
 
+function publishMeeting(request, response) {
+    let meetingID = request.params.id;
+    let owner = request.query.owner;
+
+    if(utils.isEmpty(meetingID)) {
+        response.status(400).send('meeting id is required');
+        return;
+    }
+
+    if(utils.isEmpty(owner)) {
+        response.status(400).send('owner is required');
+        return;
+    }
+
+    database.Meeting.findById(meetingID, function(error, saved) {
+        if(error) {
+            console.log('error reading meeting from database');
+            response.status(500).send('cannot find meeting');
+            return;
+        }
+
+        if(saved.published) {
+            response.status(400).send('meeting is already published');
+            return;
+        }
+
+        if(saved.owner != owner) {
+            response.status(400).send('meeting owner does not match');
+            return;
+        }
+
+        saved.published = true;
+        saved.save(function (error2, updated) {
+            if(error2) {
+                console.log('error publishing meeting from database');
+                response.status(500).send('cannot publish meeting');
+                return;
+            }
+
+            response.json(updated);
+        });
+    })
+}
 
 // exporting signin for other files
 module.exports = {
     getMeetings : getMeetings,
     addMeeting : addMeeting,
-    editMeeting : editMeeting
+    editMeeting : editMeeting,
+    publishMeeting : publishMeeting
 };

@@ -7,6 +7,7 @@ let taskSchema = new mongoose.Schema({
     status: String,
     assignee: String,
     owner: String,
+    published: Boolean,
     topic: String,
     created: {
         type: Date,

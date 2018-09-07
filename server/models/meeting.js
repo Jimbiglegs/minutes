@@ -5,6 +5,7 @@ let meetingSchema = new mongoose.Schema({
     day: String,
     time: String,
     duration: Number,
+    published: Boolean,
     location: String,
     created: {
         type: Date,
