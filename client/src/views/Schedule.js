@@ -19,6 +19,7 @@ class Schedule extends Component {
         date: null,
         time: null,
         location: null,
+        duration: null,
         attendees: [],
 
         titleError: false,
@@ -26,6 +27,7 @@ class Schedule extends Component {
         timeError: false,
         locationError: false,
         attendeesError: false,
+        durationError: false,
 
         teams: []
     }
@@ -44,7 +46,8 @@ class Schedule extends Component {
                     date: moment(meeting.date),
                     time: moment(meeting.time, 'hh:mm a'),
                     location: meeting.location,
-                    attendees: meeting.attendees
+                    attendees: meeting.attendees,
+                    duration: meeting.duration
                 });
             }
         }
@@ -71,6 +74,10 @@ class Schedule extends Component {
         this.setState( { time : e });
     }
 
+    onDurationChange = (e) => {
+        this.setState( { duration : e.target.value } );
+    }
+
     onLocationChange = (e) => {
         this.setState( { location : e.target.value });
     }
@@ -86,6 +93,7 @@ class Schedule extends Component {
         let time = this.state.time;
         const location = this.state.location;
         const attendees = this.state.attendees;
+        const duration = this.state.duration;
 
         // reset all errors to false
         this.setState({
@@ -93,7 +101,8 @@ class Schedule extends Component {
             dateError: false,
             timeError: false,
             locationError: false,
-            attendeesError: false
+            attendeesError: false,
+            durationError: false,
         });
         
         // start validation
@@ -112,6 +121,12 @@ class Schedule extends Component {
         if(Utils.isEmpty(time)) {
             this.props.showToast('Meeting time required', 'danger');
             this.setState({ timeError : true });
+            return;
+        }
+
+        if(Utils.isEmpty(duration)) {
+            this.props.showToast('Meeting duration required', 'danger');
+            this.setState({ durationError : true });
             return;
         }
 
@@ -139,6 +154,7 @@ class Schedule extends Component {
             title : title,
             date: date,
             time: time,
+            duration: duration,
             location: location,
             owner: this.props.profile.profileObj.email,
             attendees: attendees
@@ -215,6 +231,13 @@ class Schedule extends Component {
                                     selected={ this.state.time } 
                                     className={ this.state.timeError ? 'is-invalid' : '' }  />
                     </div>
+                    <div className="form-group col">
+                        <label for="meetingDuration">Meeting Duration</label>
+                        <input type="number" 
+                               className={ "form-control " + (this.state.durationError ? 'is-invalid' : '') } 
+                               value={ this.state.duration }
+                               onChange={ this.onDurationChange }/>
+                    </div>                    
                     <div className="form-group col">
                         <label for="meetingLocation">Meeting Location</label>
                         <input type="text" 
