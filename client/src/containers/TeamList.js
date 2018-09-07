@@ -14,7 +14,7 @@ class TeamList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/api/teams?owner=' + this.props.profile.profileObj.email)
+        axios.get('https://minutes.herokuapp.com/api/teams?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 console.log('teams retrieved from database : ', response)
                 this.setState({ teams : response.data, loaded : true });
@@ -34,7 +34,7 @@ class TeamList extends Component {
             return;
         }
 
-        axios.delete('http://localhost:3000/api/team/' + team._id + '?owner=' + this.props.profile.profileObj.email)
+        axios.delete('https://minutes.herokuapp.com/api/team/' + team._id + '?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 this.props.showToast('Team has been deleted', 'success');
 

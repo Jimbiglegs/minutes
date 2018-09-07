@@ -65,7 +65,7 @@ class CreateTeam extends Component {
             }
         }
 
-        axios.post('http://localhost:3000/api/team', {
+        axios.post('https://minutes.herokuapp.com/api/team', {
             name : name,
             owner: this.props.profile.profileObj.email,
             slack: slack,

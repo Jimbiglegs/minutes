@@ -16,7 +16,7 @@ class TaskLists extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/api/tasks?owner=' + this.props.profile.profileObj.email)
+        axios.get('https://minutes.herokuapp.com/api/tasks?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 console.log('Tasks retrieved from database : ', response)
                 this.setState({ tasks : response.data, loaded : true });
@@ -77,7 +77,7 @@ class TaskLists extends Component {
 
     changeTaskStatus = (task, status) => {
         // first save the meeting
-        axios.post('http://localhost:3000/api/task/' + task._id + '/status', {
+        axios.post('https://minutes.herokuapp.com/api/task/' + task._id + '/status', {
             status : status,
             taskID: task._id,
             owner: this.props.profile.profileObj.email

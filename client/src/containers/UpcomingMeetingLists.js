@@ -15,7 +15,7 @@ class UpcomingMeetingList extends Component{
     }
 
     componentDidMount() {
-        let url = 'http://localhost:3000/api/meetings';
+        let url = 'https://minutes.herokuapp.com/api/meetings';
 
         axios.get(url)
         .then((response) => {

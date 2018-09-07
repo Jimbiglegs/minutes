@@ -38,7 +38,7 @@ class CreateNotes extends React.Component {
     componentDidMount() {
         if(!(this.props.location && this.props.location.state)) {
             // no meeting in router
-            axios.get('http://localhost:3000/api/teams?owner=' + this.props.profile.profileObj.email)
+            axios.get('https://minutes.herokuapp.com/api/teams?owner=' + this.props.profile.profileObj.email)
                 .then((response) => {
                     console.log('Tasks retrieved from database : ', response)
                     this.setState({ teams : response.data });
@@ -69,7 +69,7 @@ class CreateNotes extends React.Component {
 
         // we also need to load data for items
         // that match this meeting
-        axios.get('http://localhost:3000/api/meeting/' + meetingPassed._id + '/tasks')
+        axios.get('https://minutes.herokuapp.com/api/meeting/' + meetingPassed._id + '/tasks')
             .then((response) => {  
                 let tasksOnServer = response.data;
                 console.log('tasks for this meeting: ', tasksOnServer);
@@ -88,7 +88,7 @@ class CreateNotes extends React.Component {
             return;
         }
 
-        axios.get('http://localhost:3000/api/meeting/' + meetingID + '/publish?owner=' + this.props.profile.profileObj.email)
+        axios.get('https://minutes.herokuapp.com/api/meeting/' + meetingID + '/publish?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 console.log('done saving the meeting:', response.data);
                 this.props.showToast('Meeting published successfully', 'success');
@@ -171,7 +171,7 @@ class CreateNotes extends React.Component {
         }
 
         // first save the meeting
-        axios.post('http://localhost:3000/api/meeting', {
+        axios.post('https://minutes.herokuapp.com/api/meeting', {
             title : title,
             date: date.format('DD-MMM-YYYY'),
             time: time.format('hh:mm a'),
@@ -211,7 +211,7 @@ class CreateNotes extends React.Component {
             tasksToSave.push(task);
         }
 
-        let url = 'http://localhost:3000/api/tasks';
+        let url = 'https://minutes.herokuapp.com/api/tasks';
         axios.post(url, {
             id: meetingID,
             owner: this.props.profile.profileObj.email,
