@@ -43,8 +43,8 @@ class UpcomingMeetingList extends Component{
 
             result.push(<tr key={ meeting._id }>
                 <td>{ meeting.title }</td>
-                <td>{ meeting.day }</td>
-                <td>{ meeting.time }</td>
+                <td>{ meeting.day } { meeting.time }</td>
+                <td>{ meeting.owner }</td>
                 <td>{ meeting.location }</td> 
                 <td className='text-right'>
                     <IfClause condition={ !meeting.published }>
@@ -124,7 +124,7 @@ class UpcomingMeetingList extends Component{
                             <tr>
                                 <th>Title</th>
                                 <th>On</th>
-                                <th>At</th>
+                                <th>Owner</th>
                                 <th>Location</th>
                                 <th className='text-right'>Actions</th>
                             </tr>
