@@ -23,7 +23,7 @@ class CreateNotes extends React.Component {
         attendees: [],
         editNotesFlag: false,
         meetingID: null,
-        duration: null,
+        duration: 0.5,
 
         titleError: false,
         dateError: false,
@@ -325,6 +325,9 @@ class CreateNotes extends React.Component {
                     <label for="meetingDuration">Meeting Duration</label>
                     <input type="number" 
                             className={ "form-control " + (this.state.durationError ? 'is-invalid' : '') } 
+                            min='0.5'
+                            max='4'
+                            step='0.5'
                             value={ this.state.duration }
                             onChange={ this.onDurationChange }/>
                 </div>                    

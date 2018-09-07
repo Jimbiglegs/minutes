@@ -19,7 +19,7 @@ class Schedule extends Component {
         date: null,
         time: null,
         location: null,
-        duration: null,
+        duration: 0.5,
         attendees: [],
 
         titleError: false,
@@ -235,7 +235,10 @@ class Schedule extends Component {
                         <label for="meetingDuration">Meeting Duration</label>
                         <input type="number" 
                                className={ "form-control " + (this.state.durationError ? 'is-invalid' : '') } 
-                               value={ this.state.duration }
+                               min='0.5'
+                               max='4'
+                               step='0.5'
+                                value={ this.state.duration }
                                onChange={ this.onDurationChange }/>
                     </div>                    
                     <div className="form-group col">
