@@ -4,6 +4,19 @@
 for scheduled meetings, track various action items and help
 teams self-organize.
 
+A demo version of the application is deployed at:
+https://minutes.herokuapp.com/
+https://minutes-api.herokuapp.com/
+
+## Elevator Pitch
+
+Everyone in day-job needs to attend meetings. Taking notes is cumbersome.
+Tracking action items on each is a nightmare. Keeping track of updates
+on all is next to impossible.
+
+Meeting Minutes aims to solve the problem of capturing meeting minutes,
+assigning action items, and tracking them to closure.
+
 ## Technologies Used
 
 * HTML5, CSS, JavaScript
@@ -16,26 +29,26 @@ teams self-organize.
 
 ## Modules
 
-The project folders include:
+The project consists of a front-end and a back-end application that
+are available in *client* and *server* folders. Wireframes to the project
+are available in *wireframes* folder.
 
-* server: the API server built using ExpressJS, Mongoose and MongoDB
-* client: React application
+### Client App
 
-To run react application:
+* Get the code from the repository: `$ git clone git@github.com/NitiSinghalGupta/minutes`
+* Go to client: `cd client`
+* Install node: `$ npm install`
+* Run app: `$ npm run start`
 
-```
-$ cd client
-$ npm run start
-```
+React app starts at http://localhost:3000/
 
-React start at http://localhost:3001/
+### Server App
 
-To run the server:
-
-```
-$ cd server
-$ nodemon server.js
-```
+* Get the code from the repository: `$ git clone git@github.com/NitiSinghalGupta/minutes`
+* Go to server: `cd server`
+* Install node: `$ npm install`
+* Run a local MongoDB: `$ mongod`
+* Run app: `$ nodemon server.js`
 
 API server starts at http://localhost:3000/
 
@@ -48,6 +61,7 @@ API server starts at http://localhost:3000/
 * Take notes during a meeting
 * Create/view/update meeting action items
 * Slack integration to push *New Meeting* alert to channel
+* Integrate with Google calendar
 
 ## Database
 
@@ -61,15 +75,21 @@ The following collections are used:
 
 The following features can be added in future:
 
-* Integrate with Google calendar
-* Add Analytics
-* Send emails to each user
+* Update meetings in Google Calendar as they are updated in app
+* Allow team based and meeting based slack channels
+* Add more slack notifications, say, when items are assigned, updated
+* Add reminders (emails/slack) of overdue and tasks requiring attention
+* Add capability to attach meeting agenda before meeting starts
+* Integrate to send emails
 
 ## References
 
 * Logo attribution to this <a href="https://clipartxtras.com/">clipartxtras.com</a>
 * `Group` component based on Aux from https://github.com/gajus/react-aux
 * `IfClause` component from https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
+* Slack SDK: https://github.com/slackapi/node-slack-sdk
+* Google Calendar API: https://developers.google.com/calendar/v3/reference/events/insert
+* Google Developer Console: https://console.cloud.google.com/apis/credentials
 
 ## License
 
