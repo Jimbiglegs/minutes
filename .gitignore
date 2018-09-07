@@ -29,3 +29,6 @@ yarn-error.log*
 *.gz
 *.tar
 *.7z
+
+client/.git-heroku
+server/.git-heroku
