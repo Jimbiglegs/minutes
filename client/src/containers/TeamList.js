@@ -29,6 +29,11 @@ class TeamList extends Component {
             return;
         }
 
+        let confirmed = window.confirm('Do you really want to delete the team?');
+        if(!confirmed) {
+            return;
+        }
+
         axios.delete('http://localhost:3000/api/team/' + team._id + '?owner=' + this.props.profile.profileObj.email)
             .then((response) => {
                 this.props.showToast('Team has been deleted', 'success');
