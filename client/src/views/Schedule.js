@@ -142,6 +142,16 @@ class Schedule extends Component {
             return;
         }
 
+        for(let eindex = 0; eindex < attendees.length; eindex++) {
+            let em = attendees[eindex];
+
+            if(!Utils.validateEmail(em)) {
+                this.props.showToast('Not a valid email address: ' + em, 'danger');
+                this.setState({ attendeesError : true });
+                return;
+            }
+        }
+
         //format date
         date = this.state.date.format('DD-MMM-YYYY');
         //format time
@@ -245,7 +255,7 @@ class Schedule extends Component {
                         <label for="meetingLocation">Meeting Location</label>
                         <input type="text" 
                                className={ "form-control " + (this.state.locationError ? 'is-invalid' : '') } 
-                               id="meetingLocation" 
+                               id="meetingLocation"
                                value={ this.state.location }
                                onChange={ this.onLocationChange }/>
                     </div>                    

@@ -143,6 +143,16 @@ class CreateNotes extends React.Component {
            return;
        }
 
+       for(let eindex = 0; eindex < attendees.length; eindex++) {
+            let em = attendees[eindex];
+
+            if(!Utils.validateEmail(em)) {
+                this.props.showToast('Not a valid email address: ' + em, 'danger');
+                this.setState({ attendeesError : true });
+                return;
+            }
+        }
+
         // first save the meeting
         axios.post('http://localhost:3000/api/meeting', {
             title : title,
