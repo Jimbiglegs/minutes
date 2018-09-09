@@ -103,8 +103,6 @@ The following features can be added in future:
 * Google Calendar API: https://developers.google.com/calendar/v3/reference/events/insert
 * Google Developer Console: https://console.cloud.google.com/apis/credentials
 * Font-Awesome Icon ToolTips : https://kazzkiq.github.io/balloon.css/
-* Frontend validations using Toasts and have implemented server side validations as well
-* Implemented localStorage
 
 ## License
 
