@@ -4,9 +4,8 @@
 for scheduled meetings, track various action items and help
 teams self-organize.
 
-A demo version of the application is deployed at:
-https://minutes.herokuapp.com/
-https://minutes-api.herokuapp.com/
+A demo version of the application is deployed at: https://minutes.herokuapp.com/
+
 
 ## Elevator Pitch
 
