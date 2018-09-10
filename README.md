@@ -105,4 +105,4 @@ The following features can be added in future:
 
 ## License
 
-Copyright (C) 2018, Niti Singhal.
+Copyright (C) 2018, Niti Singhal. Apache License Version 2.0
