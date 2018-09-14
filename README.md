@@ -37,7 +37,7 @@ are available in *wireframes* folder.
 
 ### Client App
 
-* Get the code from the repository: `$ git clone git@github.com/NitiSinghalGupta/minutes`
+* Get the code from the repository: `$ git clone git@github.com/nsinghal12/minutes`
 * Go to client: `cd client`
 * Install node: `$ npm install`
 * Run app: `$ npm run start`
@@ -46,7 +46,7 @@ React app starts at http://localhost:3000/
 
 ### Server App
 
-* Get the code from the repository: `$ git clone git@github.com/NitiSinghalGupta/minutes`
+* Get the code from the repository: `$ git clone git@github.com/nsinghal12/minutes`
 * Go to server: `cd server`
 * Install node: `$ npm install`
 * Run a local MongoDB: `$ mongod`
